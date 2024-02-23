@@ -36,4 +36,12 @@ class Admin_Controller extends BaseController
         return view('admin_dashboard');
 
     }
+    public function giveslots()
+    {
+        return view('giveslots');
+    }
+    public function save_schedule()
+    {
+        
+    }
 }
