@@ -104,8 +104,8 @@ class App extends BaseConfig
      *
      * @see https://www.php.net/manual/en/timezones.php for list of timezones supported by PHP.
      */
-    public string $appTimezone = 'UTC';
-
+ 
+    public $allowedHostnames = [];
     /**
      * --------------------------------------------------------------------------
      * Default Character Set
@@ -170,4 +170,6 @@ class App extends BaseConfig
      * @see http://www.w3.org/TR/CSP/
      */
     public bool $CSPEnabled = false;
+
+    public string $appTimezone = 'UTC';
 }
