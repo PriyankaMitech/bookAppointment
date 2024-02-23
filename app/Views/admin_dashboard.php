@@ -1,4 +1,10 @@
+<<<<<<< HEAD
 <?php include('header.php');?>
+=======
+
+<?php include('header.php');?>
+
+>>>>>>> d510a44d3bb5b9481b7111f3a3b89adf0f471f43
                     <div class="pcoded-content">
                         <div class="pcoded-inner-content">
                             <div class="main-body">
