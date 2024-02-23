@@ -6,5 +6,5 @@ use CodeIgniter\Router\RouteCollection;
  * @var RouteCollection $routes
  */
 $routes->get('/', 'Home::index');
-$routes->get('register', 'Admin_Controller::index');
+$routes->get('login', 'Admin_Controller::index');
 
