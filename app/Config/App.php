@@ -28,11 +28,6 @@ class App extends BaseConfig
      *          ['media.example.com', 'accounts.example.com']
      *
      * @var string[]
-     * @phpstan-var list<string>
-     */
-    public array $allowedHostnames = [];
-
-    /**
      * --------------------------------------------------------------------------
      * Index File
      * --------------------------------------------------------------------------
