@@ -18,17 +18,12 @@ class Admin_Controller extends BaseController
                    'password' => $this->request->getVar('password')      
                 ];
 		$result = $model->checkCredentials($where);
-
-        if($result == 'null'){
-            echo "hiii";
-        }else{
-       return redirect('admin_dashboard');
-
+        
+        if($result != ''){
+            return redirect('admin_dashboard');
+        }else if($result == null){
+        echo "hiii"; 
         }
-
-		
-		
-
  
     }
 
