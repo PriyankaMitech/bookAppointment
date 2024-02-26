@@ -125,22 +125,27 @@
     </div>
     <!-- Event Details Modal -->
 
-<?php 
-//$schedules = $conn->query("SELECT * FROM `schedule_list`");
-// $sched_res = [];
-// foreach($schedules->fetch_all(MYSQLI_ASSOC) as $row){
-//     $row['sdate'] = date("F d, Y h:i A",strtotime($row['start_datetime']));
-//     $row['edate'] = date("F d, Y h:i A",strtotime($row['end_datetime']));
-//     $sched_res[$row['id']] = $row;
-// }
-?>
-<?php 
-if(isset($conn)) $conn->close();
+    <?php
+
+$sched_res = [];
+// echo "<pre>";print_r($schedule_data);exit();
+
+if(!empty($schedule_data)){
+// print_r($schedule_data);die;
+
+foreach($schedule_data as $data){
+    $sdate = date("F d, Y h:i A",strtotime($data->start_date));
+    $edate = date("F d, Y h:i A",strtotime($data->end_date));
+    $sched_res[$data->id] = $data;
+}
+}
+// echo "<pre>";print_r($sched_res);exit();
 ?>
 </body>
-<script>
- 
-</script>
 <script src="<?=base_url(); ?>assets/schedule/js/script.js"></script>
+
+<script>
+var scheds = $.parseJSON('<?= json_encode($sched_res) ?>')
+</script>
 
 </html>

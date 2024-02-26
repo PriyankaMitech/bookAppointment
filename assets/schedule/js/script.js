@@ -2,10 +2,12 @@
     var Calendar = FullCalendar.Calendar;
     var events = [];
     $(function() {
+      
         if (!!scheds) {
+           
             Object.keys(scheds).map(k => {
                 var row = scheds[k]
-                events.push({ id: row.id, title: row.title, start: row.start_datetime, end: row.end_datetime });
+                events.push({ id: row.id, title: row.title, start: row.start_date, end: row.end_date });
             })
         }
         var date = new Date()
