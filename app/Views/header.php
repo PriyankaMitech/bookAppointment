@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Book Appointment</title>
+    <title>Appointment</title>
 
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
@@ -12,6 +12,8 @@
       <meta name="author" content="CodedThemes">
       <!-- Favicon icon -->
       <link rel="icon" href="<?=base_url(); ?>assets/images/favicon.ico" type="image/x-icon">
+      <!-- Fa Fa Icon Links -->
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
       <!-- Google font-->
       <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
       <!-- Required Fremwork -->
@@ -23,6 +25,23 @@
       <!-- Style.css -->
       <link rel="stylesheet" type="text/css" href="<?=base_url(); ?>assets/css/style.css">
       <link rel="stylesheet" type="text/css" href="<?=base_url(); ?>assets/css/jquery.mCustomScrollbar.css">
+
+      <link rel="stylesheet" type="text/css" href="<?=base_url(); ?>assets/css/customrstyle.css">
+
+      <link rel="stylesheet" type="text/css" href="<?=base_url(); ?>assets/css/calender.css">
+
+
+      
+      <link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i" rel="stylesheet">
+
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css" />
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> -->
+
+
+
   </head>
 
   <body>
@@ -211,26 +230,45 @@
                                     <span class="search-icon"><i class="ti-search" aria-hidden="true"></i></span>
                                 </div>
                             </div>
-                            <div class="pcoded-navigatio-lavel" data-i18n="nav.category.navigation">Layout</div>
+                            <div class="pcoded-navigatio-lavel" data-i18n="nav.category.navigation">Dashboard</div>
                             <ul class="pcoded-item pcoded-left-item">
                                 <li class="active">
-                                    <a href="<?php echo base_url() ?>giveslots">
+                                    <a href="<?php echo base_url() ?>admin_dashboard">
                                         <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
                                         <span class="pcoded-mtext" data-i18n="nav.dash.main">Dashboard</span>
                                         <span class="pcoded-mcaret"></span>
                                     </a>
                                 </li>
-                                <li class="pcoded-hasmenu">
+                             
+                            </ul>
+                            <div class="pcoded-navigatio-lavel" data-i18n="nav.category.forms">Schedule</div>
+                            <ul class="pcoded-item pcoded-left-item">
+                            <li class="pcoded-hasmenu">
                                     <a href="javascript:void(0)">
                                         <span class="pcoded-micon"><i class="ti-layout-grid2-alt"></i></span>
-                                        <span class="pcoded-mtext"  data-i18n="nav.basic-components.main">Components</span>
+                                        <span class="pcoded-mtext"  data-i18n="nav.basic-components.main">Schedule</span>
                                         <span class="pcoded-mcaret"></span>
                                     </a>
                                     <ul class="pcoded-submenu">
                                         <li class=" ">
-                                            <a href="<?=base_url(); ?>accordion.html">
+                                            <a href="<?=base_url(); ?>add_schedule">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Accordion</span>
+                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Add schedule</span>
+                                                <span class="pcoded-mcaret"></span>
+                                            </a>
+                                        </li>
+
+                                        <li class=" ">
+                                            <a href="<?=base_url(); ?>add_workinghour">
+                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Working Hours</span>
+                                                <span class="pcoded-mcaret"></span>
+                                            </a>
+                                        </li>
+                                        <li class=" ">
+                                            <a href="<?=base_url(); ?>calendar">
+                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Calendar</span>
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
                                         </li>
@@ -300,9 +338,6 @@
 
                                     </ul>
                                 </li>
-                            </ul>
-                            <div class="pcoded-navigatio-lavel" data-i18n="nav.category.forms">Forms &amp; Tables</div>
-                            <ul class="pcoded-item pcoded-left-item">
                                 <li>
                                     <a href="form-elements-component.html">
                                         <span class="pcoded-micon"><i class="ti-layers"></i><b>FC</b></span>
