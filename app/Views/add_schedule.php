@@ -1,3 +1,4 @@
+<?php require_once('db-connect.php') ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,8 +8,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Scheduling</title>
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
-    <link rel="stylesheet" href="<?=base_url(); ?>assets/schedule/css/bootstrap.min.css">
-    <link rel="stylesheet" href="<?=base_url(); ?>assets/schedule/fullcalendar/lib/main.min.css">
+    <link rel="stylesheet"  href="<?=base_url(); ?>assets/schedule/css/bootstrap.min.css">
+    <link rel="stylesheet"  href="<?=base_url(); ?>assets/schedule/fullcalendar/lib/main.min.css">
     <script src="<?=base_url(); ?>assets/schedule/js/jquery-3.6.0.min.js"></script>
     <script src="<?=base_url(); ?>assets/schedule/js/bootstrap.min.js"></script>
     <script src="<?=base_url(); ?>assets/schedule/fullcalendar/lib/main.min.js"></script>
@@ -60,33 +61,66 @@
                     </div>
                     <div class="card-body">
                         <div class="container-fluid">
-                            <form action="save_schedule.php" method="post" id="schedule-form">
+                            <form action="<?=base_url(); ?>set_schedule" method="post" id="schedule-form">
                                 <input type="hidden" name="id" value="">
-                                <div class="form-group mb-2">
-                                    <label for="title" class="control-label">Title</label>
-                                    <input type="text" class="form-control form-control-sm rounded-0" name="title" id="title" required>
+                               
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label for="day" class="form-label">Select Day:</label>
+                                        <select id="day" name="day" class="form-select form-control">
+                                            <option>select</option>
+                                            <option value="Monday">Monday</option>
+                                            <option value="Tuesday">Tuesday</option>
+                                            <option value="Wednesday">Wednesday</option>
+                                            <option value="Thursday">Thursday</option>
+                                            <option value="Friday">Friday</option>
+                                            <option value="Saturday">Saturday</option>
+                                            <option value="Sunday">Sunday</option>
+                                        </select>
+                                    </div>
                                 </div>
-                                <div class="form-group mb-2">
-                                    <label for="description" class="control-label">Description</label>
-                                    <textarea rows="3" class="form-control form-control-sm rounded-0" name="description" id="description" required></textarea>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label for="start_date" class="control-label">Start Date</label>
+                                        <?php
+                                            // Set the start date to the current date
+                                            $start_date = date('Y-m-d', strtotime('+0 day'));
+                                        ?>
+                                        <input type="date" class="form-control form-control-sm rounded-0" name="start_date" id="start_date" value="<?php echo $start_date; ?>" readonly>
+                                    </div>
                                 </div>
-                                <div class="form-group mb-2">
-                                    <label for="start_datetime" class="control-label">Start</label>
-                                    <input type="datetime-local" class="form-control form-control-sm rounded-0" name="start_datetime" id="start_datetime" required>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label for="end_date" class="control-label">End Date</label>
+                                        <?php
+                                            // Set the end date to start date + 1 year
+                                            $end_date = date('Y-m-d', strtotime('+1 year', strtotime($start_date)));
+                                        ?>
+                                        <input type="date" class="form-control form-control-sm rounded-0" name="end_date" id="end_date" value="<?php echo $end_date; ?>" readonly>
+                                    </div>
                                 </div>
-                                <div class="form-group mb-2">
-                                    <label for="end_datetime" class="control-label">End</label>
-                                    <input type="datetime-local" class="form-control form-control-sm rounded-0" name="end_datetime" id="end_datetime" required>
+
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label for="time" class="form-label">Start Time:</label>
+                                        <input type="time" id="time" name="start_time" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label for="time" class="form-label">End Time:</label>
+                                        <input type="time" id="time" name="end_time" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col mt-2">
+                                    <div class="form-group mt-4">
+                                        <button type="submit" class="btn btn-primary">Add Time</button>
+                                    </div>
                                 </div>
                             </form>
-                        </div>
+                          
                     </div>
-                    <div class="card-footer">
-                        <div class="text-center">
-                            <button class="btn btn-primary btn-sm rounded-0" type="submit" form="schedule-form"><i class="fa fa-save"></i> Save</button>
-                            <button class="btn btn-default border btn-sm rounded-0" type="reset" form="schedule-form"><i class="fa fa-reset"></i> Cancel</button>
-                        </div>
-                    </div>
+                   
                 </div>
             </div>
         </div>
@@ -125,27 +159,28 @@
     </div>
     <!-- Event Details Modal -->
 
-    <?php
+<?php 
 
 $sched_res = [];
-// echo "<pre>";print_r($schedule_data);exit();
 
-if(!empty($schedule_data)){
-// print_r($schedule_data);die;
+if(!empty($schedule)){
+    // echo "<pre>";print_r($schedule);exit();
 
-foreach($schedule_data as $data){
+
+foreach($schedule as $data){
     $sdate = date("F d, Y h:i A",strtotime($data->start_date));
     $edate = date("F d, Y h:i A",strtotime($data->end_date));
     $sched_res[$data->id] = $data;
 }
 }
-// echo "<pre>";print_r($sched_res);exit();
+?>
+<?php 
+if(isset($conn)) $conn->close();
 ?>
 </body>
-<script src="<?=base_url(); ?>assets/schedule/js/script.js"></script>
-
 <script>
-var scheds = $.parseJSON('<?= json_encode($sched_res) ?>')
+    var scheds = $.parseJSON('<?= json_encode($sched_res) ?>')
 </script>
+<script src="<?=base_url(); ?>assets/schedule/js/script.js"></script>
 
 </html>

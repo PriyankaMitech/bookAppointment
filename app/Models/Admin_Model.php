@@ -17,9 +17,9 @@ class Admin_Model extends Model
         }
         return null; // Login failed
     }
-    public function getalldata($table, $wherecond)
+    public function getalldata($table1, $wherecond)
     {
-        $result = $this->db->table($table)->where($wherecond)->get()->getResult();
+        $result = $this->db->table($table1)->where($wherecond)->get()->getResult();
 
         if ($result) {
             return $result;
