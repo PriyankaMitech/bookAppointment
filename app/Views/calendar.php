@@ -1,25 +1,20 @@
-
 <?php include("header.php"); ?>
 
 <div class="pcoded-content">
-                        <div class="pcoded-inner-content">
-                            <div class="main-body">
-                                <div class="page-wrapper">
-
-                                    <div class="page-body">
-                                        
-
-<div id='calendar'></div>
-
-<div style='clear:both'></div>
+    <div class="pcoded-inner-content">
+        <div class="main-body">
+            <div class="page-wrapper">
+                <div class="page-body">
+                    <div id='calendar'></div>
+                    <div style='clear:both'></div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-</div>
-</div>
-</div>schedule
-</div>
-
 
 <?php include("footer.php"); ?>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 <script>
     $(document).ready(function() {
@@ -52,7 +47,6 @@
             for (var m = eventStart; m.isBefore(endDate); m.add(7, 'days')) {
                 events.push({
                     id: event.id,
-                    // title: 'Shedule',
                     start: m.format('YYYY-MM-DDT') + event.start_time,
                     end: m.format('YYYY-MM-DDT') + event.end_time,
                     allDay: false,
@@ -64,7 +58,7 @@
         var calendar = $('#calendar').fullCalendar({
             header: {
                 left: 'title',
-                center: 'agendaDay,agendaWeek,month',
+                center: 'agendaDay,month', // Show only day and month view
                 right: 'prev,next today'
             },
             editable: true,
@@ -112,7 +106,6 @@
         });
     });
 </script>
-
 
 <script>
     /*!
