@@ -1,186 +1,1023 @@
-<?php require_once('db-connect.php') ?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Scheduling</title>
-    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
-    <link rel="stylesheet"  href="<?=base_url(); ?>assets/schedule/css/bootstrap.min.css">
-    <link rel="stylesheet"  href="<?=base_url(); ?>assets/schedule/fullcalendar/lib/main.min.css">
-    <script src="<?=base_url(); ?>assets/schedule/js/jquery-3.6.0.min.js"></script>
-    <script src="<?=base_url(); ?>assets/schedule/js/bootstrap.min.js"></script>
-    <script src="<?=base_url(); ?>assets/schedule/fullcalendar/lib/main.min.js"></script>
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+        integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="public/css/style.css">
+
     <style>
-        :root {
-            --bs-success-rgb: 71, 222, 152 !important;
-        }
+    .wrapper {
+        /* margin: 15px auto; */
+        max-width: 1100px;
+    }
 
-        html,
-        body {
-            height: 100%;
-            width: 100%;
-            font-family: Apple Chancery, cursive;
-        }
+    .container-calendar {
+        background: #000;
+        padding: 15px;
+        max-width: 475px;
+        margin: 0 auto;
+        overflow: auto;
+        border: 1px solid #eee;
+    }
 
-        .btn-info.text-light:hover,
-        .btn-info.text-light:focus {
-            background: #000;
-        }
-        table, tbody, td, tfoot, th, thead, tr {
-            border-color: #ededed !important;
-            border-style: solid;
-            border-width: 1px !important;
-        }
+    .button-container-calendar button {
+        cursor: pointer;
+        display: inline-block;
+        zoom: 1;
+        background: #00a2b7;
+        color: #fff;
+        border: 1px solid #0aa2b5;
+        border-radius: 4px;
+        padding: 5px 10px;
+    }
+
+    .table-calendar {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    .table-calendar td,
+    .table-calendar th {
+        padding: 5px;
+        border: 1px solid #e2e2e2;
+        text-align: center;
+        vertical-align: top;
+    }
+
+    .date-picker.selected {
+        font-weight: bold;
+        outline: 1px dashed #00BCD4;
+    }
+
+    .date-picker.selected span {
+        border-bottom: 2px solid currentColor;
+    }
+
+    /* sunday */
+    .date-picker:nth-child(1) {
+        color: red;
+    }
+
+    /* friday */
+    .date-picker:nth-child(6) {
+        color: green;
+    }
+
+    #monthAndYear {
+        text-align: center;
+        margin-top: 0;
+    }
+
+    .button-container-calendar {
+        position: relative;
+        margin-bottom: 1em;
+        overflow: hidden;
+        clear: both;
+    }
+
+    #previous {
+        float: left;
+    }
+
+    #next {
+        float: right;
+    }
+
+    .footer-container-calendar {
+        margin-top: 1em;
+        border-top: 1px solid #dadada;
+        padding: 10px 0;
+    }
+
+    .footer-container-calendar select {
+        cursor: pointer;
+        display: inline-block;
+        zoom: 1;
+        background: #ffffff;
+        color: #585858;
+        border: 1px solid #bfc5c5;
+        border-radius: 3px;
+        padding: 5px 1em;
+    }
+
+    .footer-container-calendar label {
+        padding-left: 80px
+    }
+
+    .time-div a {
+        border: 1px solid #eee;
+        display: block;
+        padding: 10px;
+        border-radius: 10px;
+        margin-bottom: 10px;
+        text-align: center;
+    }
+
+    .time-div {
+        border: 1px solid #eee;
+        padding: 20px
+    }
     </style>
 </head>
 
-<body class="bg-light">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark bg-gradient" id="topNavBar">
-        <div class="container">
-            <a class="navbar-brand" href="https://sourcecodester.com">
-            Sourcecodester
-            </a>
-
-            <div>
-                <b class="text-light">Sample Scheduling</b>
-            </div>
-        </div>
-    </nav>
-    <div class="container py-5" id="page-container">
-        <div class="row">
-            <div class="col-md-9">
-                <div id="calendar"></div>
-            </div>
-            <div class="col-md-3">
-                <div class="cardt rounded-0 shadow">
-                    <div class="card-header bg-gradient bg-primary text-light">
-                        <h5 class="card-title">Schedule Form</h5>
-                    </div>
-                    <div class="card-body">
-                        <div class="container-fluid">
-                            <form action="<?=base_url(); ?>set_schedule" method="post" id="schedule-form">
-                                <input type="hidden" name="id" value="">
-                               
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label for="day" class="form-label">Select Day:</label>
-                                        <select id="day" name="day" class="form-select form-control">
-                                            <option>select</option>
-                                            <option value="Monday">Monday</option>
-                                            <option value="Tuesday">Tuesday</option>
-                                            <option value="Wednesday">Wednesday</option>
-                                            <option value="Thursday">Thursday</option>
-                                            <option value="Friday">Friday</option>
-                                            <option value="Saturday">Saturday</option>
-                                            <option value="Sunday">Sunday</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label for="start_date" class="control-label">Start Date</label>
-                                        <?php
-                                            // Set the start date to the current date
-                                            $start_date = date('Y-m-d', strtotime('+0 day'));
-                                        ?>
-                                        <input type="date" class="form-control form-control-sm rounded-0" name="start_date" id="start_date" value="<?php echo $start_date; ?>" readonly>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label for="end_date" class="control-label">End Date</label>
-                                        <?php
-                                            // Set the end date to start date + 1 year
-                                            $end_date = date('Y-m-d', strtotime('+1 year', strtotime($start_date)));
-                                        ?>
-                                        <input type="date" class="form-control form-control-sm rounded-0" name="end_date" id="end_date" value="<?php echo $end_date; ?>" readonly>
-                                    </div>
-                                </div>
-
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label for="time" class="form-label">Start Time:</label>
-                                        <input type="time" id="time" name="start_time" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label for="time" class="form-label">End Time:</label>
-                                        <input type="time" id="time" name="end_time" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="col mt-2">
-                                    <div class="form-group mt-4">
-                                        <button type="submit" class="btn btn-primary">Add Time</button>
-                                    </div>
-                                </div>
-                            </form>
-                          
-                    </div>
-                   
+<body>
+    <div class="container">
+        <div class="row mt-5">
+            <div class="col-lg-2 col-md-2">
+                <div class="form-group">
+                    <!-- Image for Payment -->
+                    <img class="imges" src="<?=base_url(); ?>assets/images/vedik1.jpeg" alt="Payment Method">
                 </div>
             </div>
+            <div class="col-lg-10 col-md-8">
+                <!-- Form column -->
+                <section class="wizard-section">
+                    <div class="row no-gutters">
+
+                        <div class="col-lg-12 col-md-12">
+                            <div class="form-wizard">
+                                <form action="formdata" method="post" role="form">
+                                    <div class="form-wizard-header">
+                                        <p>Fill all form field to go next step</p>
+                                        <ul class="list-unstyled form-wizard-steps clearfix">
+                                            <li class="active"><span>1</span></li>
+                                            <li><span>2</span></li>
+                                            <li><span>3</span></li>
+                                            <li><span>4</span></li>
+                                        </ul>
+                                    </div>
+                                    <fieldset class="wizard-fieldset show">
+                                        <h5>Personal Information</h5>
+                                        <div class="row">
+
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <h6><b>Name</b></h6>
+                                                    <input type="text" class="form-control wizard-required"
+                                                        id="fullname" name="fullname">
+                                                    <!-- <label for="fullname" class="wizard-form-text-label"> Appointment
+                                                        For(Name)*</label> -->
+                                                    <div class="wizard-form-error"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="white-line"></div>
+
+                                        <div class="form-group">
+                                            <h6><b>Gender</b></h6>
+                                            <div class="wizard-form-radio">
+                                                <input name="gender" id="male" type="radio" value="Male" checked>
+                                                <label for="male">Male</label>
+                                            </div>
+                                            <div class="wizard-form-radio">
+                                                <input name="gender" id="female" type="radio" value="Female">
+                                                <label for="female">Female</label>
+                                            </div>
+                                        </div>
+                                        <div class="white-line"></div>
+
+
+
+                                        <div class="form-group">
+                                            <h6><b>Contact Number*</b></h6>
+                                            <input type="text" class="form-control wizard-required" id="contact"
+                                                name="contact_number">
+                                            <!-- <label for="contact" class="wizard-form-text-label">Contact Number*</label> -->
+                                            <div class="wizard-form-error"></div>
+                                        </div>
+                                        <div class="white-line"></div>
+
+                                        <div class="form-group mt-4 row" id="appointmentType">
+                                            <div class="col-md-6">
+                                                <h6><b>Appointment Type</b></h6>
+                                                <div class="wizard-form-radio mt-4">
+                                                    <input name="appointmentType" id="online" type="radio"
+                                                        value="online">
+                                                    <label for="online">Online</label>
+                                                </div>
+                                                <div class="wizard-form-radio">
+                                                    <input name="appointmentType" id="offline" type="radio" checked
+                                                        value="offline">
+                                                    <label for="offline">Offline</label>
+                                                </div>
+                                            </div>
+                                            <div class="extra-options mt-5 col-md-6" id="extraOptions"
+                                                style="display: none;">
+                                                <div class="wizard-form-radio">
+                                                    <input name="appointmentOption" id="audio" type="radio"
+                                                        value="audio">
+                                                    <label for="audio">Audio</label>
+                                                </div>
+                                                <div class="wizard-form-radio">
+                                                    <input name="appointmentOption" id="video" type="radio"
+                                                        value="video">
+                                                    <label for="video">Video</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="white-line"></div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <h6><b>How do you know about vedik astrologer? (वेदिक ॲस्ट्रॅालॅाजर
+                                                            बद्दल कुठून माहिती मिळाली?)</b></h6>
+
+                                                    <div class="form-inlinee mt-5">
+                                                        <div class="wizard-form-radio">
+                                                            <input name="source" id="instagramRadio" type="radio"
+                                                                checked value="Instagram">
+                                                            <label for="instagramRadio">Instagram</label>
+                                                        </div>
+                                                        <div class="wizard-form-radio">
+                                                            <input name="source" id="facebookRadio" type="radio"
+                                                                value="Facebook">
+                                                            <label for="facebookRadio">Facebook</label>
+                                                        </div>
+                                                        <div class="wizard-form-radio">
+                                                            <input name="source" id="googleRadio" type="radio"
+                                                                value="Google">
+                                                            <label for="googleRadio">Google</label>
+                                                        </div>
+                                                        <div class="wizard-form-radio">
+                                                            <input name="source" id="friendRadio" type="radio"
+                                                                value="Friend">
+                                                            <label for="friendRadio">Friend</label>
+                                                        </div>
+                                                    </div>
+
+                                                    <input type="text" class="form-control mt-2" name="friendName"
+                                                        id="friendInput" style="display: none;"
+                                                        placeholder="Enter Friend's Name">
+
+                                                    <label for="friendInput" class="wizard-form-text-label"></label>
+                                                    <div class="wizard-form-error"></div>
+
+
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="white-line"></div>
+                                        <div class="form-group clearfix">
+                                            <a href="javascript:;" class="form-wizard-next-btn float-right">Next</a>
+                                        </div>
+                                    </fieldset>
+                                    <fieldset class="wizard-fieldset">
+                                        <h5>Book Slots</h5>
+
+
+
+                                        <!-- <div class="row mt-3">
+                                            <div class="col-lg-8">
+                                                <div class="wrapper">
+
+                                                    <div class="container-calendar">
+                                                        <h3 id="monthAndYear"></h3>
+
+                                                        <div class="button-container-calendar">
+                                                            <div class="footer-container-calendar"> <button
+                                                                    id="previous" onclick="previous()">&#8249;</button>
+
+                                                                <label for="month">Jump To: </label>
+                                                                <select id="month" onchange="jump()">
+                                                                    <option value=0>Jan</option>
+                                                                    <option value=1>Feb</option>
+                                                                    <option value=2>Mar</option>
+                                                                    <option value=3>Apr</option>
+                                                                    <option value=4>May</option>
+                                                                    <option value=5>Jun</option>
+                                                                    <option value=6>Jul</option>
+                                                                    <option value=7>Aug</option>
+                                                                    <option value=8>Sep</option>
+                                                                    <option value=9>Oct</option>
+                                                                    <option value=10>Nov</option>
+                                                                    <option value=11>Dec</option>
+                                                                </select>
+                                                                <select id="year" onchange="jump()"></select>
+
+                                                                <button id="next" onclick="next()">&#8250;</button>
+                                                            </div>
+                                                        </div>
+                                                        <table class="table-calendar" id="calendar" data-lang="en">
+                                                            <thead id="thead-month"></thead>
+                                                            <tbody id="calendar-body"></tbody>
+                                                        </table>
+                                                    </div>
+
+                                                    <div id="clickedDateDisplay"></div>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4">
+
+                                                <div class="time-div" style="display:none">
+                                                    <p>Book on Monday</p>
+                                                    <a>12:00 PM</a>
+                                                    <a>02:00 PM</a>
+                                                    <a>06:00 PM</a>
+                                                </div>
+                                            </div>
+
+                                        </div> -->
+                                        <div class="row mt-3">
+                                            <div class="col-lg-8">
+                                                <div class="wrapper">
+                                                    <div class="container-calendar">
+                                                        <h3 id="monthAndYear"></h3>
+                                                        <div class="button-container-calendar">
+                                                            <div class="footer-container-calendar">
+                                                                <button id="previous"
+                                                                    onclick="previous()">&#8249;</button>
+                                                                <label for="month">Jump To: </label>
+                                                                <select id="month" onchange="jump()">
+                                                                    <option value=0>Jan</option>
+                                                                    <option value=1>Feb</option>
+                                                                    <option value=2>Mar</option>
+                                                                    <option value=3>Apr</option>
+                                                                    <option value=4>May</option>
+                                                                    <option value=5>Jun</option>
+                                                                    <option value=6>Jul</option>
+                                                                    <option value=7>Aug</option>
+                                                                    <option value=8>Sep</option>
+                                                                    <option value=9>Oct</option>
+                                                                    <option value=10>Nov</option>
+                                                                    <option value=11>Dec</option>
+                                                                </select>
+                                                                <select id="year" onchange="jump()"></select>
+                                                                <button id="next" onclick="next()">&#8250;</button>
+                                                            </div>
+                                                        </div>
+                                                        <table class="table-calendar" id="calendar" data-lang="en">
+                                                            <thead id="thead-month"></thead>
+                                                            <tbody id="calendar-body"></tbody>
+                                                        </table>
+                                                    </div>
+                                                    <div id="clickedDateDisplay"></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <div class="time-div" style="display:none">
+                                                    <!-- Time slots will be populated here -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Empty column -->
+                                        <div class="form-group clearfix">
+                                            <a href="javascript:;"
+                                                class="form-wizard-previous-btn float-left">Previous</a>
+                                            <a href="javascript:;" class="form-wizard-next-btn float-right">Next</a>
+                                        </div>
+                                    </fieldset>
+                                    <fieldset class="wizard-fieldset">
+                                        <div class="row mt-4">
+                                            <div class="col-md-5">
+                                                <h6><b>Date of Birth*(जन्म तारीख*)</b></h6>
+                                                <input type="date" name="dob" class="form-control wizard-required"
+                                                    id="dob" max="">
+                                                <div class="wizard-form-error"></div>
+                                            </div>
+                                            <div class="col-md-5">
+                                                <h6><b>Time of Birth*(जन्म वेळ*)</b></h6>
+                                                <input type="time" name="tob" class="form-control wizard-required"
+                                                    id="tob">
+                                                <div class="wizard-form-error"></div>
+                                            </div>
+                                        </div>
+                                        <div class="white-line"></div>
+                                        <div class="row">
+                                            <div class="col-md-12 mt-5">
+                                                <h6><b>Place Of Birth *(जन्म ठिकाण*)</b></h6>
+                                                <div class="row mt-3">
+                                                    <div class="col-md-4">
+                                                        <h6><b>Country(देश*)</b></h6>
+                                                        <input type="text" name="Country"
+                                                            class="form-control wizard-required" id="dob">
+                                                        <div class="wizard-form-error"></div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <h6><b>State*(राज्य*)</b></h6>
+                                                        <input type="text" name="State"
+                                                            class="form-control wizard-required" id="tob">
+                                                        <div class="wizard-form-error"></div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <h6><b>City (शहर) *</b></h6>
+                                                        <input type="text" name="City"
+                                                            class="form-control wizard-required" id="pob">
+                                                        <div class="wizard-form-error"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <h6><b>Are you one of the twins? (आपण जुळ्यांपैकी एक आहात का? )</b></h6>
+
+                                                <div class="wizard-form-radio">
+                                                    <input name="twins" id="twinsYes" type="radio" value="yes">
+                                                    <label for="twinsYes">Yes</label>
+                                                </div>
+                                                <div class="wizard-form-radio">
+                                                    <input name="twins" id="twinsNo" type="radio" checked value="no">
+                                                    <label for="twinsNo">No</label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group mt-4">
+                                                    <h6><b>Click on the subjects for discussion.(चर्चेसाठी योग्य ते विषय
+                                                            क्लिक करा.)</b></h6>
+
+                                                    <div class="form-check form-check-inline mt-4">
+                                                        <input class="form-check-input" type="checkbox" id="subject1"
+                                                            name="subjects[]" value="Education">
+                                                        <label class="form-check-label" for="subject1">Education</label>
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="checkbox" id="subject2"
+                                                            name="subjects[]" value="Foreign Travel">
+                                                        <label class="form-check-label" for="subject2">Foreign
+                                                            Travel</label>
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="checkbox" id="subject2"
+                                                            name="subjects[]" value="Marriage">
+                                                        <label class="form-check-label" for="subject2">Marriage</label>
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="checkbox" id="subject2"
+                                                            name="subjects[]" value="Re-marriage">
+                                                        <label class="form-check-label"
+                                                            for="subject2">Re-marriage</label>
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="checkbox" id="subject2"
+                                                            name="subjects[]" value="Child
+                                                            birth">
+                                                        <label class="form-check-label" for="subject2">Child
+                                                            birth</label>
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="checkbox" id="subject2"
+                                                            name="subjects[]" value="Love Life">
+                                                        <label class="form-check-label" for="subject2">Love Life</label>
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="checkbox" id="subject2"
+                                                            name="subjects[]" value="Divorce">
+                                                        <label class="form-check-label" for="subject2">Divorce</label>
+                                                    </div>
+
+                                                    <div class="wizard-form-error"></div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="checkbox" id="subject2"
+                                                            name="subjects[]" value="Siblings">
+                                                        <label class="form-check-label" for="subject2">Siblings</label>
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="checkbox" id="subject2"
+                                                            name="subjects[]" value="Job">
+                                                        <label class="form-check-label" for="subject2">Job</label>
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="checkbox" id="subject2"
+                                                            name="subjects[]" value="Business">
+                                                        <label class="form-check-label" for="subject2">Business</label>
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="checkbox" id="subject2"
+                                                            name="subjects[]" value="Partnership">
+                                                        <label class="form-check-label"
+                                                            for="subject2">Partnership</label>
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="checkbox" id="subject2"
+                                                            name="subjects[]" value="Property">
+                                                        <label class="form-check-label" for="subject2">Property</label>
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="checkbox" id="subject2"
+                                                            name="subjects[]" value="Others">
+                                                        <label class="form-check-label" for="subject2">Others</label>
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="checkbox" id="subject2"
+                                                            name="subjects[]" value="Behavioural
+                                                            Issue">
+                                                        <label class="form-check-label" for="subject2">Behavioural
+                                                            Issue</label>
+                                                    </div>
+
+                                                    <div class="wizard-form-error"></div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="checkbox" id="subject2"
+                                                            name="subjects[]" value="Finance">
+                                                        <label class="form-check-label" for="subject2">Finance</label>
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="checkbox" id="subject2"
+                                                            name="subjects[]" value="Share market">
+                                                        <label class="form-check-label" for="subject2">Share
+                                                            market</label>
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="checkbox" id="subject2"
+                                                            name="subjects[]" value="Health">
+                                                        <label class="form-check-label" for="subject2">Health</label>
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="checkbox" id="subject2"
+                                                            name="subjects[]" value="Parents
+                                                            relation">
+                                                        <label class="form-check-label" for="subject2">Parents
+                                                            relation</label>
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="checkbox" id="subject2"
+                                                            name="subjects[]" value="Legal
+                                                            case">
+                                                        <label class="form-check-label" for="subject2">Legal
+                                                            case</label>
+                                                    </div>
+
+                                                    <div class="wizard-form-error"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group clearfix">
+                                            <a href="javascript:;"
+                                                class="form-wizard-previous-btn float-left">Previous</a>
+                                            <a href="javascript:;" class="form-wizard-next-btn float-right">Next</a>
+                                        </div>
+                                    </fieldset>
+                                    <fieldset class="wizard-fieldset">
+                                        <h5 class="text-center">Payment Information</h5>
+                                        <h6 class="text-center"><b>Kindly pay Rs700 by scanning QR code</b></h6>
+                                        <P class="text-center">Mrunal Kulkarni</P>
+                                        <div class="form-group text-center">
+                                            <!-- Image for Payment -->
+                                            <img class="img" src="<?=base_url(); ?>assets/images/QRcodeMrunalMam.jpg"
+                                                alt="Payment Method">
+                                        </div>
+                                        <div class="text-center">
+                                            <p><b>UPI Number:</b> 9822331983@idfcfirst</p>
+                                            <button onclick="copyUPI(event)" class="btn btn-primary">Copy UPI</button>
+                                        </div>
+
+                                        <div class="form-group clearfix">
+                                            <a href="javascript:;"
+                                                class="form-wizard-previous-btn float-left">Previous</a>
+                                            <input type="submit" class="form-wizard-submit float-right" value="Submit">
+
+
+                                        </div>
+                                    </fieldset>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
         </div>
     </div>
-    <!-- Event Details Modal -->
-    <div class="modal fade" tabindex="-1" data-bs-backdrop="static" id="event-details-modal">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content rounded-0">
-                <div class="modal-header rounded-0">
-                    <h5 class="modal-title">Schedule Details</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body rounded-0">
-                    <div class="container-fluid">
-                        <dl>
-                            <dt class="text-muted">Title</dt>
-                            <dd id="title" class="fw-bold fs-4"></dd>
-                            <dt class="text-muted">Description</dt>
-                           <a> <dd id="description" class=""></dd></a>
-                            <dt class="text-muted">Start</dt>
-                            <dd id="start" class=""></dd>
-                            <dt class="text-muted">End</dt>
-                            <dd id="end" class=""></dd>
-                        </dl>
-                    </div>
-                </div>
-                <div class="modal-footer rounded-0">
-                    <div class="text-end">
-                        <button type="button" class="btn btn-primary btn-sm rounded-0" id="edit" data-id="">Edit</button>
-                        <button type="button" class="btn btn-danger btn-sm rounded-0" id="delete" data-id="">Delete</button>
-                        <button type="button" class="btn btn-secondary btn-sm rounded-0" data-bs-dismiss="modal">Close</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Event Details Modal -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
-<?php 
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"
+        integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous">
+    </script>
+    <script>
+    jQuery(document).ready(function() {
+        // click on next button
+        jQuery('.form-wizard-next-btn').click(function() {
+            var parentFieldset = jQuery(this).parents('.wizard-fieldset');
+            var currentActiveStep = jQuery(this).parents('.form-wizard').find(
+                '.form-wizard-steps .active');
+            var next = jQuery(this);
+            var nextWizardStep = true;
+            parentFieldset.find('.wizard-required').each(function() {
+                var thisValue = jQuery(this).val();
 
-$sched_res = [];
+                if (thisValue == "") {
+                    jQuery(this).siblings(".wizard-form-error").slideDown();
+                    nextWizardStep = false;
+                } else {
+                    jQuery(this).siblings(".wizard-form-error").slideUp();
+                }
+            });
+            if (nextWizardStep) {
+                next.parents('.wizard-fieldset').removeClass("show", "400");
+                currentActiveStep.removeClass('active').addClass('activated').next().addClass('active',
+                    "400");
+                next.parents('.wizard-fieldset').next('.wizard-fieldset').addClass("show", "400");
+                jQuery(document).find('.wizard-fieldset').each(function() {
+                    if (jQuery(this).hasClass('show')) {
+                        var formAtrr = jQuery(this).attr('data-tab-content');
+                        jQuery(document).find('.form-wizard-steps .form-wizard-step-item').each(
+                            function() {
+                                if (jQuery(this).attr('data-attr') == formAtrr) {
+                                    jQuery(this).addClass('active');
+                                    var innerWidth = jQuery(this).innerWidth();
+                                    var position = jQuery(this).position();
+                                    jQuery(document).find('.form-wizard-step-move').css({
+                                        "left": position.left,
+                                        "width": innerWidth
+                                    });
+                                } else {
+                                    jQuery(this).removeClass('active');
+                                }
+                            });
+                    }
+                });
+            }
+        });
+        //click on previous button
+        jQuery('.form-wizard-previous-btn').click(function() {
+            var counter = parseInt(jQuery(".wizard-counter").text());;
+            var prev = jQuery(this);
+            var currentActiveStep = jQuery(this).parents('.form-wizard').find(
+                '.form-wizard-steps .active');
+            prev.parents('.wizard-fieldset').removeClass("show", "400");
+            prev.parents('.wizard-fieldset').prev('.wizard-fieldset').addClass("show", "400");
+            currentActiveStep.removeClass('active').prev().removeClass('activated').addClass('active',
+                "400");
+            jQuery(document).find('.wizard-fieldset').each(function() {
+                if (jQuery(this).hasClass('show')) {
+                    var formAtrr = jQuery(this).attr('data-tab-content');
+                    jQuery(document).find('.form-wizard-steps .form-wizard-step-item').each(
+                        function() {
+                            if (jQuery(this).attr('data-attr') == formAtrr) {
+                                jQuery(this).addClass('active');
+                                var innerWidth = jQuery(this).innerWidth();
+                                var position = jQuery(this).position();
+                                jQuery(document).find('.form-wizard-step-move').css({
+                                    "left": position.left,
+                                    "width": innerWidth
+                                });
+                            } else {
+                                jQuery(this).removeClass('active');
+                            }
+                        });
+                }
+            });
+        });
+        //click on form submit button
+        jQuery(document).on("click", ".form-wizard .form-wizard-submit", function() {
+            var parentFieldset = jQuery(this).parents('.wizard-fieldset');
+            var currentActiveStep = jQuery(this).parents('.form-wizard').find(
+                '.form-wizard-steps .active');
+            parentFieldset.find('.wizard-required').each(function() {
+                var thisValue = jQuery(this).val();
+                if (thisValue == "") {
+                    jQuery(this).siblings(".wizard-form-error").slideDown();
+                } else {
+                    jQuery(this).siblings(".wizard-form-error").slideUp();
+                }
+            });
+        });
+        // focus on input field check empty or not
+        jQuery(".form-control").on('focus', function() {
+            var tmpThis = jQuery(this).val();
+            if (tmpThis == '') {
+                jQuery(this).parent().addClass("focus-input");
+            } else if (tmpThis != '') {
+                jQuery(this).parent().addClass("focus-input");
+            }
+        }).on('blur', function() {
+            var tmpThis = jQuery(this).val();
+            if (tmpThis == '') {
+                jQuery(this).parent().removeClass("focus-input");
+                jQuery(this).siblings('.wizard-form-error').slideDown("3000");
+            } else if (tmpThis != '') {
+                jQuery(this).parent().addClass("focus-input");
+                jQuery(this).siblings('.wizard-form-error').slideUp("3000");
+            }
+        });
+    });
+    </script>
+    <script>
+    function handleAppointmentTypeChange() {
+        var extraOptions = document.querySelector('.extra-options');
+        var onlineRadio = document.getElementById('online');
+        var offlineRadio = document.getElementById('offline');
 
-if(!empty($schedule)){
-    // echo "<pre>";print_r($schedule);exit();
+        // If Online option is checked, show additional options and uncheck Offline option
+        if (onlineRadio.checked) {
+            extraOptions.style.display = 'block';
+            offlineRadio.checked = false;
+        } else {
+            extraOptions.style.display = 'none';
+        }
+    }
+
+    // Event listeners for both Online and Offline radio buttons
+    document.getElementById('online').addEventListener('change', handleAppointmentTypeChange);
+    document.getElementById('offline').addEventListener('change', handleAppointmentTypeChange);
+
+    // Initial setup to ensure correct display state based on initial radio button checked state
+    handleAppointmentTypeChange();
+    </script>
+    <script>
+    function handleFriendRadioChange() {
+        var friendInput = document.getElementById('friendInput');
+
+        // If "Friend" radio button is checked, display the input field. Otherwise, hide it.
+        if (document.getElementById('friendRadio').checked) {
+            friendInput.style.display = 'block';
+        } else {
+            friendInput.style.display = 'none';
+        }
+    }
+
+    // Function to handle changes in other radio buttons
+    function handleOtherRadioChange() {
+        var friendInput = document.getElementById('friendInput');
+
+        // Hide the "Friend" input field if it's currently visible
+        friendInput.style.display = 'none';
+    }
+
+    // Add event listeners to the radio buttons
+    document.getElementById('friendRadio').addEventListener('change', handleFriendRadioChange);
+    document.getElementById('instagramRadio').addEventListener('change', handleOtherRadioChange);
+    document.getElementById('facebookRadio').addEventListener('change', handleOtherRadioChange);
+    document.getElementById('googleRadio').addEventListener('change', handleOtherRadioChange);
+
+    // Initial setup to ensure correct display state based on initial radio button checked state
+    handleFriendRadioChange();
+    </script>
 
 
-foreach($schedule as $data){
-    $sdate = date("F d, Y h:i A",strtotime($data->start_date));
-    $edate = date("F d, Y h:i A",strtotime($data->end_date));
-    $sched_res[$data->id] = $data;
-}
-}
-?>
-<?php 
-if(isset($conn)) $conn->close();
-?>
-</body>
-<script>
-    var scheds = $.parseJSON('<?= json_encode($sched_res) ?>')
+
+    <script>
+    function generate_year_range(start, end) {
+        var years = "";
+        for (var year = start; year <= end; year++) {
+            years += "<option value='" + year + "'>" + year + "</option>";
+        }
+        return years;
+    }
+
+    today = new Date();
+    currentMonth = today.getMonth();
+    currentYear = today.getFullYear();
+    selectYear = document.getElementById("year");
+    selectMonth = document.getElementById("month");
+
+
+    createYear = generate_year_range(1970, 2050);
+    /** or
+     * createYear = generate_year_range( 1970, currentYear );
+     */
+
+    document.getElementById("year").innerHTML = createYear;
+
+    var calendar = document.getElementById("calendar");
+    var lang = calendar.getAttribute('data-lang');
+
+    var months = "";
+    var days = "";
+
+    var monthDefault = ["January", "February", "March", "April", "May", "June", "July", "August", "September",
+        "October", "November", "December"
+    ];
+
+    var dayDefault = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+
+    months = monthDefault;
+    days = dayDefault;
+
+    var $dataHead = "<tr>";
+    for (dhead in days) {
+        $dataHead += "<th data-days='" + days[dhead] + "'>" + days[dhead] + "</th>";
+    }
+    $dataHead += "</tr>";
+
+    //alert($dataHead);
+    document.getElementById("thead-month").innerHTML = $dataHead;
+
+
+    monthAndYear = document.getElementById("monthAndYear");
+    showCalendar(currentMonth, currentYear);
+
+
+
+    function next() {
+        currentYear = (currentMonth === 11) ? currentYear + 1 : currentYear;
+        currentMonth = (currentMonth + 1) % 12;
+        showCalendar(currentMonth, currentYear);
+    }
+
+    function previous() {
+        currentYear = (currentMonth === 0) ? currentYear - 1 : currentYear;
+        currentMonth = (currentMonth === 0) ? 11 : currentMonth - 1;
+        showCalendar(currentMonth, currentYear);
+    }
+
+    function jump() {
+        currentYear = parseInt(selectYear.value);
+        currentMonth = parseInt(selectMonth.value);
+        showCalendar(currentMonth, currentYear);
+    }
+
+    function showCalendar(month, year) {
+
+        var firstDay = (new Date(year, month)).getDay() - 1;
+
+        tbl = document.getElementById("calendar-body");
+
+
+        tbl.innerHTML = "";
+
+
+        monthAndYear.innerHTML = months[month] + " " + year;
+        selectYear.value = year;
+        selectMonth.value = month;
+
+        // creating all cells
+        var date = 1;
+        for (var i = 0; i < 6; i++) {
+
+            var row = document.createElement("tr");
+
+
+            for (var j = 0; j < 7; j++) {
+                if (i === 0 && j < firstDay) {
+                    cell = document.createElement("td");
+                    cellText = document.createTextNode("");
+                    cell.appendChild(cellText);
+                    row.appendChild(cell);
+                } else if (date > daysInMonth(month, year)) {
+                    break;
+                } else {
+                    cell = document.createElement("td");
+                    cell.setAttribute("data-date", date);
+                    cell.setAttribute("data-month", month + 1);
+                    cell.setAttribute("data-year", year);
+                    cell.setAttribute("data-month_name", months[month]);
+                    cell.className = "date-picker";
+                    cell.innerHTML = "<span>" + date + "</span>";
+
+                    if (date === today.getDate() && year === today.getFullYear() && month === today.getMonth()) {
+                        cell.className = "date-picker selected";
+                    }
+                    row.appendChild(cell);
+                    date++;
+                }
+
+
+            }
+
+            tbl.appendChild(row);
+        }
+
+
+
+        // onclick date shows data 
+        var dateCells = document.querySelectorAll('.date-picker');
+        dateCells.forEach(function(cell) {
+            cell.addEventListener('click', function() {
+                // Extract date and month name from clicked date element
+                var clickedDate = this.getAttribute('data-date');
+                var clickedMonth = this.getAttribute('data-month_name');
+                var clickedYear = this.getAttribute('data-year');
+
+                // Calculate day name
+                var dateObj = new Date(clickedYear, month, clickedDate);
+                var clickedDay = getDayName(dateObj.getDay());
+
+                // Display the clicked date in the specified div
+                var clickedDateDisplay = document.getElementById('clickedDateDisplay');
+                clickedDateDisplay.innerHTML = clickedDate + ' ' + clickedMonth + ' ' + clickedYear +
+                    ' (' + clickedDay + ')';
+            });
+        });
+
+    }
+
+    // day show
+
+    function getDayName(dayIndex) {
+        var days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+        return days[dayIndex];
+    }
+
+
+    function daysInMonth(iMonth, iYear) {
+        return 32 - new Date(iYear, iMonth, 32).getDate();
+    }
+    </script>
+
+    <script>
+    function copyUPI() {
+        /* Get the text field */
+        event.preventDefault();
+        var copyText = document.createElement('textarea');
+        copyText.value = "9822331983@idfcfirst";
+
+        /* Append the text field to the body */
+        document.body.appendChild(copyText);
+
+        /* Select the text field */
+        copyText.select();
+        copyText.setSelectionRange(0, 99999); /* For mobile devices */
+
+        /* Copy the text inside the text field */
+        document.execCommand("copy");
+
+        /* Alert the copied text */
+        // alert("UPI number copied: " + copyText.value);
+
+        /* Remove the text field from the body */
+        document.body.removeChild(copyText);
+    }
+    </script>
+    <!-- <script>
+    jQuery(document).ready(function() {
+        jQuery(".date-picker").click(function() {
+            jQuery(".time-div").toggle("");
+
+        });
+
+    });
+    document.addEventListener('DOMContentLoaded', function() {
+        var today = new Date();
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0'); // January is 0!
+        var yyyy = today.getFullYear();
+
+        today = yyyy + '-' + mm + '-' + dd;
+        document.getElementById("dob").setAttribute("max", today);
+    });
+    </script> -->
+    <script>
+    function displayTimeSlots(slotsHTML) {
+        // Clear any existing content in the time-div
+        $(".time-div").empty();
+
+        // Parse the provided HTML to extract the day and time slots
+        var $html = $(slotsHTML);
+        var day = $html.filter('p').text().trim();
+        var $timeSlots = $html.filter('a');
+
+        // Create a list element
+        var $list = $('<ul>');
+
+        // Add the day as the list item
+        $list.append($('<li>').text(day));
+
+        // Add each time slot as a list item
+        $timeSlots.each(function() {
+            var timeSlot = $(this).text().trim();
+            $list.append($('<li>').text(timeSlot));
+        });
+
+        // Append the list to the time-div
+        $(".time-div").append($list);
+
+        // Show the time-div
+        $(".time-div").show();
+    }
+
+    // Your existing script to handle date clicks and AJAX request
+    jQuery(document).ready(function() {
+        jQuery(".date-picker").click(function() {
+            var selectedDate = jQuery(this).text().trim();
+            getSlots(selectedDate);
+        });
+    });
+
+    function getSlots(selectedDate) {
+        jQuery.ajax({
+            url: 'getslots',
+            type: 'POST',
+            data: { day_name: selectedDate },
+            success: function(response) {
+                displayTimeSlots(response);
+            },
+            error: function(xhr, status, error) {
+                console.error(error);
+            }
+        });
+    }
 </script>
-<script src="<?=base_url(); ?>assets/schedule/js/script.js"></script>
+</body>
 
 </html>

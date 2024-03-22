@@ -204,7 +204,7 @@
                     <nav class="pcoded-navbar">
                         <div class="sidebar_toggle"><a href="#"><i class="icon-close icons"></i></a></div>
                         <div class="pcoded-inner-navbar main-menu">
-                            <div class="">
+                            <!-- <div class="">
                                 <div class="main-menu-header">
                                     <img class="img-40 img-radius" src="<?=base_url(); ?>assets/images/avatar-4.jpg" alt="User-Profile-Image">
                                     <div class="user-details">
@@ -222,7 +222,7 @@
                                         </li>
                                     </ul>
                                 </div>
-                            </div>
+                            </div> -->
                             <div class="pcoded-search">
                                 <span class="searchbar-toggle">  </span>
                                 <div class="pcoded-search-box ">
@@ -273,9 +273,9 @@
                                             </a>
                                         </li>
                                         <li class=" ">
-                                            <a href="breadcrumb.html">
+                                            <a href="<?=base_url(); ?>my_slots">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">Breadcrumbs</span>
+                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">My Slots</span>
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
                                         </li>
@@ -337,7 +337,7 @@
                                         </li>
 
                                     </ul>
-                                </li>
+                        </li>
                                 <li>
                                     <a href="form-elements-component.html">
                                         <span class="pcoded-micon"><i class="ti-layers"></i><b>FC</b></span>
@@ -355,7 +355,7 @@
                                 
                             </ul>
 
-                            <div class="pcoded-navigatio-lavel" data-i18n="nav.category.forms">Chart &amp; Maps</div>
+                            <!-- <div class="pcoded-navigatio-lavel" data-i18n="nav.category.forms">Chart &amp; Maps</div>
                             <ul class="pcoded-item pcoded-left-item">
                                 <li>
                                     <a href="chart.html">
@@ -446,6 +446,6 @@
 
                                     </ul>
                                 </li>
-                            </ul>
+                            </ul> -->
                         </div>
                     </nav>
