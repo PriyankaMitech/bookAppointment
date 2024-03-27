@@ -17,6 +17,7 @@ $routes->post('set_workinghour', 'Admin_Controller::set_workinghour');
 $routes->get('deleteworkinghour/(:any)/(:any)/(:any)', 'Admin_Controller::deleteworkinghour/$1');
 $routes->get('calendar', 'Admin_Controller::calendar');
 $routes->get('my_slots', 'Admin_Controller::my_slots');
+$routes->post('updateStatus', 'Admin_Controller::updateStatus');
 
 $routes->post('formdata', 'Admin_Controller::formdata');
 $routes->post('getslots', 'Admin_Controller::getslots');

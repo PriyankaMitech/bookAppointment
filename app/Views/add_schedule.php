@@ -58,13 +58,14 @@
     }
 
     /* sunday */
-    .date-picker:nth-child(1) {
+    .date-picker:nth-child(7) {
         color: red;
     }
 
     /* friday */
     .date-picker:nth-child(6) {
-        color: green;
+        /* color: green; */
+        color: red;
     }
 
     #monthAndYear {
@@ -268,61 +269,8 @@
                                     </fieldset>
                                     <fieldset class="wizard-fieldset">
                                         <h5>Book Slots</h5>
+                                        <input type="hidden" id="selected-date" name="selectedDate">
 
-
-
-                                        <!-- <div class="row mt-3">
-                                            <div class="col-lg-8">
-                                                <div class="wrapper">
-
-                                                    <div class="container-calendar">
-                                                        <h3 id="monthAndYear"></h3>
-
-                                                        <div class="button-container-calendar">
-                                                            <div class="footer-container-calendar"> <button
-                                                                    id="previous" onclick="previous()">&#8249;</button>
-
-                                                                <label for="month">Jump To: </label>
-                                                                <select id="month" onchange="jump()">
-                                                                    <option value=0>Jan</option>
-                                                                    <option value=1>Feb</option>
-                                                                    <option value=2>Mar</option>
-                                                                    <option value=3>Apr</option>
-                                                                    <option value=4>May</option>
-                                                                    <option value=5>Jun</option>
-                                                                    <option value=6>Jul</option>
-                                                                    <option value=7>Aug</option>
-                                                                    <option value=8>Sep</option>
-                                                                    <option value=9>Oct</option>
-                                                                    <option value=10>Nov</option>
-                                                                    <option value=11>Dec</option>
-                                                                </select>
-                                                                <select id="year" onchange="jump()"></select>
-
-                                                                <button id="next" onclick="next()">&#8250;</button>
-                                                            </div>
-                                                        </div>
-                                                        <table class="table-calendar" id="calendar" data-lang="en">
-                                                            <thead id="thead-month"></thead>
-                                                            <tbody id="calendar-body"></tbody>
-                                                        </table>
-                                                    </div>
-
-                                                    <div id="clickedDateDisplay"></div>
-
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-4">
-
-                                                <div class="time-div" style="display:none">
-                                                    <p>Book on Monday</p>
-                                                    <a>12:00 PM</a>
-                                                    <a>02:00 PM</a>
-                                                    <a>06:00 PM</a>
-                                                </div>
-                                            </div>
-
-                                        </div> -->
                                         <div class="row mt-3">
                                             <div class="col-lg-8">
                                                 <div class="wrapper">
@@ -356,15 +304,17 @@
                                                             <tbody id="calendar-body"></tbody>
                                                         </table>
                                                     </div>
-                                                    <div id="clickedDateDisplay"></div>
+                                                    <div style="display: none;" id="clickedDateDisplay"></div>
                                                 </div>
                                             </div>
                                             <div class="col-lg-4">
+                                            <h5>Select Slots here Avery slots Is for 30 min </h5>
                                                 <div class="time-div" style="display:none">
                                                     <!-- Time slots will be populated here -->
                                                 </div>
                                             </div>
                                         </div>
+
                                         <!-- Empty column -->
                                         <div class="form-group clearfix">
                                             <a href="javascript:;"
@@ -389,7 +339,7 @@
                                         </div>
                                         <div class="white-line"></div>
                                         <div class="row">
-                                            <div class="col-md-12 mt-5">
+                                            <div class="col-md-12 mt-4">
                                                 <h6><b>Place Of Birth *(जन्म ठिकाण*)</b></h6>
                                                 <div class="row mt-3">
                                                     <div class="col-md-4">
@@ -415,8 +365,8 @@
                                         </div>
 
 
-                                        <div class="row">
-                                            <div class="col-md-12">
+                                        <div class="row mt-3">
+                                            <div class="col-md-12 mt-2">
                                                 <h6><b>Are you one of the twins? (आपण जुळ्यांपैकी एक आहात का? )</b></h6>
 
                                                 <div class="wizard-form-radio">
@@ -949,75 +899,112 @@
         document.body.removeChild(copyText);
     }
     </script>
-    <!-- <script>
-    jQuery(document).ready(function() {
-        jQuery(".date-picker").click(function() {
-            jQuery(".time-div").toggle("");
-
-        });
-
-    });
-    document.addEventListener('DOMContentLoaded', function() {
-        var today = new Date();
-        var dd = String(today.getDate()).padStart(2, '0');
-        var mm = String(today.getMonth() + 1).padStart(2, '0'); // January is 0!
-        var yyyy = today.getFullYear();
-
-        today = yyyy + '-' + mm + '-' + dd;
-        document.getElementById("dob").setAttribute("max", today);
-    });
-    </script> -->
     <script>
-    function displayTimeSlots(slotsHTML) {
-        // Clear any existing content in the time-div
-        $(".time-div").empty();
+ jQuery(document).ready(function() {
+        // Event listener for clicking on a date
+        jQuery(document).on("click", ".date-picker", function() {
+            var selectedDate = jQuery(this).text().trim();
+            var month = parseInt($("#month").val()) + 1;
+            var year = $("#year").val();
+            var fullDate = year + '-' + month + '-' + selectedDate;
 
-        // Parse the provided HTML to extract the day and time slots
-        var $html = $(slotsHTML);
-        var day = $html.filter('p').text().trim();
-        var $timeSlots = $html.filter('a');
+            // Set the value of the hidden input field with the selected date
+            $("#selected-date").val(fullDate);
 
-        // Create a list element
-        var $list = $('<ul>');
-
-        // Add the day as the list item
-        $list.append($('<li>').text(day));
-
-        // Add each time slot as a list item
-        $timeSlots.each(function() {
-            var timeSlot = $(this).text().trim();
-            $list.append($('<li>').text(timeSlot));
+            // Pass selected date, month, year, and full date to the getSlots function
+            getSlots(selectedDate, month, year, fullDate); 
         });
 
-        // Append the list to the time-div
-        $(".time-div").append($list);
+        // Event listener for changing the month
+        $("#month").change(function() {
+            var selectedDate = $("#calendar-body .selected").text().trim();
+            var month = parseInt($(this).val()) + 1;
+            var year = $("#year").val();
+            var fullDate = year + '-' + month + '-' + selectedDate;
+            $("#selected-date").val(fullDate);
+            getSlots(selectedDate, month, year, fullDate); 
+        });
 
-        // Show the time-div
-        $(".time-div").show();
-    }
-
-    // Your existing script to handle date clicks and AJAX request
-    jQuery(document).ready(function() {
-        jQuery(".date-picker").click(function() {
-            var selectedDate = jQuery(this).text().trim();
-            getSlots(selectedDate);
+        // Event listener for changing the year
+        $("#year").change(function() {
+            var selectedDate = $("#calendar-body .selected").text().trim();
+            var month = parseInt($("#month").val()) + 1;
+            var year = $(this).val();
+            var fullDate = year + '-' + month + '-' + selectedDate;
+            $("#selected-date").val(fullDate);
+            getSlots(selectedDate, month, year, fullDate); 
         });
     });
 
-    function getSlots(selectedDate) {
+    // Function to make AJAX request to get slots
+    function getSlots(selectedDate, month, year, fullDate) {
         jQuery.ajax({
             url: 'getslots',
             type: 'POST',
-            data: { day_name: selectedDate },
+            data: {
+                selected_date: selectedDate,
+                month: month,
+                year: year,
+                full_date: fullDate
+            },
             success: function(response) {
-                displayTimeSlots(response);
+                displayTimeSlots(response, selectedDate);
             },
             error: function(xhr, status, error) {
                 console.error(error);
             }
         });
     }
-</script>
+
+// Function to display time slots
+function displayTimeSlots(slotsJSON, selectedDate, fullDate) {
+    // Clear any existing content in the time-div
+    $(".time-div").empty();
+
+    // Parse the JSON response
+    var slots = JSON.parse(slotsJSON);
+
+    // If no slots are available for the day, display a message
+    if (slots.length === 0) {
+        $(".time-div").html("<p>No slots available for this day.</p>");
+        $(".time-div").show();
+        return;
+    }
+
+    // Create a list element
+    var $list = $('<ul>');
+
+    // Loop through each slot and add it as a list item with radio button
+    slots.forEach(function(slot) {
+        var startTime = slot.start_time;
+        var endTime = slot.end_time;
+        var timeSlot = startTime;
+        var slotId = slot.id;
+        var $radioButton = $('<input type="radio" name="timeSlot" value="' + slotId + '">');
+        $radioButton.attr('data-selected-date', selectedDate); // Add selected date as a data attribute
+        $radioButton.attr('data-full-date', fullDate); // Add full date as a data attribute
+        var $label = $('<label>').text(timeSlot);
+        var $listItem = $('<li>').append($radioButton).append($label);
+        $listItem.on('change', function() {
+            if ($(this).find('input[type="radio"]').is(':checked')) {
+                var selectedSlotId = $(this).find('input[type="radio"]').val();
+                var selectedDate = $(this).find('input[type="radio"]').data('selected-date'); // Retrieve selected date
+                var fullDate = $(this).find('input[type="radio"]').data('full-date'); // Retrieve full date
+                console.log(selectedSlotId); // You can do whatever you want with the selected slot id here
+                console.log(selectedDate); // Log or use the selected date here
+                console.log(fullDate); // Log or use the full date here
+            }
+        });
+        $list.append($listItem);
+    });
+
+    // Append the list to the time-div
+    $(".time-div").append($list);
+
+    // Show the time-div
+    $(".time-div").show();
+}
+    </script>
 </body>
 
 </html>
