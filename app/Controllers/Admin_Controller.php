@@ -3,7 +3,8 @@
 namespace App\Controllers;
 use App\Models\Admin_Model;
 
-
+helper('email_helper');
+require_once FCPATH . 'vendor/autoload.php';
 class Admin_Controller extends BaseController
 {
     public function index(): string
@@ -268,58 +269,126 @@ class Admin_Controller extends BaseController
     }
 
     public function formdata()
-    {
-        $model = new Admin_Model();
-        $db = \Config\Database::connect();
-        // print_r($_POST);die;
-        $subjects = implode(',', $this->request->getPost('subjects'));
+{
+   // print_r($_POST);die;
+    $model = new Admin_Model();
+    $db = \Config\Database::connect();
+    $timeSlotId = $this->request->getPost('timeSlot');
+    $selectedDate = $this->request->getPost('selectedDate');
+    $model->insertslots($timeSlotId, $selectedDate);
+    $subjects = implode(',', $this->request->getPost('subjects'));
+    $data = [
+        'fullname' => $this->request->getPost('fullname'),
+        'gender' => $this->request->getPost('gender'),
+        'contact_number' => $this->request->getPost('contact_number'),
+        'appointmentType' => $this->request->getPost('appointmentType'),
+        'appointmentOption'=> $this->request->getPost('appointmentOption'),
+        'source' => $this->request->getPost('source'),
+        'friendName' => $this->request->getPost('friendName'),
+        'timeSlot' => $this->request->getPost('timeSlot'),
+        'dob' => $this->request->getPost('dob'),
+        'tob' => $this->request->getPost('tob'),
+        'Country' => $this->request->getPost('Country'),
+        'State' => $this->request->getPost('State'),
+        'City' => $this->request->getPost('City'),
+        'twins' => $this->request->getPost('twins'),
+        'amount' => '700',
+        'subjects' => $subjects
+    ];
+    $db->table('tbl_appointment')->insert($data);
 
-        // Prepare data array for database insertion
-        $data = [
-            'fullname' => $this->request->getPost('fullname'),
-            'gender' => $this->request->getPost('gender'),
-            'contact_number' => $this->request->getPost('contact_number'),
-            'appointmentType' => $this->request->getPost('appointmentType'),
-            'appointmentOption'=> $this->request->getPost('appointmentOption'),
-            'source' => $this->request->getPost('source'),
-            'friendName' => $this->request->getPost('friendName'),
-            'dob' => $this->request->getPost('dob'),
-            'tob' => $this->request->getPost('tob'),
-            'Country' => $this->request->getPost('Country'),
-            'State' => $this->request->getPost('State'),
-            'City' => $this->request->getPost('City'),
-            'twins' => $this->request->getPost('twins'),
-            'amount' => '700',
-            'subjects' => $subjects
-        ];
-    
-        $db->table('tbl_appointment')->insert($data);
-        return redirect()->to('add_schedule');
-    }
+    return redirect()->to('add_schedule');
+}
+
+// public function formdata()
+// {
+//     $model = new Admin_Model();
+//     $db = \Config\Database::connect();
+
+//     // Update the time slot status
+//     $timeSlotId = $this->request->getPost('timeSlot');
+//     $model->updateSlotStatus($timeSlotId);
+
+//     // Prepare subjects as comma-separated string
+//     $subjects = implode(', ', $this->request->getPost('subjects'));
+
+//     // Prepare data array for database insertion
+//     $data = [
+//         'fullname' => $this->request->getPost('fullname'),
+//         'gender' => $this->request->getPost('gender'),
+//         'contact_number' => $this->request->getPost('contact_number'),
+//         'appointmentType' => $this->request->getPost('appointmentType'),
+//         'appointmentOption' => $this->request->getPost('appointmentOption'),
+//         'source' => $this->request->getPost('source'),
+//         'friendName' => $this->request->getPost('friendName'),
+//         'timeSlot' => $this->request->getPost('timeSlot'),
+//         'dob' => $this->request->getPost('dob'),
+//         'tob' => $this->request->getPost('tob'),
+//         'Country' => $this->request->getPost('Country'),
+//         'State' => $this->request->getPost('State'),
+//         'City' => $this->request->getPost('City'),
+//         'twins' => $this->request->getPost('twins'),
+//         'amount' => '700',
+//         'subjects' => $subjects
+//     ];
+
+//     // Insert data into tbl_appointment table
+//     $db->table('tbl_appointment')->insert($data);
+
+//     // Prepare email content
+//     $emailContent = "Appointment Details:\n";
+//     foreach ($data as $key => $value) {
+//         $emailContent .= ucfirst($key) . ": $value\n";
+//     }
+
+//     // Send email
+//     $email = 'siddheshkadge214@gmail.com';
+//     $subject = 'New Appointment Request';
+//     $ccEmails = []; // Add CC emails if needed
+//     sendConfirmationEmail($email, $ccEmails, $subject, $emailContent);
+
+//     return redirect()->to('add_schedule');
+// }
+
+    // public function getSlots()
+    // {
+
+    // $dayNumber = $this->request->getPost('day_name');
+    // $currentYear = date('Y');
+    // $currentMonth = date('m');
+    // $selectedDate = $currentYear . '-' . $currentMonth . '-' . $dayNumber;
+
+    // $dayName = date('l', strtotime($selectedDate));
+    // $model = new Admin_Model();
+    // $slots = $model->getSlotsByDayName($dayName); 
+    // return json_encode($slots);
+
+    // }
+
 
     public function getSlots()
+{
+    $selectedDate = $this->request->getPost('selected_date');
+    $month = $this->request->getPost('month');
+    $year = $this->request->getPost('year');
+    $fullDate = $this->request->getPost('full_date');
+    
+    if (!$selectedDate || !$month || !$year) {
+        return json_encode(['error' => 'Missing required data']);
+    }
+    $selectedDateString = $year . '-' . $month . '-' . $selectedDate;
+    $dayName = date('l', strtotime($selectedDateString));
+    $model = new Admin_Model();
+    $slots = $model->getSlotsByDayName($dayName,$fullDate); 
+    return json_encode($slots);
+}
+    public function updateStatus()
     {
-        // Get the day number from the POST data
-        $dayNumber = $this->request->getPost('day_name');
-    
-        // Get the current year and month
-        $currentYear = date('Y');
-        $currentMonth = date('m');
-    
-        // Construct the date string for the current month
-        $selectedDate = $currentYear . '-' . $currentMonth . '-' . $dayNumber;
-    
-        // Parse the date string to obtain the day name
-        $dayName = date('l', strtotime($selectedDate));
-    
-        // Instantiate the model
-        $model = new Admin_Model();
-    
-        // Call the model method to retrieve slots by day name
-        $slots = $model->getSlotsByDayName($dayName); 
-
-      
-        // Initialize the response data
-      
+       // print_r($_POST);die;
+       $model = new Admin_Model();
+        $slotId = $this->request->getPost('slotId');
+        $status = $this->request->getPost('status');
+        $model->updateSlotStatus($slotId,$status); 
+        return redirect()->to('my_slots');
     }
 }

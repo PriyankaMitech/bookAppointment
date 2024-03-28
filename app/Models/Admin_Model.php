@@ -67,28 +67,63 @@ class Admin_Model extends Model
           ->getResult();
   }
 
-//   public function getSlotsByDayName($dayName)
-//   {
-//       return $this->db->table('tbl_slots')
-//                       ->where('day', $dayName)
-//                       ->where('active_status', 'Y')
-//                       ->get()
-//                       ->getResultArray();
-//   }
-
-public function getSlotsByDayName($dayName)
+  public function getSlotsByDayName($dayName, $fullDate)
 {
-    $results = $this->db->table('tbl_slots')
-                        ->where('day', $dayName)
-                        ->where('active_status', 'Y')
+    // Fetch time_slot_ids from book_slots table for the given selected_date
+    $subquery = $this->db->table('book_slots')
+                        ->select('time_slot_id')
+                        ->where('selected_date', $fullDate)
                         ->get()
                         ->getResultArray();
 
-                        // echo"<pre>";print_r($results);exit();
+    // Extract the time_slot_ids from the subquery result
+    $timeSlotIds = array_column($subquery, 'time_slot_id');
 
+    // Fetch slots from tbl_slots excluding those with matching time_slot_ids
+    $query = $this->db->table('tbl_slots')
+                     ->where('day', $dayName)
+                     ->where('active_status', 'Y');
 
+    // Check if $timeSlotIds array is not empty
+    if (!empty($timeSlotIds)) {
+        $query->whereNotIn('id', $timeSlotIds);
+    }
+
+    $results = $query->get()->getResultArray();
 
     return $results;
+}
+
+// public function getSlotsByDayName($dayName)
+// {
+//     $results = $this->db->table('tbl_slots')
+//                         ->where('day', $dayName)
+//                         ->where('active_status', 'Y')
+//                         ->get()
+//                         ->getResultArray();
+
+//                         // echo"<pre>";print_r($results);exit();
+
+
+
+//     return $results;
+// }
+public function updateSlotStatus($slotId, $status)
+{
+    $db = \Config\Database::connect();
+
+    // Update the active_status of the time slot with the provided ID
+    $builder = $db->table('tbl_slots');
+    $builder->where('id', $slotId);
+    $builder->update(['active_status' => $status]);
+}
+public function insertslots($timeSlotId, $selectedDate)
+{
+    $data = [
+        'time_slot_id' => $timeSlotId,
+        'selected_date' => $selectedDate,
+    ];
+    $this->db->table('book_slots')->insert($data); 
 }
 }
 

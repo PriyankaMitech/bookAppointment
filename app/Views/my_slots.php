@@ -9,7 +9,7 @@
                         <?php
                         // Define an array for days of the week
                         $daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-                        
+
                         // Iterate over each day
                         foreach ($daysOfWeek as $day) {
                             ?>
@@ -19,25 +19,39 @@
                                         <h5><?php echo $day; ?></h5>
                                     </div>
                                     <div class="card-block">
-                                        <ul class="list-group">
+                                        <div class="row">
                                             <?php
+                                            $count = 0;
                                             // Iterate over slots for the current day
                                             foreach ($slots as $slot) {
                                                 if ($slot->day == $day) {
                                                     ?>
-                                                    <li class="list-group-item">
-                                                        <span><?php echo $slot->start_time; ?> - <?php echo $slot->end_time; ?></span>
-                                                        <?php if ($slot->active_status == 'Y') { ?>
-                                                            <button class="btn btn-danger btn-sm float-right">Deactivate</button>
-                                                        <?php } else { ?>
-                                                            <button class="btn btn-success btn-sm float-right">Activate</button>
-                                                        <?php } ?>
-                                                    </li>
+                                                    <div class="col-md-6">
+                                                        <ul class="list-group">
+                                                            <li class="list-group-item">
+                                                                <span><?php echo $slot->start_time; ?> - <?php echo $slot->end_time; ?></span>
+                                                                <form id="statusForm_<?php echo $slot->id; ?>" method="post" action="updateStatus">
+                                                                    <input type="hidden" name="slotId" value="<?php echo $slot->id; ?>">
+                                                                    <input type="hidden" name="status" value="<?php echo $slot->active_status == 'Y' ? 'N' : 'Y'; ?>">
+                                                                    <button class="btn <?php echo $slot->active_status == 'Y' ? 'btn-danger' : 'btn-success'; ?> btn-sm float-right toggle-status" data-form-id="statusForm_<?php echo $slot->id; ?>">
+                                                                        <?php echo $slot->active_status == 'Y' ? 'Deactivate' : 'Activate'; ?>
+                                                                    </button>
+                                                                </form>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
                                                     <?php
+                                                    // Increase count
+                                                    $count++;
+
+                                                    // Check if count is divisible by 2 to start new row
+                                                    if ($count % 2 == 0) {
+                                                        echo '</div><div class="row">';
+                                                    }
                                                 }
                                             }
                                             ?>
-                                        </ul>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -52,3 +66,12 @@
 </div>
 
 <?php include("footer.php"); ?>
+
+<script>
+    $(document).ready(function() {
+        $('.toggle-status').click(function() {
+            var formId = $(this).data('form-id');
+            $('#' + formId).submit();
+        });
+    });
+</script>
