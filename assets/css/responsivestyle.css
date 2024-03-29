@@ -1,0 +1,46 @@
+/* For Mobile Screen max-width: 767*/
+@media only screen and (max-width: 767px) {
+  .addschedulec {
+    padding: 20px;
+  }
+  .form-wizard {
+    padding: 0px;
+  }
+
+  .form-wizard .imges {
+    padding-bottom: 33px;
+  }
+
+  .form-wizard .form-control {
+    padding: 0px;
+  }
+  .timedivp {
+    padding: 40px 14px;
+  }
+  body {
+    font-size: 12px;
+  }
+  .wizard-fieldset .col-12 {
+    padding: 10px 10px !important;
+  }
+
+  .wizard-fieldset .pcotsfd {
+    padding: 0px 27px !important;
+  }
+}
+/* End For Mobile Screen max-width: 767 */
+/* For Tablet Screen max-width: 991 min-width: 768*/
+
+@media only screen and (max-width: 991px) and (min-width: 768px) {
+  .addschedulec {
+    padding: 20px;
+  }
+  .wizard-section {
+    padding: 0px;
+  }
+  .timedivp {
+    padding: 40px 14px;
+  }
+}
+
+/* End For Tablet Screen max-width: 991 min-width: 768 */
