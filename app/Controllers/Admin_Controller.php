@@ -33,7 +33,8 @@ class Admin_Controller extends BaseController
       $data['Appt'] =$model->getallapp();
       $data['curruntmonthappt']=$model->getcurruntmonthapt();
       $data['allamount']=$model->allamount();
-
+      $data['todayappoinments']=$model->todayAppointments();
+    //  echo '<pre>';print_r($data['todayappoinments']);die;
         return view('admin_dashboard',$data);
 
     }
@@ -286,6 +287,8 @@ class Admin_Controller extends BaseController
         'source' => $this->request->getPost('source'),
         'friendName' => $this->request->getPost('friendName'),
         'timeSlot' => $this->request->getPost('timeSlot'),
+        'appointment_date' => $selectedDate,
+
         'dob' => $this->request->getPost('dob'),
         'tob' => $this->request->getPost('tob'),
         'Country' => $this->request->getPost('Country'),
@@ -391,4 +394,123 @@ class Admin_Controller extends BaseController
         $model->updateSlotStatus($slotId,$status); 
         return redirect()->to('my_slots');
     }
+
+    public function Add_student()
+    {
+        return view('Add_student');
+    }
+    public function Add_class()
+    {
+        return view('Add_class');
+    }
+    public function add_appointment()
+    {
+      //  print_r($_POST);die;
+        $model = new Admin_Model();
+        $db = \Config\Database::connect();
+        $timeSlotId = $this->request->getPost('slot');
+        $selectedDate = $this->request->getPost('appointment_date');
+        $model->insertslots($timeSlotId, $selectedDate);
+        $subjects = implode(',', $this->request->getPost('subjects'));
+        $data = [
+            'fullname' => $this->request->getPost('fullname'),
+            'gender' => $this->request->getPost('gender'),
+            'contact_number' => $this->request->getPost('contact_number'),
+            'appointmentType' => $this->request->getPost('appointmentType'),
+            'appointmentOption'=> $this->request->getPost('appointmentOption'),
+            'source' => $this->request->getPost('source'),
+            'friendName' => $this->request->getPost('friendName'),
+            'timeSlot' => $this->request->getPost('slot'),
+            'appointment_date' =>$this->request->getPost('appointment_date'),
+    
+            'dob' => $this->request->getPost('dob'),
+            'tob' => $this->request->getPost('tob'),
+            'Country' => $this->request->getPost('Country'),
+            'State' => $this->request->getPost('State'),
+            'City' => $this->request->getPost('City'),
+            'twins' => $this->request->getPost('twins'),
+            'amount' => '700',
+            'subjects' => $subjects
+        ];
+        $db->table('tbl_appointment')->insert($data);
+    
+        return redirect()->to('add_appointment');
+    }
+    public function getnewslots()
+    {
+        $model = new Admin_Model();
+        $fullDate = $this->request->getPost('date');
+    
+        $dateTime = new \DateTime($fullDate);
+        $dayName = $dateTime->format('l');
+        
+        $slots = $model->getSlotsday($dayName, $fullDate);
+    
+        // Return the slots data as JSON
+        return json_encode($slots);
+    }
+    public function classForm()
+    {
+        // print_r($_POST);die;
+        // Retrieve form data from POST request
+        $name = $this->request->getPost('name');
+        $email = $this->request->getPost('email');
+        $contactNumber = $this->request->getPost('contact_number');
+        $startDate = $this->request->getPost('start_date');
+        $endDate = $this->request->getPost('end_date');
+        $classDays = implode(',', $this->request->getPost('class_days')); // Convert array to comma-separated string
+        $startTime = $this->request->getPost('start_time');
+        $fees = $this->request->getPost('fees');
+    
+        // Now you have all the form data, you can use it to insert into your database table
+        // Assuming you have a database connection setup, you can write your SQL query here
+        $db = \Config\Database::connect();
+        $builder = $db->table('classes'); // Replace 'your_table_name' with your actual table name
+    
+        // Build the query to insert data into the table
+        $builder->insert([
+            'name' => $name,
+            'email' => $email,
+            'contact_number' => $contactNumber,
+            'start_date' => $startDate,
+            'end_date' => $endDate,
+            'class_days' => $classDays,
+            'start_time' => $startTime,
+            'fees' => $fees
+        ]);
+    
+        // Optionally, you can redirect the user to another page after form submission
+        return redirect()->to('Add_class'); // Replace 'success_page' with your actual success page URL
+    }
+
+    public function logout()
+    {
+        $session = session();
+        // session_destroy();
+        $session->destroy();
+        // print_r($_SESSION);die;
+        return redirect()->to('/');
+    }
+
+    public function services()
+    {
+        echo view('services');
+    }
+    public function all_services()
+    {
+        $db = \Config\Database::connect();
+        $data = [
+            'service' => $this->request->getPost('service'),
+            'name' => $this->request->getPost('name'),
+            'mobile' => $this->request->getPost('mobile'),
+            'email' => $this->request->getPost('email'),
+            'service_date' => $this->request->getPost('service_date'),
+            'amount' => $this->request->getPost('amount'),
+            'transaction_id' => $this->request->getPost('transaction_id')
+        ];
+        $db->table('services')->insert($data);
+
+        return redirect()->to('services');
+    }
+
 }

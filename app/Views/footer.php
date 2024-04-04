@@ -50,6 +50,15 @@ var nav = $('.fixed-button');
      }
  });
 </script>
+<script>
+        $(document).ready(function() {
+            // Handle click event on widget
+            $('#todaysAppointmentWidget').click(function() {
+                // Toggle visibility of the table container
+                $('#appointmentTableContainer').toggle();
+            });
+        });
+    </script>
 </body>
 
 </html>
