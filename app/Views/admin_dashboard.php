@@ -22,8 +22,10 @@
                                     <div>
                                         <!-- You can add a conditional check or a link to get more space -->
                                         <span class="f-left m-t-10 text-muted">
-                                            <i class="text-c-blue f-16 icofont icofont-warning m-r-10"></i>Get more
-                                            space
+
+                                            <i class="text-c-pink f-16 icofont icofont-calendar m-r-10"></i>Yere
+
+                                        </span>
                                         </span>
                                     </div>
                                 </div>
@@ -63,8 +65,7 @@
                                     <h4><?php echo ($allamount !== null) ? $allamount : 0; ?></h4>
                                     <div>
                                         <span class="f-left m-t-10 text-muted">
-                                            <i class="text-c-green f-16 icofont icofont-tag m-r-10"></i>Tracked via
-                                            Microsoft
+                                            <i class="text-c-green f-16 icofont icofont-tag m-r-10"></i>Total Collection
                                         </span>
                                     </div>
                                 </div>
@@ -76,20 +77,49 @@
                             <div class="card widget-card-1">
                                 <div class="card-block-small">
                                     <i class="icofont icofont-social-twitter bg-c-yellow card1-icon"></i>
-                                    <span class="text-c-yellow f-w-600">Followers</span>
-                                    <h4>+562</h4>
+                                    <span class="text-c-yellow f-w-600">Todays </span>
+                                    <h4><?php echo ($todayappoinments !== null) ? count($todayappoinments) : 0; ?></h4>
                                     <div>
                                         <span class="f-left m-t-10 text-muted">
-                                            <i class="text-c-yellow f-16 icofont icofont-refresh m-r-10"></i>Just update
+                                            <i class="text-c-yellow f-16 icofont icofont-refresh m-r-10"
+                                                id="todaysAppointmentWidget"></i>Todays Appointment
                                         </span>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
+
                     </div>
                 </div>
-
+                <div id="appointmentTableContainer" style="display: none;">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Fullname</th>
+                                <th>Gender</th>
+                                <th>Contact Number</th>
+                                <th>appointment Type</th>
+                                <th>subjects</th>
+                                <th>Time</th>
+                            </tr>
+                        </thead>
+                        <tbody id="appointmentTableBody">
+                            <!-- Appointment details will be loaded here -->
+                            <?php foreach ($todayappoinments as $appointment): ?>
+                            <tr>
+                                <td><?php echo $appointment['fullname']; ?></td>
+                                <td><?php echo $appointment['gender']; ?></td>
+                                <td><?php echo $appointment['contact_number']; ?></td>
+                                <td><?php echo $appointment['appointmentType']; ?></td>
+                                <td><?php echo $appointment['subjects']; ?></td>
+                                <!-- Access start_time from bookSlotData -->
+                                <td><?php echo $appointment['bookSlotData'][0]['start_time']; ?></td>
+                            </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
                 <div id="styleSelector">
 
                 </div>

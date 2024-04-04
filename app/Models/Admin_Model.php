@@ -69,10 +69,72 @@ class Admin_Model extends Model
 
   public function getSlotsByDayName($dayName, $fullDate)
 {
-    // Fetch time_slot_ids from book_slots table for the given selected_date
     $subquery = $this->db->table('book_slots')
                         ->select('time_slot_id')
                         ->where('selected_date', $fullDate)
+                        ->get()
+                        ->getResultArray();
+    $timeSlotIds = array_column($subquery, 'time_slot_id');
+    $query = $this->db->table('tbl_slots')
+                     ->where('day', $dayName)
+                     ->where('active_status', 'Y');
+    if (!empty($timeSlotIds)) {
+        $query->whereNotIn('id', $timeSlotIds);
+    }
+    $results = $query->get()->getResultArray();
+    return $results;
+}
+
+public function updateSlotStatus($slotId, $status)
+{
+    $db = \Config\Database::connect();
+
+    // Update the active_status of the time slot with the provided ID
+    $builder = $db->table('tbl_slots');
+    $builder->where('id', $slotId);
+    $builder->update(['active_status' => $status]);
+}
+public function insertslots($timeSlotId, $selectedDate)
+{
+    $data = [
+        'time_slot_id' => $timeSlotId,
+        'selected_date' => $selectedDate,
+    ];
+    $this->db->table('book_slots')->insert($data); 
+}
+public function todayAppointments()
+{
+    $today = date('Y-m-d');
+
+    // Query to fetch appointments with timeSlot
+    $query = $this->db->table('tbl_appointment')
+        ->where('appointment_date', $today)
+        ->get();
+
+    // Fetch the result
+    $appointments = $query->getResultArray();
+
+    // Fetch additional data from tbl_slots table
+    foreach ($appointments as &$appointment) {
+        $timeSlot = $appointment['timeSlot'];
+        $bookSlotQuery = $this->db->table('tbl_slots')
+            ->where('id', $timeSlot)
+            ->get();
+
+        $bookSlots = $bookSlotQuery->getResultArray();
+        $appointment['bookSlotData'] = $bookSlots;
+    }
+
+    // Return the appointments
+    return $appointments;
+}
+
+public function getSlotsday($dayName,$fullDate)
+{
+    // Fetch time_slot_ids from book_slots table for the given selected_date
+    $subquery = $this->db->table('book_slots')
+                        ->select('time_slot_id')
+                        ->where('selected_date',$fullDate)
                         ->get()
                         ->getResultArray();
 
@@ -90,40 +152,7 @@ class Admin_Model extends Model
     }
 
     $results = $query->get()->getResultArray();
-
     return $results;
-}
-
-// public function getSlotsByDayName($dayName)
-// {
-//     $results = $this->db->table('tbl_slots')
-//                         ->where('day', $dayName)
-//                         ->where('active_status', 'Y')
-//                         ->get()
-//                         ->getResultArray();
-
-//                         // echo"<pre>";print_r($results);exit();
-
-
-
-//     return $results;
-// }
-public function updateSlotStatus($slotId, $status)
-{
-    $db = \Config\Database::connect();
-
-    // Update the active_status of the time slot with the provided ID
-    $builder = $db->table('tbl_slots');
-    $builder->where('id', $slotId);
-    $builder->update(['active_status' => $status]);
-}
-public function insertslots($timeSlotId, $selectedDate)
-{
-    $data = [
-        'time_slot_id' => $timeSlotId,
-        'selected_date' => $selectedDate,
-    ];
-    $this->db->table('book_slots')->insert($data); 
 }
 }
 
