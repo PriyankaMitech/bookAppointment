@@ -1,31 +1,4 @@
-/**
 
-Template Name: GURU Able Admin Template
-Author: CodedThemes
-Email: codedthemes@gmail.com
-File: style.css
-**/
-/* =============
-  == Table of Contents==
-
-	- Custom Css
-	- Generic classes
-		-	Margin, Padding, Font class, text align, position, floating, overflow, background class, text color, display class, boarder class
-	- Theme Elements
-		-	Icons, Accordion, Button, Redial, floating actions, FAB, tabs, typography, buttons, box shadow, slider page, error page, Breadcrumb, pagination, Basic card, Login card
-	- General Elements
-		-	Modal, Nestable, Lable & Badges, List, Portlates, Preloader, Calender, To-Do, Materialize general elements, Lables
-	- Advance Form Elements
-	- Pages
-		-	Loader page, Invoice, Tasklist, Task detail, Range-slider, Counter, Maintenance, Color, FAQ, Progress, Panels & wells, Contact card, Auth pages, Flag
-		-	Gallery, Products pages, Widget, Email, Social timeline, Datatable, Chat, Blog, Wizard, CRM dashboard, Task board, Issue list, Chartlist, X-editable
-		-	Home chat, Dashboard 1-2-3-4
-	- Responsive media class
-
-============= */
-/**  =====================
-      Custom css start
-==========================  **/
 body {
   background-color: #f3f3f3;
   font-size: 0.875em;
@@ -172,7 +145,8 @@ p {
   border-radius: 5px;
   box-shadow: 0 1px 11px 0 rgba(0, 0, 0, 0.12);
   border: none;
-  margin-bottom: 30px; }
+  margin-bottom: 30px; 
+}
   .card .card-footer {
     background-color: #fff;
     border-top: none; }
@@ -6588,7 +6562,7 @@ body .pcoded[vertical-nav-type="compact"] .main-menu {
   body .pcoded[vertical-nav-type="compact"] .main-menu .pcoded-badge {
     display: none; }
 body.menu-bottom .navbar-wrapper {
-  .z-index: 1050; }
+  z-index: 1050; }
 body.menu-bottom .pcoded .pcoded-main-container {
   margin-top: 0 !important; }
 body.menu-bottom .p-chat-user,
