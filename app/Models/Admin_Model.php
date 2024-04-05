@@ -51,11 +51,40 @@ class Admin_Model extends Model
   }
   public function allamount()
   {
-      // Construct the SQL query to fetch the sum of amounts
-      $query = $this->db->table('tbl_appointment')
+      $currentYear = date('Y');
+      $currentMonth = date('m');
+      if ($currentMonth >= 4) {
+          $financialYearStart = $currentYear . '-04-01';
+          $financialYearEnd = ($currentYear + 1) . '-03-31';
+      } else {
+          $financialYearStart = ($currentYear - 1) . '-04-01';
+          $financialYearEnd = $currentYear . '-03-31';
+      }
+  
+      $appointmentAmount = $this->db->table('tbl_appointment')
           ->selectSum('amount')
-          ->get();
-      return $query->getRow()->amount;
+          ->where('created_at >=', $financialYearStart)
+          ->where('created_at <=', $financialYearEnd)
+          ->where('conducted', 'Y') // Add this line to filter by conducted column
+          ->get()->getRow()->amount;
+      
+      $servicesAmount = $this->db->table('services')
+          ->selectSum('amount')
+          ->where('created_at >=', $financialYearStart)
+          ->where('created_at <=', $financialYearEnd)
+          ->get()->getRow()->amount;
+      
+      $classesAmount = $this->db->table('classes')
+          ->selectSum('fees')
+          ->where('created_at >=', $financialYearStart)
+          ->where('created_at <=', $financialYearEnd)
+          ->get()->getRow()->fees;
+  
+      return [
+          'appointmentAmount' => $appointmentAmount,
+          'servicesAmount' => $servicesAmount,
+          'classesamount' => $classesAmount
+      ];
   }
 
   public function getallslots($userID)
@@ -154,5 +183,24 @@ public function getSlotsday($dayName,$fullDate)
     $results = $query->get()->getResultArray();
     return $results;
 }
+public function getslotstime($table1, $wherecond)
+{
+    $result = $this->db->table($table1)->where($wherecond)->get()->getRow(); // Change get()->getResult() to get()->getRow()
+
+    return $result ?? false; // Use null coalescing operator to handle the case when $result is null
+}
+public function getAllAppointment() {
+    // Retrieve all appointment data
+    $appointments = $this->db->table('tbl_appointment')->get()->getResultArray();
+    
+    return $appointments;
+}
+public function getallservicesReports()
+{
+    $appointments = $this->db->table('services')->get()->getResultArray();
+    
+    return $appointments;
+}
+
 }
 

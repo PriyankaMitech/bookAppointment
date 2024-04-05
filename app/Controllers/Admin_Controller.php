@@ -27,16 +27,21 @@ class Admin_Controller extends BaseController
             echo "Invalid credentials";
         }
     }
-    public function admin_dashboard(){
-       
+    public function admin_dashboard()
+    {
         $model = new Admin_Model();
-      $data['Appt'] =$model->getallapp();
-      $data['curruntmonthappt']=$model->getcurruntmonthapt();
-      $data['allamount']=$model->allamount();
-      $data['todayappoinments']=$model->todayAppointments();
-    //  echo '<pre>';print_r($data['todayappoinments']);die;
-        return view('admin_dashboard',$data);
+        $data['Appt'] = $model->getallapp();
+        $data['curruntmonthappt'] = $model->getcurruntmonthapt();
+        
+        // Call allamount() method to get the sum of amounts from both tables
+        $amountData = $model->allamount();
+        $data['appointmentAmount'] = $amountData['appointmentAmount'];
+        $data['servicesAmount'] = $amountData['servicesAmount'];
+        $data['classesamount'] =$amountData['classesamount'];
+        $data['totalammount'] =$data['appointmentAmount'] + $data['servicesAmount']+$data['classesamount'] ;
+        $data['todayappoinments'] = $model->todayAppointments();
 
+        return view('admin_dashboard', $data);
     }
 
     public function add_schedule()
@@ -96,64 +101,14 @@ class Admin_Controller extends BaseController
         $model = new Admin_Model();
  
         $wherecond = array('user_id' => $userID,);
-
         $data['schedule'] =  $model->getalldata('tbl_schedule', $wherecond);
+     
 
 
         return view('add_workinghour', $data);
 
     }
-    // public function set_workinghour()
-    // {
-    //     $userID = session('user_id');
-    //     $days = $this->request->getVar('day[]');
-    //     $startTimes = $this->request->getVar('start_time[]');
-    //     $endTimes = $this->request->getVar('end_time[]');
-
-
-    //     $currentYear = date('Y');
-
-    //     // Create a common start and end date for the entire year
-    //     $commonStartDate = $currentYear . '-01-01';
-    //     $commonEndDate = $currentYear . '-12-31';
-        
-    //     // Validate and modify date format
-    //     $commonStartDate = date('Y-m-d', strtotime($commonStartDate));
-    //     $commonEndDate = date('Y-m-d', strtotime($commonEndDate));
-        
-    //     $db = \Config\Database::Connect();
-    //     $insertedSchedules = 0;
-    //     $db->table('tbl_schedule')->where('user_id', $userID)->delete();
-
-    //     foreach ($days as $index => $day) {
-    //         $data = [
-    //             'user_id' => $userID,
-    //             'day' => $day,
-    //             'start_date' => $commonStartDate,
-    //             'end_date' => $commonEndDate,
-    //             'start_time' => $startTimes[$index],
-    //             'end_time' => $endTimes[$index],
-    //             'created_on' => date('Y-m-d H:i:s'),
-    //         ];
-    
-    //         if ($this->request->getVar('id') == "") {
-    //             $add_data = $db->table('tbl_schedule');
-    //             $add_data->insert($data);
-    //             $insertedSchedules++;
-    //         } else {
-    //             $update_data = $db->table('tbl_schedule')->where('id', $this->request->getVar('id'));
-    //             $update_data->update($data);
-    //         }
-    //     }
-    
-    //     if ($insertedSchedules > 0) {
-    //         session()->setFlashdata('success', 'Schedules added successfully.');
-    //     } else {
-    //         session()->setFlashdata('success', 'Schedules updated successfully.');
-    //     }
-    
-    //     return redirect()->to('add_workinghour');
-    // }
+   
     public function set_workinghour()
 {
     $userID = session('user_id');
@@ -269,62 +224,26 @@ class Admin_Controller extends BaseController
 
     }
 
-    public function formdata()
-{
-   // print_r($_POST);die;
-    $model = new Admin_Model();
-    $db = \Config\Database::connect();
-    $timeSlotId = $this->request->getPost('timeSlot');
-    $selectedDate = $this->request->getPost('selectedDate');
-    $model->insertslots($timeSlotId, $selectedDate);
-    $subjects = implode(',', $this->request->getPost('subjects'));
-    $data = [
-        'fullname' => $this->request->getPost('fullname'),
-        'gender' => $this->request->getPost('gender'),
-        'contact_number' => $this->request->getPost('contact_number'),
-        'appointmentType' => $this->request->getPost('appointmentType'),
-        'appointmentOption'=> $this->request->getPost('appointmentOption'),
-        'source' => $this->request->getPost('source'),
-        'friendName' => $this->request->getPost('friendName'),
-        'timeSlot' => $this->request->getPost('timeSlot'),
-        'appointment_date' => $selectedDate,
-
-        'dob' => $this->request->getPost('dob'),
-        'tob' => $this->request->getPost('tob'),
-        'Country' => $this->request->getPost('Country'),
-        'State' => $this->request->getPost('State'),
-        'City' => $this->request->getPost('City'),
-        'twins' => $this->request->getPost('twins'),
-        'amount' => '700',
-        'subjects' => $subjects
-    ];
-    $db->table('tbl_appointment')->insert($data);
-
-    return redirect()->to('add_schedule');
-}
-
-// public function formdata()
+//     public function formdata()
 // {
+//    // print_r($_POST);die;
 //     $model = new Admin_Model();
 //     $db = \Config\Database::connect();
-
-//     // Update the time slot status
 //     $timeSlotId = $this->request->getPost('timeSlot');
-//     $model->updateSlotStatus($timeSlotId);
-
-//     // Prepare subjects as comma-separated string
-//     $subjects = implode(', ', $this->request->getPost('subjects'));
-
-//     // Prepare data array for database insertion
+//     $selectedDate = $this->request->getPost('selectedDate');
+//     $model->insertslots($timeSlotId, $selectedDate);
+//     $subjects = implode(',', $this->request->getPost('subjects'));
 //     $data = [
 //         'fullname' => $this->request->getPost('fullname'),
 //         'gender' => $this->request->getPost('gender'),
 //         'contact_number' => $this->request->getPost('contact_number'),
+//         'email' => $this->request->getPost('email'),
 //         'appointmentType' => $this->request->getPost('appointmentType'),
-//         'appointmentOption' => $this->request->getPost('appointmentOption'),
+//         'appointmentOption'=> $this->request->getPost('appointmentOption'),
 //         'source' => $this->request->getPost('source'),
 //         'friendName' => $this->request->getPost('friendName'),
 //         'timeSlot' => $this->request->getPost('timeSlot'),
+//         'appointment_date' => $selectedDate,
 //         'dob' => $this->request->getPost('dob'),
 //         'tob' => $this->request->getPost('tob'),
 //         'Country' => $this->request->getPost('Country'),
@@ -332,43 +251,74 @@ class Admin_Controller extends BaseController
 //         'City' => $this->request->getPost('City'),
 //         'twins' => $this->request->getPost('twins'),
 //         'amount' => '700',
+//         'transaction_id' => $this->request->getPost('transaction_id'),
 //         'subjects' => $subjects
 //     ];
-
-//     // Insert data into tbl_appointment table
 //     $db->table('tbl_appointment')->insert($data);
-
-//     // Prepare email content
-//     $emailContent = "Appointment Details:\n";
-//     foreach ($data as $key => $value) {
-//         $emailContent .= ucfirst($key) . ": $value\n";
-//     }
-
-//     // Send email
-//     $email = 'siddheshkadge214@gmail.com';
-//     $subject = 'New Appointment Request';
-//     $ccEmails = []; // Add CC emails if needed
-//     sendConfirmationEmail($email, $ccEmails, $subject, $emailContent);
 
 //     return redirect()->to('add_schedule');
 // }
 
-    // public function getSlots()
-    // {
+public function formdata()
+{
+    $model = new Admin_Model();
+    $db = \Config\Database::connect();
+    $timeSlotId = $this->request->getPost('timeSlot');
+    $selectedDate = $this->request->getPost('selectedDate');
+    $model->insertslots($timeSlotId, $selectedDate);
+  
+    // Retrieve time slot information
+    $wherecond = array('id' => $timeSlotId);
+    $timeSlotInfo = $model->getslotstime('tbl_slots', $wherecond);
 
-    // $dayNumber = $this->request->getPost('day_name');
-    // $currentYear = date('Y');
-    // $currentMonth = date('m');
-    // $selectedDate = $currentYear . '-' . $currentMonth . '-' . $dayNumber;
+    // Extract time slot value from the result
+    $timeSlot = $timeSlotInfo ? $timeSlotInfo->start_time : '';
 
-    // $dayName = date('l', strtotime($selectedDate));
-    // $model = new Admin_Model();
-    // $slots = $model->getSlotsByDayName($dayName); 
-    // return json_encode($slots);
+    // Prepare email content with specific values
+    $fullname = $this->request->getPost('fullname');
+    $appointmentType = $this->request->getPost('appointmentType');
+    $selectedDate = $this->request->getPost('selectedDate');
 
-    // }
+    // Load the HTML email template
+    $emailContent = view('emailform', [
+        'fullname' => $fullname,
+        'appointmentType' => $appointmentType,
+        'timeSlot' => $timeSlot,
+        'selectedDate' => $selectedDate
+    ]);
+    // Send email
+    $useremail = $this->request->getPost('email');
+    $subject = 'Your Appointment Booked';
+    $ccEmails = ['siddheshkadgemitech@gmail.com']; 
+    sendConfirmationEmail($useremail, $ccEmails, $subject, $emailContent);
 
+    // Insert all data into the database
+    $subjects = implode(', ', $this->request->getPost('subjects'));
+    $data = [
+        'fullname' => $this->request->getPost('fullname'),
+        'gender' => $this->request->getPost('gender'),
+        'contact_number' => $this->request->getPost('contact_number'),
+        'email' => $this->request->getPost('email'),
+        'appointmentType' => $this->request->getPost('appointmentType'),
+        'appointmentOption' => $this->request->getPost('appointmentOption'),
+        'source' => $this->request->getPost('source'),
+        'friendName' => $this->request->getPost('friendName'),
+        'timeSlot' => $this->request->getPost('timeSlot'),
+        'appointment_date' => $selectedDate,
+        'dob' => $this->request->getPost('dob'),
+        'tob' => $this->request->getPost('tob'),
+        'Country' => $this->request->getPost('Country'),
+        'State' => $this->request->getPost('State'),
+        'City' => $this->request->getPost('City'),
+        'twins' => $this->request->getPost('twins'),
+        'amount' => '700',
+        'transaction_id' => $this->request->getPost('transaction_id'),
+        'subjects' => $subjects
+    ];
+    $db->table('tbl_appointment')->insert($data);
 
+    return redirect()->to('add_schedule');
+}
     public function getSlots()
 {
     $selectedDate = $this->request->getPost('selected_date');
@@ -512,5 +462,29 @@ class Admin_Controller extends BaseController
 
         return redirect()->to('services');
     }
+public function Appointment_reports()
+{
+    $model = new Admin_Model();
+    $data['allapt'] =$model->getallAppointment();
+    // print_r($Appointment['allapt']);die;
+    echo view('Appointment_reports',$data);
+}
+public function services_Reports()
+{
+    $model = new Admin_Model();
+    $data['allapt'] =$model->getallservicesReports();
+    //  print_r($data['allapt']);die;
+    echo view('services_Reports',$data);
+}
+public function Appointment_status()
+{
 
+    $db = \Config\Database::Connect();
+    $appointment_ids = $this->request->getPost('appointment_ids');
+    $conducted = $this->request->getPost('conducted');
+    $model = new Admin_Model();
+    $takestatus = $db->table('tbl_appointment')->where('ap_id', $appointment_ids);
+    $takestatus->update(['conducted' => $conducted]);
+    return redirect()->to('admin_dashboard');
+}
 }

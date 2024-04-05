@@ -25,6 +25,9 @@ $routes->post('classForm', 'Admin_Controller::classForm');
 $routes->get('logout', 'Admin_Controller::logout');
 $routes->get('services', 'Admin_Controller::services');
 $routes->post('all_services', 'Admin_Controller::all_services');
+$routes->get('Appointment_reports', 'Admin_Controller::Appointment_reports');
+$routes->get('services_Reports', 'Admin_Controller::services_Reports');
+$routes->post('Appointment_status', 'Admin_Controller::Appointment_status');
 
 $routes->post('formdata', 'Admin_Controller::formdata');
 $routes->post('getslots', 'Admin_Controller::getslots');
