@@ -23,7 +23,7 @@
                                         <!-- You can add a conditional check or a link to get more space -->
                                         <span class="f-left m-t-10 text-muted">
 
-                                            <i class="text-c-pink f-16 icofont icofont-calendar m-r-10"></i>Yere
+                                            <i class="text-c-pink f-16 icofont icofont-calendar m-r-10"></i>Year
 
                                         </span>
                                         </span>
@@ -62,7 +62,7 @@
                                     <i class="icofont icofont-warning-alt bg-c-green card1-icon"></i>
                                     <span class="text-c-green f-w-600">Total Amount</span>
                                     <!-- Display the total sum of amounts here -->
-                                    <h4><?php echo ($allamount !== null) ? $allamount : 0; ?></h4>
+                                    <h4><?php echo ($totalammount !== null) ? $totalammount : 0; ?></h4>
                                     <div>
                                         <span class="f-left m-t-10 text-muted">
                                             <i class="text-c-green f-16 icofont icofont-tag m-r-10"></i>Total Collection
@@ -93,32 +93,46 @@
                     </div>
                 </div>
                 <div id="appointmentTableContainer" style="display: none;">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>Fullname</th>
-                                <th>Gender</th>
-                                <th>Contact Number</th>
-                                <th>appointment Type</th>
-                                <th>subjects</th>
-                                <th>Time</th>
-                            </tr>
-                        </thead>
-                        <tbody id="appointmentTableBody">
-                            <!-- Appointment details will be loaded here -->
-                            <?php foreach ($todayappoinments as $appointment): ?>
-                            <tr>
-                                <td><?php echo $appointment['fullname']; ?></td>
-                                <td><?php echo $appointment['gender']; ?></td>
-                                <td><?php echo $appointment['contact_number']; ?></td>
-                                <td><?php echo $appointment['appointmentType']; ?></td>
-                                <td><?php echo $appointment['subjects']; ?></td>
-                                <!-- Access start_time from bookSlotData -->
-                                <td><?php echo $appointment['bookSlotData'][0]['start_time']; ?></td>
-                            </tr>
-                            <?php endforeach; ?>
-                        </tbody>
-                    </table>
+                    <form action="Appointment_status" method="post">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Fullname</th>
+                                    <th>Gender</th>
+                                    <th>Contact Number</th>
+                                    <th>Appointment Type</th>
+                                    <th>Subjects</th>
+                                    <th>Time</th>
+                                    <th>Conducted</th>
+                                </tr>
+                            </thead>
+                            <tbody id="appointmentTableBody">
+                                <!-- Appointment details will be loaded here -->
+                                <?php foreach ($todayappoinments as $appointment): ?>
+                                <tr>
+                                    <td><?php echo $appointment['fullname']; ?></td>
+                                    <td><?php echo $appointment['gender']; ?></td>
+                                    <td><?php echo $appointment['contact_number']; ?></td>
+                                    <td><?php echo $appointment['appointmentType']; ?></td>
+                                    <td><?php echo $appointment['subjects']; ?></td>
+                                    <!-- Access start_time from bookSlotData -->
+                                    <td><?php echo $appointment['bookSlotData'][0]['start_time']; ?></td>
+                                    <!-- Add hidden input field to store appointment ID -->
+                                    <input type="hidden" name="appointment_ids"
+                                        value="<?php echo $appointment['ap_id']; ?>">
+                                    <!-- Add buttons with values 'Y' and 'N' -->
+                                    <td>
+                                        <button class="btn btn-success" type="submit" name="conducted"
+                                            value="Y">Yes</button>
+                                        <button class="btn btn-danger" type="submit" name="conducted"
+                                            value="N">No</button>
+                                    </td>
+                                </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </form>
+
                 </div>
                 <div id="styleSelector">
 

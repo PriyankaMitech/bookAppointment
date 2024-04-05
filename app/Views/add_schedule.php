@@ -15,6 +15,7 @@
 </head>
 
 <body>
+   
     <div class="container addschedulec">
         <div class="row">
             <!-- <div class="col-lg-2 col-md-2">
@@ -27,7 +28,7 @@
                 <section class="wizard-section">
                     <div class="row no-gutters form-wizard">
                         <div class="col-lg-2 col-md-2 col-12">
-                        <!-- Image for Payment -->
+                            <!-- Image for Payment -->
                             <img class="imges" src="<?=base_url(); ?>assets/images/vedik-logo.png" alt="Payment Method">
                         </div>
                         <div class="form-wizard-header col-lg-10 col-md-10 col-12">
@@ -43,7 +44,7 @@
                         <div class="col-lg-12 col-md-12">
                             <div class="form-wizard">
                                 <form action="formdata" method="post" role="form">
-        
+
                                     <fieldset class="wizard-fieldset show">
                                         <h4>Personal Information</h4>
                                         <div class="row">
@@ -62,12 +63,13 @@
 
                                         <div class="form-group">
                                             <div class="row">
-                                                <div class="col-lg-12 col-md-12 col-12"> 
+                                                <div class="col-lg-12 col-md-12 col-12">
                                                     <h6><b>Gender</b></h6>
                                                 </div>
                                                 <div class="col-lg-3 col-md-3 col-6">
                                                     <div class="wizard-form-radio">
-                                                        <input name="gender" id="male" type="radio" value="Male" checked>
+                                                        <input name="gender" id="male" type="radio" value="Male"
+                                                            checked>
                                                         <label for="male">Male</label>
                                                     </div>
                                                 </div>
@@ -85,8 +87,13 @@
                                             <h6><b>Contact Number*</b></h6>
                                             <input type="text" class="form-control wizard-required" id="contact"
                                                 name="contact_number">
-                                            <!-- <label for="contact" class="wizard-form-text-label">Contact Number*</label> -->
                                             <div class="wizard-form-error"></div>
+                                        </div>
+                                        <div class="form-group">
+                                            <h6><b>Email</b></h6>
+                                            <input type="email" class="form-control" id="email" name="email">
+                                            <div class="wizard-form-error"></div>
+                                            <label class="text-muted">You will receive details about your appointment via email.</label>
                                         </div>
 
                                         <div class="form-group row" id="appointmentType">
@@ -174,7 +181,7 @@
 
                                         <div class="row mt-3">
                                             <div class="col-lg-7">
-                                            <h5>Select date </h5>
+                                                <h5>Select date </h5>
                                                 <div class="wrapper">
                                                     <div class="container-calendar">
                                                         <h3 id="monthAndYear"></h3>
@@ -210,7 +217,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-lg-5 timedivp">
-                                            <h5>Select Slots here every slots Is for 30 min </h5>
+                                                <h5>Select Slots here every slots Is for 30 min </h5>
                                                 <div class="time-div wizard-form-radio" style="display:none">
                                                     <!-- Time slots will be populated here -->
                                                 </div>
@@ -236,7 +243,7 @@
                                                 <h6><b>Time of Birth*(जन्म वेळ*)</b></h6>
                                                 <input type="time" name="tob" class="form-control wizard-required"
                                                     id="tob">
-                                                    <div class="wizard-form-error bp"></div>
+                                                <div class="wizard-form-error bp"></div>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -247,19 +254,19 @@
                                                         <h6><b>Country(देश*)</b></h6>
                                                         <input type="text" name="Country"
                                                             class="form-control wizard-required" id="dob">
-                                                            <div class="wizard-form-error bp"></div>
+                                                        <div class="wizard-form-error bp"></div>
                                                     </div>
                                                     <div class="col-lg-4 col-md-4 col-12">
                                                         <h6><b>State*(राज्य*)</b></h6>
                                                         <input type="text" name="State"
                                                             class="form-control wizard-required" id="tob">
-                                                            <div class="wizard-form-error bp"></div>
+                                                        <div class="wizard-form-error bp"></div>
                                                     </div>
                                                     <div class="col-lg-4 col-md-4 col-12">
                                                         <h6><b>City (शहर) *</b></h6>
                                                         <input type="text" name="City"
                                                             class="form-control wizard-required" id="pob">
-                                                            <div class="wizard-form-error bp"></div>
+                                                        <div class="wizard-form-error bp"></div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -270,197 +277,214 @@
                                             <div class="col-lg-12 col-md-12 col-12 mt-2">
                                                 <h6><b>Are you one of the twins? (आपण जुळ्यांपैकी एक आहात का? )</b></h6>
                                                 <div>
-                                                <div class="col-lg-6 col-md-6 col-12">
-                                                    <div class="row">
-                                                        <div class="col-lg-6 col-md-6 col-6">
-                                                            <div class="wizard-form-radio">
-                                                                <input name="twins" id="twinsYes" type="radio" value="yes">
-                                                                <label for="twinsYes">Yes</label>
+                                                    <div class="col-lg-6 col-md-6 col-12">
+                                                        <div class="row">
+                                                            <div class="col-lg-6 col-md-6 col-6">
+                                                                <div class="wizard-form-radio">
+                                                                    <input name="twins" id="twinsYes" type="radio"
+                                                                        value="yes">
+                                                                    <label for="twinsYes">Yes</label>
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                        <div class="col-lg-6 col-md-6 col-6">
-                                                            <div class="wizard-form-radio">
-                                                                <input name="twins" id="twinsNo" type="radio" checked value="no">
-                                                                <label for="twinsNo">No</label>
+                                                            <div class="col-lg-6 col-md-6 col-6">
+                                                                <div class="wizard-form-radio">
+                                                                    <input name="twins" id="twinsNo" type="radio"
+                                                                        checked value="no">
+                                                                    <label for="twinsNo">No</label>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
 
 
-                                        <div class="row">
-                                            <div class="col-lg-12 col-md-12 col-12 pcotsfd">
-                                                <div class="row form-group mt-4">
-                                                    <div class="col-lg-12 col-md-12 col-12">
-                                                        <h6><b>Click on the subjects for discussion.(चर्चेसाठी योग्य ते विषय
-                                                            क्लिक करा.)</b></h6>
-                                                    </div>
-                                                    <div class="col-lg-3 col-md-6 col-6">
+                                            <div class="row">
+                                                <div class="col-lg-12 col-md-12 col-12 pcotsfd">
+                                                    <div class="row form-group mt-4">
+                                                        <div class="col-lg-12 col-md-12 col-12">
+                                                            <h6><b>Click on the subjects for discussion.(चर्चेसाठी योग्य
+                                                                    ते विषय
+                                                                    क्लिक करा.)</b></h6>
+                                                        </div>
+                                                        <div class="col-lg-3 col-md-6 col-6">
 
-                                                        <div class="form-check form-check-inline">
-                                                            <input class="form-check-input" type="checkbox" id="subject1"
-                                                                name="subjects[]" value="Education">
-                                                            <label class="form-check-label" for="subject1">Education</label>
+                                                            <div class="form-check form-check-inline">
+                                                                <input class="form-check-input" type="checkbox"
+                                                                    id="subject1" name="subjects[]" value="Education">
+                                                                <label class="form-check-label"
+                                                                    for="subject1">Education</label>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="col-lg-3 col-md-6 col-6">
-                                                        <div class="form-check form-check-inline">
-                                                            <input class="form-check-input" type="checkbox" id="subject2"
-                                                                name="subjects[]" value="Foreign Travel">
-                                                            <label class="form-check-label" for="subject2">Foreign
-                                                                Travel</label>
+                                                        <div class="col-lg-3 col-md-6 col-6">
+                                                            <div class="form-check form-check-inline">
+                                                                <input class="form-check-input" type="checkbox"
+                                                                    id="subject2" name="subjects[]"
+                                                                    value="Foreign Travel">
+                                                                <label class="form-check-label" for="subject2">Foreign
+                                                                    Travel</label>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="col-lg-3 col-md-6 col-6">
-                                                        <div class="form-check form-check-inline">
-                                                            <input class="form-check-input" type="checkbox" id="subject2"
-                                                                name="subjects[]" value="Marriage">
-                                                            <label class="form-check-label" for="subject2">Marriage</label>
+                                                        <div class="col-lg-3 col-md-6 col-6">
+                                                            <div class="form-check form-check-inline">
+                                                                <input class="form-check-input" type="checkbox"
+                                                                    id="subject2" name="subjects[]" value="Marriage">
+                                                                <label class="form-check-label"
+                                                                    for="subject2">Marriage</label>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="col-lg-3 col-md-6 col-6">
-                                                        <div class="form-check form-check-inline">
-                                                            <input class="form-check-input" type="checkbox" id="subject2"
-                                                                name="subjects[]" value="Re-marriage">
-                                                            <label class="form-check-label"
-                                                                for="subject2">Re-marriage</label>
+                                                        <div class="col-lg-3 col-md-6 col-6">
+                                                            <div class="form-check form-check-inline">
+                                                                <input class="form-check-input" type="checkbox"
+                                                                    id="subject2" name="subjects[]" value="Re-marriage">
+                                                                <label class="form-check-label"
+                                                                    for="subject2">Re-marriage</label>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="col-lg-3 col-md-6 col-6">
-                                                        <div class="form-check form-check-inline">
-                                                            <input class="form-check-input" type="checkbox" id="subject2"
-                                                                name="subjects[]" value="Child
+                                                        <div class="col-lg-3 col-md-6 col-6">
+                                                            <div class="form-check form-check-inline">
+                                                                <input class="form-check-input" type="checkbox"
+                                                                    id="subject2" name="subjects[]" value="Child
                                                                 birth">
-                                                            <label class="form-check-label" for="subject2">Child
-                                                                birth</label>
+                                                                <label class="form-check-label" for="subject2">Child
+                                                                    birth</label>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="col-lg-3 col-md-6 col-6">
-                                                        <div class="form-check form-check-inline">
-                                                            <input class="form-check-input" type="checkbox" id="subject2"
-                                                                name="subjects[]" value="Love Life">
-                                                            <label class="form-check-label" for="subject2">Love Life</label>
+                                                        <div class="col-lg-3 col-md-6 col-6">
+                                                            <div class="form-check form-check-inline">
+                                                                <input class="form-check-input" type="checkbox"
+                                                                    id="subject2" name="subjects[]" value="Love Life">
+                                                                <label class="form-check-label" for="subject2">Love
+                                                                    Life</label>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="col-lg-3 col-md-6 col-6">
-                                                        <div class="form-check form-check-inline">
-                                                            <input class="form-check-input" type="checkbox" id="subject2"
-                                                                name="subjects[]" value="Divorce">
+                                                        <div class="col-lg-3 col-md-6 col-6">
+                                                            <div class="form-check form-check-inline">
+                                                                <input class="form-check-input" type="checkbox"
+                                                                    id="subject2" name="subjects[]" value="Divorce">
                                                                 <div class="wizard-form-error"></div>
-                                                            <label class="form-check-label" for="subject2">Divorce</label>
+                                                                <label class="form-check-label"
+                                                                    for="subject2">Divorce</label>
+                                                            </div>
                                                         </div>
-                                                    </div>
 
-                                                    <div class="col-lg-3 col-md-6 col-6">
-                                                        <div class="form-check form-check-inline">
-                                                            <input class="form-check-input" type="checkbox" id="subject2"
-                                                                name="subjects[]" value="Siblings">
-                                                            <label class="form-check-label" for="subject2">Siblings</label>
+                                                        <div class="col-lg-3 col-md-6 col-6">
+                                                            <div class="form-check form-check-inline">
+                                                                <input class="form-check-input" type="checkbox"
+                                                                    id="subject2" name="subjects[]" value="Siblings">
+                                                                <label class="form-check-label"
+                                                                    for="subject2">Siblings</label>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="col-lg-3 col-md-6 col-6">
-                                                        <div class="form-check form-check-inline">
-                                                            <input class="form-check-input" type="checkbox" id="subject2"
-                                                                name="subjects[]" value="Job">
-                                                            <label class="form-check-label" for="subject2">Job</label>
+                                                        <div class="col-lg-3 col-md-6 col-6">
+                                                            <div class="form-check form-check-inline">
+                                                                <input class="form-check-input" type="checkbox"
+                                                                    id="subject2" name="subjects[]" value="Job">
+                                                                <label class="form-check-label"
+                                                                    for="subject2">Job</label>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="col-lg-3 col-md-6 col-6">
-                                                        <div class="form-check form-check-inline">
-                                                            <input class="form-check-input" type="checkbox" id="subject2"
-                                                                name="subjects[]" value="Business">
-                                                            <label class="form-check-label" for="subject2">Business</label>
+                                                        <div class="col-lg-3 col-md-6 col-6">
+                                                            <div class="form-check form-check-inline">
+                                                                <input class="form-check-input" type="checkbox"
+                                                                    id="subject2" name="subjects[]" value="Business">
+                                                                <label class="form-check-label"
+                                                                    for="subject2">Business</label>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="col-lg-3 col-md-6 col-6">
-                                                        <div class="form-check form-check-inline">
-                                                            <input class="form-check-input" type="checkbox" id="subject2"
-                                                                name="subjects[]" value="Partnership">
-                                                            <label class="form-check-label"
-                                                                for="subject2">Partnership</label>
+                                                        <div class="col-lg-3 col-md-6 col-6">
+                                                            <div class="form-check form-check-inline">
+                                                                <input class="form-check-input" type="checkbox"
+                                                                    id="subject2" name="subjects[]" value="Partnership">
+                                                                <label class="form-check-label"
+                                                                    for="subject2">Partnership</label>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="col-lg-3 col-md-6 col-6">
-                                                        <div class="form-check form-check-inline">
-                                                            <input class="form-check-input" type="checkbox" id="subject2"
-                                                                name="subjects[]" value="Property">
-                                                            <label class="form-check-label" for="subject2">Property</label>
+                                                        <div class="col-lg-3 col-md-6 col-6">
+                                                            <div class="form-check form-check-inline">
+                                                                <input class="form-check-input" type="checkbox"
+                                                                    id="subject2" name="subjects[]" value="Property">
+                                                                <label class="form-check-label"
+                                                                    for="subject2">Property</label>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="col-lg-3 col-md-6 col-6">
-                                                        <div class="form-check form-check-inline">
-                                                            <input class="form-check-input" type="checkbox" id="subject2"
-                                                                name="subjects[]" value="Others">
-                                                            <label class="form-check-label" for="subject2">Others</label>
+                                                        <div class="col-lg-3 col-md-6 col-6">
+                                                            <div class="form-check form-check-inline">
+                                                                <input class="form-check-input" type="checkbox"
+                                                                    id="subject2" name="subjects[]" value="Others">
+                                                                <label class="form-check-label"
+                                                                    for="subject2">Others</label>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="col-lg-3 col-md-6 col-6">
-                                                        <div class="form-check form-check-inline">
-                                                            <input class="form-check-input" type="checkbox" id="subject2"
-                                                                name="subjects[]" value="Behavioural
+                                                        <div class="col-lg-3 col-md-6 col-6">
+                                                            <div class="form-check form-check-inline">
+                                                                <input class="form-check-input" type="checkbox"
+                                                                    id="subject2" name="subjects[]" value="Behavioural
                                                                 Issue">
                                                                 <div class="wizard-form-error"></div>
 
-                                                            <label class="form-check-label" for="subject2">Behavioural
-                                                                Issue</label>
+                                                                <label class="form-check-label"
+                                                                    for="subject2">Behavioural
+                                                                    Issue</label>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                               
-                                                    <div class="col-lg-3 col-md-6 col-6">
-                                                        <div class="form-check form-check-inline">
-                                                            <input class="form-check-input" type="checkbox" id="subject2"
-                                                                name="subjects[]" value="Finance">
-                                                            <label class="form-check-label" for="subject2">Finance</label>
+
+                                                        <div class="col-lg-3 col-md-6 col-6">
+                                                            <div class="form-check form-check-inline">
+                                                                <input class="form-check-input" type="checkbox"
+                                                                    id="subject2" name="subjects[]" value="Finance">
+                                                                <label class="form-check-label"
+                                                                    for="subject2">Finance</label>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="col-lg-3 col-md-6 col-6">
-                                                        <div class="form-check form-check-inline">
-                                                            <input class="form-check-input" type="checkbox" id="subject2"
-                                                                name="subjects[]" value="Share market">
-                                                            <label class="form-check-label" for="subject2">Share
-                                                                market</label>
+                                                        <div class="col-lg-3 col-md-6 col-6">
+                                                            <div class="form-check form-check-inline">
+                                                                <input class="form-check-input" type="checkbox"
+                                                                    id="subject2" name="subjects[]"
+                                                                    value="Share market">
+                                                                <label class="form-check-label" for="subject2">Share
+                                                                    market</label>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="col-lg-3 col-md-6 col-6">
-                                                        <div class="form-check form-check-inline">
-                                                            <input class="form-check-input" type="checkbox" id="subject2"
-                                                                name="subjects[]" value="Health">
-                                                            <label class="form-check-label" for="subject2">Health</label>
+                                                        <div class="col-lg-3 col-md-6 col-6">
+                                                            <div class="form-check form-check-inline">
+                                                                <input class="form-check-input" type="checkbox"
+                                                                    id="subject2" name="subjects[]" value="Health">
+                                                                <label class="form-check-label"
+                                                                    for="subject2">Health</label>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="col-lg-3 col-md-6 col-6">
-                                                        <div class="form-check form-check-inline">
-                                                            <input class="form-check-input" type="checkbox" id="subject2"
-                                                                name="subjects[]" value="Parents
+                                                        <div class="col-lg-3 col-md-6 col-6">
+                                                            <div class="form-check form-check-inline">
+                                                                <input class="form-check-input" type="checkbox"
+                                                                    id="subject2" name="subjects[]" value="Parents
                                                                 relation">
-                                                            <label class="form-check-label" for="subject2">Parents
-                                                                relation</label>
+                                                                <label class="form-check-label" for="subject2">Parents
+                                                                    relation</label>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="col-lg-3 col-md-6 col-6">
-                                                        <div class="form-check form-check-inline">
-                                                            <input class="form-check-input" type="checkbox" id="subject2"
-                                                                name="subjects[]" value="Legal
+                                                        <div class="col-lg-3 col-md-6 col-6">
+                                                            <div class="form-check form-check-inline">
+                                                                <input class="form-check-input" type="checkbox"
+                                                                    id="subject2" name="subjects[]" value="Legal
                                                                 case">
-                                                                                                                    <div class="wizard-form-error"></div>
+                                                                <div class="wizard-form-error"></div>
 
-                                                            <label class="form-check-label" for="subject2">Legal
-                                                                case</label>
+                                                                <label class="form-check-label" for="subject2">Legal
+                                                                    case</label>
+                                                            </div>
                                                         </div>
+
+
+
+
+
                                                     </div>
-                                                    
 
-                                                    
 
-                                                   
                                                 </div>
-                                               
-                                                    
                                             </div>
                                         </div>
-</div>
 
                                         <div class="form-group clearfix">
                                             <a href="javascript:;"
@@ -470,25 +494,31 @@
                                     </fieldset>
                                     <fieldset class="wizard-fieldset">
                                         <h5 class="text-center">Payment Information</h4>
-                                        <h6 class="text-center"><b>Kindly pay Rs700 by scanning QR code</b></h6>
-                                        <P class="text-center">Mrunal Kulkarni</P>
-                                        <div class="form-group text-center">
-                                            <!-- Image for Payment -->
-                                            <img class="img" src="<?=base_url(); ?>assets/images/QRcodeMrunalMam.jpg"
-                                                alt="Payment Method">
-                                        </div>
-                                        <div class="text-center">
-                                            <p><b>UPI Number:</b> 9822331983@idfcfirst</p>
-                                            <button onclick="copyUPI(event)" class="btn btn-primary">Copy UPI</button>
-                                        </div>
+                                            <h6 class="text-center"><b>Kindly pay ₹ 700 by scanning QR code</b></h6>
+                                            <P class="text-center">Mrunal Kulkarni</P>
+                                            <div class="form-group text-center">
+                                                <!-- Image for Payment -->
+                                                <img class="img" src="<?=base_url(); ?>assets/images/newqr.jpeg"
+                                                    alt="Payment Method">
+                                            </div>
+                                            <div class="text-center">
+                                                <p><b>UPI Number:</b> 9822331983@idfcfirst</p>
+                                                <button onclick="copyUPI(event)" class="btn btn-primary">Copy
+                                                    UPI</button>
+                                            </div>
+                                            <div class="text-center cl-md-3">
+                                                <h6><b>Transaction ID</b></h6>
+                                                <input type="text" class="form-control" id="transaction_id"
+                                                    name="transaction_id">
+                                            </div>
+                                            <div class="form-group clearfix">
+                                                <a href="javascript:;"
+                                                    class="form-wizard-previous-btn float-left">Previous</a>
+                                                <input type="submit" class="form-wizard-submit float-right"
+                                                    value="Submit">
 
-                                        <div class="form-group clearfix">
-                                            <a href="javascript:;"
-                                                class="form-wizard-previous-btn float-left">Previous</a>
-                                            <input type="submit" class="form-wizard-submit float-right" value="Submit">
 
-
-                                        </div>
+                                            </div>
                                     </fieldset>
                                 </form>
                             </div>
@@ -499,6 +529,7 @@
 
         </div>
     </div>
+   
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
@@ -854,7 +885,7 @@
     }
     </script>
     <script>
- jQuery(document).ready(function() {
+    jQuery(document).ready(function() {
         // Event listener for clicking on a date
         jQuery(document).on("click", ".date-picker", function() {
             var selectedDate = jQuery(this).text().trim();
@@ -866,7 +897,7 @@
             $("#selected-date").val(fullDate);
 
             // Pass selected date, month, year, and full date to the getSlots function
-            getSlots(selectedDate, month, year, fullDate); 
+            getSlots(selectedDate, month, year, fullDate);
         });
 
         // Event listener for changing the month
@@ -876,7 +907,7 @@
             var year = $("#year").val();
             var fullDate = year + '-' + month + '-' + selectedDate;
             $("#selected-date").val(fullDate);
-            getSlots(selectedDate, month, year, fullDate); 
+            getSlots(selectedDate, month, year, fullDate);
         });
 
         // Event listener for changing the year
@@ -886,7 +917,7 @@
             var year = $(this).val();
             var fullDate = year + '-' + month + '-' + selectedDate;
             $("#selected-date").val(fullDate);
-            getSlots(selectedDate, month, year, fullDate); 
+            getSlots(selectedDate, month, year, fullDate);
         });
     });
 
@@ -910,54 +941,57 @@
         });
     }
 
-// Function to display time slots
-function displayTimeSlots(slotsJSON, selectedDate, fullDate) {
-    // Clear any existing content in the time-div
-    $(".time-div").empty();
+    // Function to display time slots
+    function displayTimeSlots(slotsJSON, selectedDate, fullDate) {
+        // Clear any existing content in the time-div
+        $(".time-div").empty();
 
-    // Parse the JSON response
-    var slots = JSON.parse(slotsJSON);
+        // Parse the JSON response
+        var slots = JSON.parse(slotsJSON);
 
-    // If no slots are available for the day, display a message
-    if (slots.length === 0) {
-        $(".time-div").html("<p>No slots available for this day.</p>");
-        $(".time-div").show();
-        return;
-    }
+        // If no slots are available for the day, display a message
+        if (slots.length === 0) {
+            $(".time-div").html("<p>No slots available for this day.</p>");
+            $(".time-div").show();
+            return;
+        }
 
-    // Create a list element
-    var $list = $('<ul>');
+        // Create a list element
+        var $list = $('<ul>');
 
-    // Loop through each slot and add it as a list item with radio button
-    slots.forEach(function(slot) {
-        var startTime = slot.start_time;
-        var endTime = slot.end_time;
-        var timeSlot = startTime;
-        var slotId = slot.id;
-        var $radioButton = $('<input type="radio" name="timeSlot" value="' + slotId + '">');
-        $radioButton.attr('data-selected-date', selectedDate); // Add selected date as a data attribute
-        $radioButton.attr('data-full-date', fullDate); // Add full date as a data attribute
-        var $label = $('<label>').text(timeSlot);
-        var $listItem = $('<li>').append($radioButton).append($label);
-        $listItem.on('change', function() {
-            if ($(this).find('input[type="radio"]').is(':checked')) {
-                var selectedSlotId = $(this).find('input[type="radio"]').val();
-                var selectedDate = $(this).find('input[type="radio"]').data('selected-date'); // Retrieve selected date
-                var fullDate = $(this).find('input[type="radio"]').data('full-date'); // Retrieve full date
-                console.log(selectedSlotId); // You can do whatever you want with the selected slot id here
-                console.log(selectedDate); // Log or use the selected date here
-                console.log(fullDate); // Log or use the full date here
-            }
+        // Loop through each slot and add it as a list item with radio button
+        slots.forEach(function(slot) {
+            var startTime = slot.start_time;
+            var endTime = slot.end_time;
+            var timeSlot = startTime;
+            var slotId = slot.id;
+            var $radioButton = $('<input type="radio" name="timeSlot" value="' + slotId + '">');
+            $radioButton.attr('data-selected-date', selectedDate); // Add selected date as a data attribute
+            $radioButton.attr('data-full-date', fullDate); // Add full date as a data attribute
+            var $label = $('<label>').text(timeSlot);
+            var $listItem = $('<li>').append($radioButton).append($label);
+            $listItem.on('change', function() {
+                if ($(this).find('input[type="radio"]').is(':checked')) {
+                    var selectedSlotId = $(this).find('input[type="radio"]').val();
+                    var selectedDate = $(this).find('input[type="radio"]').data(
+                    'selected-date'); // Retrieve selected date
+                    var fullDate = $(this).find('input[type="radio"]').data(
+                    'full-date'); // Retrieve full date
+                    console.log(
+                    selectedSlotId); // You can do whatever you want with the selected slot id here
+                    console.log(selectedDate); // Log or use the selected date here
+                    console.log(fullDate); // Log or use the full date here
+                }
+            });
+            $list.append($listItem);
         });
-        $list.append($listItem);
-    });
 
-    // Append the list to the time-div
-    $(".time-div").append($list);
+        // Append the list to the time-div
+        $(".time-div").append($list);
 
-    // Show the time-div
-    $(".time-div").show();
-}
+        // Show the time-div
+        $(".time-div").show();
+    }
     </script>
 </body>
 
