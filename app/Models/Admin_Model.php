@@ -247,6 +247,17 @@ public function bookedslots()
         return [];
     }
 }
+public function getUser()
+{
+    return $this->db->table('tbl_user')->where('status', 'Y')->get()->getResultArray();
+}
+
+public function deleteUser($userId)
+{
+    
+    $this->table('tbl_user')->where('id', $userId)->delete();
+    return $this->db->affectedRows() > 0; 
+}
 
 }
 
