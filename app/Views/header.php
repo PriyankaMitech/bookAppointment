@@ -29,7 +29,7 @@
 
     <link rel="stylesheet" type="text/css" href="<?=base_url(); ?>assets/css/customrstyle.css">
 
-    <link rel="stylesheet" type="text/css" href="<?=base_url(); ?>assets/css/calender.css">
+    <!-- <link rel="stylesheet" type="text/css" href="<?=base_url(); ?>assets/css/calender.css"> -->
 
 
 
@@ -40,7 +40,7 @@
 
 
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css" />
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css" /> -->
     <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> -->
 
 
@@ -177,9 +177,9 @@
                             </li> -->
                             <li class="user-profile header-notification">
                                 <a href="#!">
-                                    <img src="<?=base_url(); ?>assets/images/avatar-4.jpg" class="img-radius"
+                                    <img src="<?=base_url(); ?>assets/images/mrunalmam.jpeg" class="img-radius"
                                         alt="User-Profile-Image">
-                                    <span>John Doe</span>
+                                    <span>Mrunal</span>
                                     <i class="ti-angle-down"></i>
                                 </a>
                                 <ul class="show-notification profile-notification">
@@ -273,7 +273,14 @@
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
                                         </li>
-
+                                        <li class=" ">
+                                            <a href="<?=base_url(); ?>Booked_Slots">
+                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                                <span class="pcoded-mtext"
+                                                    data-i18n="nav.basic-components.breadcrumbs">Booked Slots</span>
+                                                <span class="pcoded-mcaret"></span>
+                                            </a>
+                                        </li>
 
                                     </ul>
                                 </li>
@@ -311,7 +318,7 @@
                                             <a href="<?=base_url(); ?>services">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                                                 <span class="pcoded-mtext"
-                                                    data-i18n="nav.basic-components.breadcrumbs">services</span>
+                                                    data-i18n="nav.basic-components.breadcrumbs">Services</span>
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
                                         </li>

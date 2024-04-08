@@ -29,6 +29,10 @@ class Admin_Controller extends BaseController
     }
     public function admin_dashboard()
     {
+        $session = session();
+       if (!$session->has('user_id')) {
+        return redirect()->to('/');
+    }
         $model = new Admin_Model();
         $data['Appt'] = $model->getallapp();
         $data['curruntmonthappt'] = $model->getcurruntmonthapt();
@@ -46,19 +50,16 @@ class Admin_Controller extends BaseController
 
     public function add_schedule()
     {
+       
          $userID = session('user_id');
-//   print_r($userID);die;
         $model = new Admin_Model();
- 
         $wherecond = array('user_id' => $userID);
-
         $data['schedule_data'] =  $model->getalldata('tbl_schedule', $wherecond);
-
-   //echo '<pre>';print_r($data['schedule_data']);die;
         return view('add_schedule',$data);
     }
     public function set_schedule()
     {
+
         $userID = session('user_id');
         $data = [
             'user_id' => $userID,
@@ -90,12 +91,21 @@ class Admin_Controller extends BaseController
     }
     public function my_slots()
     {
+        $session = session();
+        if (!$session->has('user_id')) {
+         return redirect()->to('/');
+     }
         $userID = session('user_id');
         $model = new Admin_Model();
         $slots = $model->getallslots($userID);
+      // echo '<pre>'; print_r($slots);die;
         return view('my_slots', ['slots' => $slots]);
     }
     public function add_workinghour(){
+        $session = session();
+        if (!$session->has('user_id')) {
+         return redirect()->to('/');
+     }
         $userID = session('user_id');
 
         $model = new Admin_Model();
@@ -209,22 +219,34 @@ class Admin_Controller extends BaseController
         return redirect()->to('add_workinghour');
     }
 
-    public function calendar(){
+//     public function calendar(){
 
-        $userID = session('user_id');
+//         $userID = session('user_id');
 
-        $model = new Admin_Model();
+//         $model = new Admin_Model();
  
-        $wherecond = array('user_id' => $userID, 'is_deleted' => 'N',  'start_time !=' => '00:00:00',
-        'end_time !=' => '00:00:00');
+//         $wherecond = array('user_id' => $userID, 'is_deleted' => 'N',  'start_time !=' => '00:00:00',
+//         'end_time !=' => '00:00:00');
 
-        $data['schedule'] =  $model->getalldata('tbl_schedule', $wherecond);
-//  echo '<pre>';print_r($data['schedule']);die;
-        return view('calendar', $data);
+//         $data['schedule'] =  $model->getalldata('tbl_schedule', $wherecond);
+//   echo '<pre>';print_r($data['schedule']);die;
+//         return view('calendar', $data);
 
-    }
+//     }
 
-//     public function formdata()
+public function calendar(){
+
+    $userID = session('user_id');
+
+    $model = new Admin_Model();
+
+    $data['schedule'] =  $model->getcalenderallslots();
+ //   echo '<pre>';print_r($data['schedule']);die;
+    return view('calendar', $data);
+
+}
+
+//   public function formdata()
 // {
 //    // print_r($_POST);die;
 //     $model = new Admin_Model();
@@ -487,4 +509,41 @@ public function Appointment_status()
     $takestatus->update(['conducted' => $conducted]);
     return redirect()->to('admin_dashboard');
 }
+
+public function freezeSlots()
+{
+    $model = new Admin_Model();
+
+    $timeSlotId  = $this->request->getPost('time_slot_id');
+    $selectedDate  = $this->request->getPost('selected_date');
+    $model->insertslots($timeSlotId, $selectedDate);
+    return redirect()->to('my_slots');
+}
+public function Booked_Slots()
+{
+    $model = new Admin_Model();
+
+    $data['bookedslots'] =$model->bookedslots();
+   // echo '<pre>'; print_r($data['bookedslots']);die;
+    echo view('Booked_Slots',$data);
+}
+public function cancelBooking()
+{
+    $db = \Config\Database::Connect();
+    $slotId = $this->request->getPost('slot_id');
+
+    // Delete row from book_slots table
+    $db->table('book_slots')
+             ->where('time_slot_id', $slotId)
+             ->delete();
+
+    // Delete row from tbl_appointment table
+    $db->table('tbl_appointment')
+             ->where('timeSlot', $slotId)
+             ->delete();
+
+    // Redirect to some success page or reload the same page
+    return redirect()->to('Booked_Slots'); // Change 'success-page' to your actual success page URL
+}
+
 }

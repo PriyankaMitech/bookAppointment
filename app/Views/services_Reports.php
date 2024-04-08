@@ -21,12 +21,12 @@
                             <label for="serviceFilter">Filter by Service:</label>
                             <select id="serviceFilter" class="form-control">
                                 <option value="">All Services</option>
-                                <option value="Prediction">Prediction</option>
+                                <!-- <option value="Prediction">Prediction</option> -->
                                 <option value="Tarot">Tarot</option>
                                 <option value="Preparing Kundali">Preparing Kundali</option>
                                 <option value="Kundali Matching">Kundali Matching</option>
                                 <option value="Muhurta">Muhurta</option>
-                                <option value="Astrology Coaching">Astrology Coaching</option>
+                                <!-- <option value="Astrology Coaching">Astrology Coaching</option> -->
                                 <!-- Add more options as needed -->
                             </select>
                         </div>
