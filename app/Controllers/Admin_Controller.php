@@ -545,5 +545,42 @@ public function cancelBooking()
     // Redirect to some success page or reload the same page
     return redirect()->to('Booked_Slots'); // Change 'success-page' to your actual success page URL
 }
+public function Add_user()
+{
+    $model = new Admin_Model();
 
+    $data['getUser'] =$model->getUser();
+    // echo '<pre>'; print_r($data['getUser']);die;
+    echo view('Add_user',$data);
+}
+public function user_create()
+{
+  // print_r($_POST) ;die;
+   $db = \Config\Database::connect();
+   $data = [
+      
+       'name' => $this->request->getPost('name'),
+       'password' => $this->request->getPost('password'),
+       'email' => $this->request->getPost('email'),
+      
+   ];
+   $db->table('tbl_user')->insert($data);
+
+   return redirect()->to('Add_user');
+}
+public function delete_user()
+    {
+        $request = $this->request;
+        $userId = $request->getPost('userId');
+
+        $model = new Admin_Model();
+        $deleted = $model->deleteUser($userId); // Implement deleteUser method in your model
+
+        $response = [
+            'success' => $deleted,
+            'message' => $deleted ? 'User deleted successfully' : 'Failed to delete user'
+        ];
+
+        return redirect()->to('Add_user');
+    }
 }

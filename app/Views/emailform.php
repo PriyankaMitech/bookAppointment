@@ -56,7 +56,7 @@
                                                 <tr>
                                                     <td
                                                         style="padding: 10px; border-bottom: 1px solid #ededed; border-right: 1px solid #ededed; width: 35%; font-weight:500; color:rgba(0,0,0,.64)">
-                                                        customer Name:</td>
+                                                        Customer Name:</td>
                                                     <td
                                                         style="padding: 10px; border-bottom: 1px solid #ededed; color: #455056;">
                                                         <?php echo $fullname; ?></td>
@@ -93,6 +93,13 @@
                                 </tr>
                                 <tr>
                                     <td style="height:40px;">&nbsp;</td>
+                                </tr>
+                                <!-- Reschedule Button -->
+                                <tr>
+                                    <td style="text-align:center;">
+                                    <label>If You want Reschedule Your Appointment then fill this Form </label>
+                                        <a href="http://localhost/appointment/add_schedule" style="text-decoration:none; background-color: #b2d0b3; color: white; padding: 7px 20px; display: inline-block; border-radius: 4px;">Reschedule</a>
+                                    </td>
                                 </tr>
                             </table>
                         </td>

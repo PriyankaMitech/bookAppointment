@@ -31,6 +31,9 @@ $routes->post('Appointment_status', 'Admin_Controller::Appointment_status');
 $routes->post('freezeSlots', 'Admin_Controller::freezeSlots');
 $routes->get('Booked_Slots', 'Admin_Controller::Booked_Slots');
 $routes->post('cancelBooking', 'Admin_Controller::cancelBooking');
+$routes->get('Add_user', 'Admin_Controller::Add_user');
+$routes->post('user_create', 'Admin_Controller::user_create');
+$routes->post('delete_user', 'Admin_Controller::delete_user');
 
 $routes->post('formdata', 'Admin_Controller::formdata');
 $routes->post('getslots', 'Admin_Controller::getslots');
