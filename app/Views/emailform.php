@@ -3,7 +3,7 @@
 
 <head>
     <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
-    <title>Appointment Reminder Email Template</title>
+    <title>Appointment</title>
     <meta name="description" content="Appointment Reminder Email Template">
 </head>
 <style>
@@ -22,11 +22,11 @@
                     </tr>
                     <!-- Logo -->
                     <tr>
-                        <td style="text-align:center;">
-                          <a href="https://rakeshmandal.com" title="logo" target="_blank">
-                            <img width="60" src="https://i.ibb.co/hL4XZp2/android-chrome-192x192.png" title="logo" alt="logo">
+                        <!-- <td style="text-align:center;">
+                          <a href="https://vedikastrologer.com/" title="logo" target="_blank">
+                            <img width="60" src="<?=base_url(); ?>assets/images/vedik-logo.png"  title="logo" alt="logo">
                           </a>
-                        </td>
+                        </td> -->
                     </tr>
                     <tr>
                         <td style="height:20px;">&nbsp;</td>
@@ -42,7 +42,7 @@
                                 <!-- Title -->
                                 <tr>
                                     <td style="padding:0 15px; text-align:center;">
-                                        <h1 style="color:#1e1e2d; font-weight:400; margin:0;font-size:32px;font-family:'Rubik',sans-serif;">Appointment Reminder</h1>
+                                        <h1 style="color:#1e1e2d; font-weight:400; margin:0;font-size:32px;font-family:'Rubik',sans-serif;">Appointment</h1>
                                         <span style="display:inline-block; vertical-align:middle; margin:29px 0 26px; border-bottom:1px solid #cecece; 
                                         width:100px;"></span>
                                     </td>
@@ -56,7 +56,7 @@
                                                 <tr>
                                                     <td
                                                         style="padding: 10px; border-bottom: 1px solid #ededed; border-right: 1px solid #ededed; width: 35%; font-weight:500; color:rgba(0,0,0,.64)">
-                                                        Full Name:</td>
+                                                        customer Name:</td>
                                                     <td
                                                         style="padding: 10px; border-bottom: 1px solid #ededed; color: #455056;">
                                                         <?php echo $fullname; ?></td>
@@ -72,7 +72,7 @@
                                                 <tr>
                                                     <td
                                                         style="padding: 10px; border-bottom: 1px solid #ededed; border-right: 1px solid #ededed; width: 35%; font-weight:500; color:rgba(0,0,0,.64)">
-                                                        Time Slot:</td>
+                                                        Time :</td>
                                                     <td
                                                         style="padding: 10px; border-bottom: 1px solid #ededed; color: #455056;">
                                                         <?php echo $timeSlot; ?></td>
@@ -85,6 +85,8 @@
                                                         style="padding: 10px; border-bottom: 1px solid #ededed; color: #455056;">
                                                         <?php echo $selectedDate; ?></td>
                                                 </tr>
+                                                <!-- Address -->
+                                                <!--  -->
                                             </tbody>
                                         </table>
                                     </td>
@@ -100,7 +102,20 @@
                     </tr>
                     <tr>
                         <td style="text-align:center;">
-                                <p style="font-size:14px; color:#455056bd; line-height:18px; margin:0 0 0;">&copy; <strong>www.rakeshmandal.com</strong></p>
+                            <p style="font-size:14px; color:#455056bd; line-height:18px; margin:0 0 0;">Regards,<br>Mrunal Kulkarni</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:center;">
+                            <p style="font-size:14px; color:#455056bd; line-height:18px; margin:0 0 0;">Vision plus shop no 20 bhaktishakti chowk old Mumbai pune highway pcmc pune Maharashtra 411044<br>7499846591</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="height:20px;">&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:center;">
+                                <p style="font-size:14px; color:#455056bd; line-height:18px; margin:0 0 0;">&copy; <strong>https://vedikastrologer.com/</strong></p>
                         </td>
                     </tr>
                 </table>

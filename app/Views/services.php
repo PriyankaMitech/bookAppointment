@@ -12,12 +12,12 @@
                         <label for="service">Select Service:</label>
                         <select class="form-control" id="service" name="service" required>
                             <option value="">Select</option>
-                            <option value="Prediction">Prediction</option>
+                            <!-- <option value="Prediction">Prediction</option> -->
                             <option value="Tarot">Tarot</option>
                             <option value="Preparing Kundali">Preparing Kundali</option>
                             <option value="Kundali Matching">Kundali Matching</option>
                             <option value="Muhurta">Muhurta</option>
-                            <option value="Astrology Coaching">Astrology Coaching</option>
+                            <!-- <option value="Astrology Coaching">Astrology Coaching</option> -->
                         </select>
                     </div>
                 </div>

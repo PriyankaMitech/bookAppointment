@@ -189,17 +189,63 @@ public function getslotstime($table1, $wherecond)
 
     return $result ?? false; // Use null coalescing operator to handle the case when $result is null
 }
-public function getAllAppointment() {
-    // Retrieve all appointment data
-    $appointments = $this->db->table('tbl_appointment')->get()->getResultArray();
-    
-    return $appointments;
+public function getallAppointment()
+{
+    return $this->db->table('tbl_appointment')->where('conducted', 'Y')->get()->getResultArray();
 }
+
 public function getallservicesReports()
 {
     $appointments = $this->db->table('services')->get()->getResultArray();
     
     return $appointments;
+}
+public function getcalenderallslots()
+{
+    // Fetch the time_slot_ids and selected_date from the book_slots table
+    $slotsData = $this->db->table('book_slots')
+                          ->select('time_slot_id, selected_date')
+                          ->get()
+                          ->getResultArray();
+
+    // Extract the time_slot_ids and selected_date from the result set
+    $time_slot_ids = array_column($slotsData, 'time_slot_id');
+    $selected_dates = array_column($slotsData, 'selected_date');
+
+    // Fetch data from tbl_slots where active_status is 'Y' and id matches
+    $slots = $this->db->table('tbl_slots')
+                      ->where('active_status', 'Y')
+                      ->whereIn('id', $time_slot_ids)
+                      ->get()
+                      ->getResult();
+
+    // Combine the selected_date with the fetched slots
+    $result = [];
+    foreach ($slots as $slot) {
+        $index = array_search($slot->id, $time_slot_ids);
+        if ($index !== false) {
+            $slot->start_date = $selected_dates[$index];
+            $result[] = $slot;
+        }
+    }
+
+    return $result;
+}
+public function bookedslots()
+{
+    // Perform a join query to fetch data from both tables
+    $query = $this->db->table('book_slots')
+                      ->join('tbl_slots', 'tbl_slots.id = book_slots.time_slot_id')
+                      ->get();
+
+    // Check if there are any results
+    if ($query->getNumRows() > 0) {
+        // Return the array containing booked slots data
+        return $query->getResultArray();
+    } else {
+        // No matching records found, return an empty array
+        return [];
+    }
 }
 
 }
