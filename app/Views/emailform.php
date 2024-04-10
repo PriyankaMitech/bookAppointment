@@ -98,7 +98,7 @@
                                 <tr>
                                     <td style="text-align:center;">
                                     <label>If You want Reschedule Your Appointment then fill this Form </label>
-                                        <a href="http://localhost/appointment/add_schedule" style="text-decoration:none; background-color: #b2d0b3; color: white; padding: 7px 20px; display: inline-block; border-radius: 4px;">Reschedule</a>
+                                        <a href="http://localhost/appointment/reschedule/<?php echo $lastinsertid; ?>" style="text-decoration:none; background-color: #b2d0b3; color: white; padding: 7px 20px; display: inline-block; border-radius: 4px;">Reschedule</a>
                                     </td>
                                 </tr>
                             </table>

@@ -55,7 +55,51 @@ class Admin_Controller extends BaseController
         $model = new Admin_Model();
         $wherecond = array('user_id' => $userID);
         $data['schedule_data'] =  $model->getalldata('tbl_schedule', $wherecond);
+
+        $uri = service('uri');
+
+        // Get the second URI segment
+        $secondSegment = $uri->getSegment(2);
+
+        $wherecond = array('ap_id ' => $secondSegment);
+
+        $data['single'] =  $model->getsinglerow('tbl_appointment', $wherecond);
+
+        // echo "<pre>";print_r($data['single']);exit();
+
         return view('add_schedule',$data);
+    }
+    public function reschedule()
+    {
+       
+         $userID = session('user_id');
+        $model = new Admin_Model();
+        $wherecond = array('user_id' => $userID);
+        $data['schedule_data'] =  $model->getalldata('tbl_schedule', $wherecond);
+
+        $uri = service('uri');
+
+        // Get the second URI segment
+        $secondSegment = $uri->getSegment(2);
+
+        $wherecond = array('ap_id ' => $secondSegment);
+
+        $data['single'] =  $model->getsinglerow('tbl_appointment', $wherecond);
+
+        if(!empty($data['single'])){
+            $wherecond = array('id ' => $data['single']->timeSlot);
+
+            $data['time_slot'] =  $model->getsinglerow('tbl_slots', $wherecond);
+
+            if (!empty($data['time_slot']) && !empty($data['time_slot']->start_time)) {
+                // Add the start time to the $data['single'] array
+                $data['single']->start_time = $data['time_slot']->start_time;
+            }
+        }
+
+        // echo "<pre>";print_r($data['single']);exit();
+
+        return view('reschedule',$data);
     }
     public function set_schedule()
     {
@@ -283,36 +327,13 @@ public function calendar(){
 
 public function formdata()
 {
+    
     $model = new Admin_Model();
     $db = \Config\Database::connect();
-    $timeSlotId = $this->request->getPost('timeSlot');
-    $selectedDate = $this->request->getPost('selectedDate');
-    $model->insertslots($timeSlotId, $selectedDate);
-  
-    // Retrieve time slot information
-    $wherecond = array('id' => $timeSlotId);
-    $timeSlotInfo = $model->getslotstime('tbl_slots', $wherecond);
-
-    // Extract time slot value from the result
-    $timeSlot = $timeSlotInfo ? $timeSlotInfo->start_time : '';
-
-    // Prepare email content with specific values
-    $fullname = $this->request->getPost('fullname');
-    $appointmentType = $this->request->getPost('appointmentType');
-    $selectedDate = $this->request->getPost('selectedDate');
+   
 
     // Load the HTML email template
-    $emailContent = view('emailform', [
-        'fullname' => $fullname,
-        'appointmentType' => $appointmentType,
-        'timeSlot' => $timeSlot,
-        'selectedDate' => $selectedDate
-    ]);
-    // Send email
-    $useremail = $this->request->getPost('email');
-    $subject = 'Your Appointment Booked';
-    $ccEmails = ['siddheshkadgemitech@gmail.com']; 
-    sendConfirmationEmail($useremail, $ccEmails, $subject, $emailContent);
+  
 
     // Insert all data into the database
     $subjects = implode(', ', $this->request->getPost('subjects'));
@@ -326,7 +347,7 @@ public function formdata()
         'source' => $this->request->getPost('source'),
         'friendName' => $this->request->getPost('friendName'),
         'timeSlot' => $this->request->getPost('timeSlot'),
-        'appointment_date' => $selectedDate,
+        'appointment_date' => $this->request->getPost('selectedDate'),
         'dob' => $this->request->getPost('dob'),
         'tob' => $this->request->getPost('tob'),
         'Country' => $this->request->getPost('Country'),
@@ -337,7 +358,53 @@ public function formdata()
         'transaction_id' => $this->request->getPost('transaction_id'),
         'subjects' => $subjects
     ];
+    $lastInsertId = '';
+    if($this->request->getPost('ap_id') == ''){
     $db->table('tbl_appointment')->insert($data);
+
+    $lastInsertId = $db->insertID();
+
+    $timeSlotId = $this->request->getPost('timeSlot');
+    $selectedDate = $this->request->getPost('selectedDate');
+
+    $model->insertslots($timeSlotId, $selectedDate , $lastInsertId);
+
+    }else{
+        $lastInsertId = $this->request->getPost('ap_id');
+
+        $db->table('tbl_appointment')->where('ap_id', $this->request->getPost('ap_id'))->update($data);
+
+
+        $timeSlotId = $this->request->getPost('timeSlot');
+    $selectedDate = $this->request->getPost('selectedDate');
+
+    $model->updatedata($timeSlotId, $selectedDate , $lastInsertId);
+
+    }
+    
+    $wherecond = array('id' => $this->request->getPost('timeSlot'));
+    $timeSlotInfo = $model->getslotstime('tbl_slots', $wherecond);
+
+    // Extract time slot value from the result
+    $timeSlot = $timeSlotInfo ? $timeSlotInfo->start_time : '';
+
+    // Prepare email content with specific values
+    $fullname = $this->request->getPost('fullname');
+    $appointmentType = $this->request->getPost('appointmentType');
+    $selectedDate = $this->request->getPost('selectedDate');
+
+    $emailContent = view('emailform', [
+        'fullname' => $fullname,
+        'appointmentType' => $appointmentType,
+        'timeSlot' => $timeSlot,
+        'selectedDate' => $selectedDate,
+        'lastinsertid' => $lastInsertId
+    ]);
+    // Send email
+    $useremail = $this->request->getPost('email');
+    $subject = 'Your Appointment Booked';
+    $ccEmails = ['siddheshkadgemitech@gmail.com']; 
+    sendConfirmationEmail($useremail, $ccEmails, $subject, $emailContent);
 
     return redirect()->to('add_schedule');
 }
