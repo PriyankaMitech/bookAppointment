@@ -123,13 +123,22 @@ public function updateSlotStatus($slotId, $status)
     $builder->where('id', $slotId);
     $builder->update(['active_status' => $status]);
 }
-public function insertslots($timeSlotId, $selectedDate)
+public function insertslots($timeSlotId, $selectedDate,$lastInsertId)
+{
+    $data = [
+        'time_slot_id' => $timeSlotId,
+        'selected_date' => $selectedDate,
+        'appm_id' => $lastInsertId,
+    ];
+    $this->db->table('book_slots')->insert($data); 
+}
+public function updatedata($timeSlotId, $selectedDate,$lastInsertId)
 {
     $data = [
         'time_slot_id' => $timeSlotId,
         'selected_date' => $selectedDate,
     ];
-    $this->db->table('book_slots')->insert($data); 
+    $this->db->table('book_slots')->where('appm_id', $lastInsertId)->update($data); 
 }
 public function todayAppointments()
 {
@@ -257,6 +266,17 @@ public function deleteUser($userId)
     
     $this->table('tbl_user')->where('id', $userId)->delete();
     return $this->db->affectedRows() > 0; 
+}
+public function getsinglerow($table, $wherecond)
+{
+
+    $result = $this->db->table($table)->where($wherecond)->get()->getRow();
+
+    if ($result) {
+        return $result;
+    } else {
+        return false;
+    }
 }
 
 }

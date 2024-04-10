@@ -10,6 +10,8 @@ $routes->get('/', 'Admin_Controller::index');
 $routes->get('admin_dashboard', 'Admin_Controller::admin_dashboard');
 $routes->post('login', 'Admin_Controller::login');
 $routes->get('add_schedule', 'Admin_Controller::add_schedule');
+$routes->get('add_schedule/(:any)', 'Admin_Controller::add_schedule/$1');
+
 $routes->post('set_schedule', 'Admin_Controller::set_schedule');
 $routes->post('save_schedule', 'Admin_Controller::save_schedule');
 $routes->get('add_workinghour','Admin_Controller::add_workinghour');
@@ -37,7 +39,11 @@ $routes->post('delete_user', 'Admin_Controller::delete_user');
 
 $routes->post('formdata', 'Admin_Controller::formdata');
 $routes->post('getslots', 'Admin_Controller::getslots');
+$routes->post('getslots/(:any)', 'Admin_Controller::getslots/$1');
+
 $routes->post('add_appointment', 'Admin_Controller::add_appointment');
+$routes->get('reschedule/(:any)', 'Admin_Controller::reschedule/$1');
+
 
 
 
