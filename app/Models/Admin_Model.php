@@ -278,6 +278,17 @@ public function getsinglerow($table, $wherecond)
         return false;
     }
 }
-
+public function getappoincome()
+{
+    return $this->db->table('tbl_appointment')->where('conducted', 'Y')->get()->getResultArray();
+}
+public function servicesincome()
+{
+    return $this->db->table('services')->get()->getResultArray();
+}
+public function getStudents()
+{
+    return $this->db->table('classes')->where('completion_status', 'N')->get()->getResultArray();
+}
 }
 

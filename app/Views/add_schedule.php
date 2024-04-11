@@ -15,7 +15,7 @@
 </head>
 
 <body>
-   
+
     <div class="container addschedulec">
         <div class="row">
 
@@ -48,10 +48,11 @@
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <h6><b>Name</b></h6>
-                                                    <input type="hidden" 
-                                                        id="ap_id" name="ap_id" value="<?php if(!empty($single)){ echo $single->ap_id ; } ?>">
+                                                    <input type="hidden" id="ap_id" name="ap_id"
+                                                        value="<?php if(!empty($single)){ echo $single->ap_id ; } ?>">
                                                     <input type="text" class="form-control wizard-required"
-                                                        id="fullname" name="fullname" value="<?php if(!empty($single)){ echo $single->fullname; } ?>">
+                                                        id="fullname" name="fullname"
+                                                        value="<?php if(!empty($single)){ echo $single->fullname; } ?>">
                                                     <!-- <label for="fullname" class="wizard-form-text-label"> Appointment
                                                         For(Name)*</label> -->
                                                     <div class="wizard-form-error"></div>
@@ -66,14 +67,15 @@
                                                 </div>
                                                 <div class="col-lg-3 col-md-3 col-6">
                                                     <div class="wizard-form-radio">
-                                                        <input name="gender" id="male" type="radio" value="Male"
-                                                            checked <?php if(!empty($single)){ if($single->gender == 'Male'){echo "checked" ;} } ?>>
+                                                        <input name="gender" id="male" type="radio" value="Male" checked
+                                                            <?php if(!empty($single)){ if($single->gender == 'Male'){echo "checked" ;} } ?>>
                                                         <label for="male">Male</label>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-3 col-md-3 col-6">
                                                     <div class="wizard-form-radio">
-                                                        <input name="gender" id="female" type="radio" value="Female" <?php if(!empty($single)){ if($single->gender == 'Female'){echo "checked" ;} } ?>>
+                                                        <input name="gender" id="female" type="radio" value="Female"
+                                                            <?php if(!empty($single)){ if($single->gender == 'Female'){echo "checked" ;} } ?>>
                                                         <label for="female">Female</label>
                                                     </div>
                                                 </div>
@@ -82,16 +84,59 @@
                                             </div>
                                         </div>
                                         <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-lg-12 col-md-12 col-12">
+                                                    <h6><b>Marital Status</b></h6>
+                                                </div>
+                                                <div class="col-lg-3 col-md-3 col-6">
+                                                    <div class="wizard-form-radio">
+                                                        <input name="marital_status" id="unmarried" checked type="radio"
+                                                            value="Unmarried"
+                                                            <?php if(!empty($single)){ if($single->marital_status == 'Unmarried'){echo "checked" ;} } ?>>
+                                                        <label for="unmarried">Unmarried</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-3 col-md-3 col-6">
+                                                    <div class="wizard-form-radio">
+                                                        <input name="marital_status" id="married" type="radio"
+                                                            value="Married"
+                                                            <?php if(!empty($single)){ if($single->marital_status == 'Married'){echo "checked" ;} } ?>>
+                                                        <label for="married">Married</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-3 col-md-3 col-6">
+                                                    <div class="wizard-form-radio">
+                                                        <input name="marital_status" id="divorced" type="radio"
+                                                            value="Divorced"
+                                                            <?php if(!empty($single)){ if($single->marital_status == 'Divorced'){echo "checked" ;} } ?>>
+                                                        <label for="divorced">Divorced</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-3 col-md-3 col-6">
+                                                    <div class="wizard-form-radio">
+                                                        <input name="marital_status" id="widow_widower" type="radio"
+                                                            value="Widow/Widower"
+                                                            <?php if(!empty($single)){ if($single->marital_status == 'Widow/Widower'){echo "checked" ;} } ?>>
+                                                        <label for="widow_widower">Widow/Widower</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
                                             <h6><b>Contact Number*</b></h6>
                                             <input type="text" class="form-control wizard-required" id="contact"
-                                                name="contact_number" value="<?php if(!empty($single)){ echo $single->contact_number; } ?>">
+                                                name="contact_number"
+                                                value="<?php if(!empty($single)){ echo $single->contact_number; } ?>">
                                             <div class="wizard-form-error"></div>
                                         </div>
                                         <div class="form-group">
                                             <h6><b>Email</b></h6>
-                                            <input type="email" class="form-control" id="email" name="email" value="<?php if(!empty($single)){ echo $single->email; } ?>">
+                                            <input type="email" class="form-control" id="email" name="email"
+                                                value="<?php if(!empty($single)){ echo $single->email; } ?>">
                                             <div class="wizard-form-error"></div>
-                                            <label class="text-muted">You will receive details about your appointment via email.</label>
+                                            <label class="text-muted">You will receive details about your appointment
+                                                via email.</label>
                                         </div>
 
                                         <div class="form-group row" id="appointmentType">
@@ -102,12 +147,14 @@
                                                     </div>
                                                     <div class="col-lg-6 col-md-6 col-6 wizard-form-radio ">
                                                         <input name="appointmentType" id="online" type="radio"
-                                                            value="online" <?php if(!empty($single)){ if($single->appointmentType == 'online'){echo "checked" ;} } ?>>
+                                                            value="online"
+                                                            <?php if(!empty($single)){ if($single->appointmentType == 'online'){echo "checked" ;} } ?>>
                                                         <label for="online">Online</label>
                                                     </div>
                                                     <div class="col-lg-6 col-md-6 col-6 wizard-form-radio">
                                                         <input name="appointmentType" id="offline" type="radio" checked
-                                                            value="offline" <?php if(!empty($single)){ if($single->appointmentType == 'offline'){echo "checked" ;} } ?>>
+                                                            value="offline"
+                                                            <?php if(!empty($single)){ if($single->appointmentType == 'offline'){echo "checked" ;} } ?>>
                                                         <label for="offline">Offline</label>
                                                     </div>
                                                 </div>
@@ -117,12 +164,14 @@
                                                 <div class="row">
                                                     <div class="col-lg-6 col-md-6 col-6 wizard-form-radio">
                                                         <input name="appointmentOption" id="audio" type="radio"
-                                                            value="audio" <?php if(!empty($single)){ if($single->appointmentOption == 'audio'){echo "checked" ;} } ?>>
+                                                            value="audio"
+                                                            <?php if(!empty($single)){ if($single->appointmentOption == 'audio'){echo "checked" ;} } ?>>
                                                         <label for="audio">Audio</label>
                                                     </div>
                                                     <div class="col-lg-6 col-md-6 col-6 wizard-form-radio">
                                                         <input name="appointmentOption" id="video" type="radio"
-                                                            value="video" <?php if(!empty($single)){ if($single->appointmentOption == 'video'){echo "checked" ;} } ?>>
+                                                            value="video"
+                                                            <?php if(!empty($single)){ if($single->appointmentOption == 'video'){echo "checked" ;} } ?>>
                                                         <label for="video">Video</label>
                                                     </div>
                                                 </div>
@@ -137,29 +186,34 @@
                                                     <div class="row form-inlinee">
                                                         <div class="col-lg-3 col-md-6 col-6 wizard-form-radio">
                                                             <input name="source" id="instagramRadio" type="radio"
-                                                                checked value="Instagram" <?php if(!empty($single)){ if($single->source == 'Instagram'){echo "checked" ;} } ?>>
+                                                                checked value="Instagram"
+                                                                <?php if(!empty($single)){ if($single->source == 'Instagram'){echo "checked" ;} } ?>>
                                                             <label for="instagramRadio">Instagram</label>
                                                         </div>
                                                         <div class="col-lg-3 col-md-6 col-6 wizard-form-radio">
                                                             <input name="source" id="facebookRadio" type="radio"
-                                                                value="Facebook" <?php if(!empty($single)){ if($single->source == 'Facebook'){echo "checked" ;} } ?>>
+                                                                value="Facebook"
+                                                                <?php if(!empty($single)){ if($single->source == 'Facebook'){echo "checked" ;} } ?>>
                                                             <label for="facebookRadio">Facebook</label>
                                                         </div>
                                                         <div class="col-lg-3 col-md-6 col-6 wizard-form-radio">
                                                             <input name="source" id="googleRadio" type="radio"
-                                                                value="Google" <?php if(!empty($single)){ if($single->source == 'Google'){echo "checked" ;} } ?>>
+                                                                value="Google"
+                                                                <?php if(!empty($single)){ if($single->source == 'Google'){echo "checked" ;} } ?>>
                                                             <label for="googleRadio">Google</label>
                                                         </div>
                                                         <div class="col-lg-3 col-md-6 col-6 wizard-form-radio">
                                                             <input name="source" id="friendRadio" type="radio"
-                                                                value="Friend" <?php if(!empty($single)){ if($single->source == 'Friend'){echo "checked" ;} } ?>>
+                                                                value="Friend"
+                                                                <?php if(!empty($single)){ if($single->source == 'Friend'){echo "checked" ;} } ?>>
                                                             <label for="friendRadio">Friend</label>
                                                         </div>
                                                     </div>
 
                                                     <input type="text" class="form-control mt-2" name="friendName"
                                                         id="friendInput" style="display: none;"
-                                                        placeholder="Enter Friend's Name" value="<?php if(!empty($single)){ echo $single->friendName; } ?>">
+                                                        placeholder="Enter Friend's Name"
+                                                        value="<?php if(!empty($single)){ echo $single->friendName; } ?>">
 
                                                     <label for="friendInput" class="wizard-form-text-label"></label>
                                                     <div class="wizard-form-error"></div>
@@ -175,7 +229,8 @@
                                     </fieldset>
                                     <fieldset class="wizard-fieldset">
                                         <h4>Book Slots</h4>
-                                        <input type="hidden" id="selected-date" name="selectedDate" value="<?php if(!empty($single)){ echo $single->appointment_date; } ?>">
+                                        <input type="hidden" id="selected-date" name="selectedDate"
+                                            value="<?php if(!empty($single)){ echo $single->appointment_date; } ?>">
 
                                         <div class="row mt-3">
                                             <div class="col-lg-7">
@@ -185,8 +240,8 @@
                                                         <h3 id="monthAndYear"></h3>
                                                         <div class="button-container-calendar">
                                                             <div class="footer-container-calendar">
-                                                                <button id="previous"
-                                                                    onclick="previous()">&#8249;</button>
+                                                                <!-- <button id="previous"
+                                                                    onclick="previous()">&#8249;</button> -->
                                                                 <!-- <label for="month">Jump To: </label> -->
                                                                 <select id="month" onchange="jump()">
                                                                     <option value=0>Jan</option>
@@ -203,7 +258,7 @@
                                                                     <option value=11>Dec</option>
                                                                 </select>
                                                                 <select id="year" onchange="jump()"></select>
-                                                                <button id="next" onclick="next()">&#8250;</button>
+                                                                <!-- <button id="next" onclick="next()">&#8250;</button> -->
                                                             </div>
                                                         </div>
                                                         <table class="table-calendar" id="calendar" data-lang="en">
@@ -234,7 +289,8 @@
                                             <div class="col-lg-6 col-md-6 col-12">
                                                 <h6><b>Date of Birth*(जन्म तारीख*)</b></h6>
                                                 <input type="date" name="dob" class="form-control wizard-required"
-                                                    id="dob" max="" value="<?php if(!empty($single)){ echo $single->dob; } ?>">
+                                                    id="dob" max=""
+                                                    value="<?php if(!empty($single)){ echo $single->dob; } ?>">
                                                 <div class="wizard-form-error bp"></div>
                                             </div>
                                             <div class="col-lg-6 col-md-6 col-12">
@@ -251,19 +307,22 @@
                                                     <div class="col-lg-4 col-md-4 col-12">
                                                         <h6><b>Country(देश*)</b></h6>
                                                         <input type="text" name="Country"
-                                                            class="form-control wizard-required" id="dob" value="<?php if(!empty($single)){ echo $single->Country; } ?>">
+                                                            class="form-control wizard-required" id="dob"
+                                                            value="<?php if(!empty($single)){ echo $single->Country; } ?>">
                                                         <div class="wizard-form-error bp"></div>
                                                     </div>
                                                     <div class="col-lg-4 col-md-4 col-12">
                                                         <h6><b>State*(राज्य*)</b></h6>
                                                         <input type="text" name="State"
-                                                            class="form-control wizard-required" id="tob" value="<?php if(!empty($single)){ echo $single->State; } ?>">
+                                                            class="form-control wizard-required" id="tob"
+                                                            value="<?php if(!empty($single)){ echo $single->State; } ?>">
                                                         <div class="wizard-form-error bp"></div>
                                                     </div>
                                                     <div class="col-lg-4 col-md-4 col-12">
                                                         <h6><b>City (शहर) *</b></h6>
                                                         <input type="text" name="City"
-                                                            class="form-control wizard-required" id="pob" value="<?php if(!empty($single)){ echo $single->City; } ?>">
+                                                            class="form-control wizard-required" id="pob"
+                                                            value="<?php if(!empty($single)){ echo $single->City; } ?>">
                                                         <div class="wizard-form-error bp"></div>
                                                     </div>
                                                 </div>
@@ -280,14 +339,16 @@
                                                             <div class="col-lg-6 col-md-6 col-6">
                                                                 <div class="wizard-form-radio">
                                                                     <input name="twins" id="twinsYes" type="radio"
-                                                                        value="yes" <?php if(!empty($single)){ if($single->twins == 'yes'){echo "checked" ;} } ?>>
+                                                                        value="yes"
+                                                                        <?php if(!empty($single)){ if($single->twins == 'yes'){echo "checked" ;} } ?>>
                                                                     <label for="twinsYes">Yes</label>
                                                                 </div>
                                                             </div>
                                                             <div class="col-lg-6 col-md-6 col-6">
                                                                 <div class="wizard-form-radio">
                                                                     <input name="twins" id="twinsNo" type="radio"
-                                                                        checked value="no" <?php if(!empty($single)){ if($single->twins == 'no'){echo "checked" ;} } ?>>
+                                                                        checked value="no"
+                                                                        <?php if(!empty($single)){ if($single->twins == 'no'){echo "checked" ;} } ?>>
                                                                     <label for="twinsNo">No</label>
                                                                 </div>
                                                             </div>
@@ -315,7 +376,8 @@
                                                 <div class="col-lg-12 col-md-12 col-12 pcotsfd">
                                                     <div class="row form-group mt-4">
                                                         <div class="col-lg-12 col-md-12 col-12">
-                                                            <h6><b>Click on the subjects for discussion.(चर्चेसाठी योग्य ते विषय क्लिक करा.)</b></h6>
+                                                            <h6><b>Click on the subjects for discussion.(चर्चेसाठी योग्य
+                                                                    ते विषय क्लिक करा.)</b></h6>
                                                         </div>
 
                                                         <?php 
@@ -335,20 +397,24 @@
 
                                                         <div class="col-lg-3 col-md-6 col-6">
                                                             <div class="form-check form-check-inline">
-                                                                <input class="form-check-input" type="checkbox" id="subject_<?php echo $subject ?>" name="subjects[]" value="<?php echo $subject ?>" <?php if($isChecked) echo "checked"; ?>>
-                                                                <label class="form-check-label" for="subject_<?php echo $subject ?>"><?php echo $subject ?></label>
+                                                                <input class="form-check-input" type="checkbox"
+                                                                    id="subject_<?php echo $subject ?>"
+                                                                    name="subjects[]" value="<?php echo $subject ?>"
+                                                                    <?php if($isChecked) echo "checked"; ?>>
+                                                                <label class="form-check-label"
+                                                                    for="subject_<?php echo $subject ?>"><?php echo $subject ?></label>
                                                             </div>
                                                         </div>
 
                                                         <?php } ?>
-                                                        
+
                                                     </div>
                                                 </div>
                                             </div>
 
 
                                         </div>
-                                        
+
 
                                         <div class="form-group clearfix">
                                             <a href="javascript:;"
@@ -393,7 +459,7 @@
 
         </div>
     </div>
-   
+
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
@@ -838,11 +904,11 @@
                 if ($(this).find('input[type="radio"]').is(':checked')) {
                     var selectedSlotId = $(this).find('input[type="radio"]').val();
                     var selectedDate = $(this).find('input[type="radio"]').data(
-                    'selected-date'); // Retrieve selected date
+                        'selected-date'); // Retrieve selected date
                     var fullDate = $(this).find('input[type="radio"]').data(
-                    'full-date'); // Retrieve full date
+                        'full-date'); // Retrieve full date
                     console.log(
-                    selectedSlotId); // You can do whatever you want with the selected slot id here
+                        selectedSlotId); // You can do whatever you want with the selected slot id here
                     console.log(selectedDate); // Log or use the selected date here
                     console.log(fullDate); // Log or use the full date here
                 }
