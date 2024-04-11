@@ -331,7 +331,7 @@ public function formdata()
     $model = new Admin_Model();
     $db = \Config\Database::connect();
    
-
+// print_r($_POST);die;
     // Load the HTML email template
   
 
@@ -340,6 +340,7 @@ public function formdata()
     $data = [
         'fullname' => $this->request->getPost('fullname'),
         'gender' => $this->request->getPost('gender'),
+        'marital_status' => $this->request->getPost('marital_status'),
         'contact_number' => $this->request->getPost('contact_number'),
         'email' => $this->request->getPost('email'),
         'appointmentType' => $this->request->getPost('appointmentType'),
@@ -649,5 +650,49 @@ public function delete_user()
         ];
 
         return redirect()->to('Add_user');
+    }
+    public function Income()
+    {
+        $model = new Admin_Model();
+        $data['appoincome'] =$model->getappoincome();
+        $data['servicesincome']=$model->servicesincome();
+        echo view('Income',$data);
+    }
+    public function Students()
+    {
+        $model = new Admin_Model();
+        $data['Students']=$model->getStudents();
+        // echo '<pre>';print_r($data['Students']);die;
+        echo view('Studentslist',$data);
+    }
+    public function add_fees()
+    {
+        $model = new Admin_Model();
+        $student_id = $this->request->getPost('student_id');
+        $paid_amount = $this->request->getPost('Paid_Ammount');
+        $existing_paid_amount = $model->db->table('classes')
+            ->select('Paid_Ammount')
+            ->where('id', $student_id)
+            ->get()
+            ->getRowArray()['Paid_Ammount'];
+        if ($existing_paid_amount !== null) {
+            $paid_amount = $existing_paid_amount . ',' . $paid_amount;
+        }
+        $data = ['Paid_Ammount' => $paid_amount];
+        $where = ['id' => $student_id];
+        $model->db->table('classes')->where($where)->update($data);
+        return redirect()->to('Students');
+    }
+    public function complete_class()
+    {  
+         $model = new Admin_Model();
+        $student_id = $this->request->getPost('student_id');
+        $paidstatus = $this->request->getPost('completion_status'); 
+        $data = [
+            'completion_status' => $paidstatus
+        ];
+        $where = ['id' => $student_id];
+        $model->db->table('classes')->where($where)->update($data);
+        return redirect()->to('Students');
     }
 }

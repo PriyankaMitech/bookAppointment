@@ -43,6 +43,10 @@ $routes->post('getslots/(:any)', 'Admin_Controller::getslots/$1');
 
 $routes->post('add_appointment', 'Admin_Controller::add_appointment');
 $routes->get('reschedule/(:any)', 'Admin_Controller::reschedule/$1');
+$routes->get('Income', 'Admin_Controller::Income');
+$routes->get('Students', 'Admin_Controller::Students');
+$routes->post('add_fees', 'Admin_Controller::add_fees');
+$routes->post('complete_class', 'Admin_Controller::complete_class');
 
 
 

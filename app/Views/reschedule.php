@@ -114,6 +114,45 @@
                                             </div>
                                         </div>
                                         <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-lg-12 col-md-12 col-12">
+                                                    <h6><b>Marital Status</b></h6>
+                                                </div>
+                                                <div class="col-lg-3 col-md-3 col-6">
+                                                    <div class="wizard-form-radio">
+                                                        <input name="marital_status" id="unmarried" checked type="radio"
+                                                            value="Unmarried"
+                                                            <?php if(!empty($single)){ if($single->marital_status == 'Unmarried'){echo "checked" ;} } ?>>
+                                                        <label for="unmarried">Unmarried</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-3 col-md-3 col-6">
+                                                    <div class="wizard-form-radio">
+                                                        <input name="marital_status" id="married" type="radio"
+                                                            value="Married"
+                                                            <?php if(!empty($single)){ if($single->marital_status == 'Married'){echo "checked" ;} } ?>>
+                                                        <label for="married">Married</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-3 col-md-3 col-6">
+                                                    <div class="wizard-form-radio">
+                                                        <input name="marital_status" id="divorced" type="radio"
+                                                            value="Divorced"
+                                                            <?php if(!empty($single)){ if($single->marital_status == 'Divorced'){echo "checked" ;} } ?>>
+                                                        <label for="divorced">Divorced</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-3 col-md-3 col-6">
+                                                    <div class="wizard-form-radio">
+                                                        <input name="marital_status" id="widow_widower" type="radio"
+                                                            value="Widow/Widower"
+                                                            <?php if(!empty($single)){ if($single->marital_status == 'Widow/Widower'){echo "checked" ;} } ?>>
+                                                        <label for="widow_widower">Widow/Widower</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
                                             <h6><b>Contact Number*</b></h6>
                                             <input type="text" class="form-control wizard-required" id="contact"
                                                 name="contact_number" value="<?php if(!empty($single)){ echo $single->contact_number; } ?>">

@@ -12,13 +12,16 @@
                                 <div class="card">
                                     <div class="card-header">Add Users</div>
                                     <div class="card-body">
-                                        <form action="user_create" method="post">
+                                        <form action="user_create" method="post" id="userForm">
                                             <div class="form-group">
-                                                <label for="email">Email address</label>
-                                                <input type="email" class="form-control" name="email" id="email"
-                                                    aria-describedby="emailHelp" placeholder="Enter email">
-                                                <small id="emailHelp" class="form-text text-muted">We'll never share
-                                                    your email with anyone else.</small>
+                                                <label for="name">Name</label>
+                                                <input type="text" class="form-control" name="name" id="name"
+                                                    placeholder="Enter your name">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="email">User name</label>
+                                                <input type="text" class="form-control" name="email" id="email"
+                                                    aria-describedby="emailHelp" placeholder="Enter username for Login">
                                             </div>
                                             <div class="form-group">
                                                 <label for="password">Password</label>
@@ -26,9 +29,10 @@
                                                     id="password" placeholder="Password">
                                             </div>
                                             <div class="form-group">
-                                                <label for="name">Name</label>
-                                                <input type="text" class="form-control" name="name" id="name"
-                                                    placeholder="Enter your name">
+                                                <label for="confirmPassword">Confirm Password</label>
+                                                <input type="password" class="form-control" name="confirmPassword"
+                                                    id="confirmPassword" placeholder="Confirm Password">
+                                                <div id="passwordError" style="display: none; color: red;">Passwords do not match</div>
                                             </div>
                                             <button type="submit" class="btn btn-primary">Submit</button>
                                             <button type="button" class="btn btn-secondary" id="viewUserBtn">View
@@ -76,5 +80,14 @@ document.getElementById("viewUserBtn").addEventListener("click", function() {
 document.getElementById("createuser").addEventListener("click", function() {
     document.getElementById("addUserForm").style.display = "block";
     document.getElementById("userList").style.display = "none";
+});
+
+document.getElementById("userForm").addEventListener("submit", function(event) {
+    var password = document.getElementById("password").value;
+    var confirmPassword = document.getElementById("confirmPassword").value;
+    if (password !== confirmPassword) {
+        document.getElementById("passwordError").style.display = "block";
+        event.preventDefault();
+    }
 });
 </script>

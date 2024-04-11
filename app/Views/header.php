@@ -289,7 +289,14 @@
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
                                         </li>
-
+                                        <li class=" ">
+                                            <a href="<?=base_url(); ?>Students">
+                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                                <span class="pcoded-mtext"
+                                                    data-i18n="nav.basic-components.breadcrumbs">Students List</span>
+                                                <span class="pcoded-mcaret"></span>
+                                            </a>
+                                        </li>
                                     </ul>
                                 </li>
 
@@ -356,6 +363,14 @@
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                                                 <span class="pcoded-mtext"
                                                     data-i18n="nav.basic-components.breadcrumbs">services Reports</span>
+                                                <span class="pcoded-mcaret"></span>
+                                            </a>
+                                        </li>
+                                        <li class="">
+                                            <a href="<?=base_url(); ?>Income">
+                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                                <span class="pcoded-mtext"
+                                                    data-i18n="nav.basic-components.breadcrumbs">Income Reports</span>
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
                                         </li>
