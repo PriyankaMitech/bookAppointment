@@ -49,43 +49,91 @@ class Admin_Model extends Model
       // Return the result set
       return $query->getResult();
   }
-  public function allamount()
-  {
-      $currentYear = date('Y');
-      $currentMonth = date('m');
-      if ($currentMonth >= 4) {
-          $financialYearStart = $currentYear . '-04-01';
-          $financialYearEnd = ($currentYear + 1) . '-03-31';
-      } else {
-          $financialYearStart = ($currentYear - 1) . '-04-01';
-          $financialYearEnd = $currentYear . '-03-31';
-      }
+//   public function allamount()
+//   {
+//       $currentYear = date('Y');
+//       $currentMonth = date('m');
+//       if ($currentMonth >= 4) {
+//           $financialYearStart = $currentYear . '-04-01';
+//           $financialYearEnd = ($currentYear + 1) . '-03-31';
+//       } else {
+//           $financialYearStart = ($currentYear - 1) . '-04-01';
+//           $financialYearEnd = $currentYear . '-03-31';
+//       }
   
-      $appointmentAmount = $this->db->table('tbl_appointment')
-          ->selectSum('amount')
-          ->where('created_at >=', $financialYearStart)
-          ->where('created_at <=', $financialYearEnd)
-          ->where('conducted', 'Y') // Add this line to filter by conducted column
-          ->get()->getRow()->amount;
+//       $appointmentAmount = $this->db->table('tbl_appointment')
+//           ->selectSum('amount')
+//           ->where('created_at >=', $financialYearStart)
+//           ->where('created_at <=', $financialYearEnd)
+//           ->where('conducted', 'Y') // Add this line to filter by conducted column
+//           ->get()->getRow()->amount;
       
-      $servicesAmount = $this->db->table('services')
-          ->selectSum('amount')
-          ->where('created_at >=', $financialYearStart)
-          ->where('created_at <=', $financialYearEnd)
-          ->get()->getRow()->amount;
+//       $servicesAmount = $this->db->table('services')
+//           ->selectSum('amount')
+//           ->where('created_at >=', $financialYearStart)
+//           ->where('created_at <=', $financialYearEnd)
+//           ->get()->getRow()->amount;
       
-      $classesAmount = $this->db->table('classes')
-          ->selectSum('fees')
-          ->where('created_at >=', $financialYearStart)
-          ->where('created_at <=', $financialYearEnd)
-          ->get()->getRow()->fees;
+//       $classesAmount = $this->db->table('classes')
+//           ->selectSum('Paid_Ammount')
+//           ->where('created_at >=', $financialYearStart)
+//           ->where('created_at <=', $financialYearEnd)
+//           ->get()->getRow()->Paid_Ammount;
   
-      return [
-          'appointmentAmount' => $appointmentAmount,
-          'servicesAmount' => $servicesAmount,
-          'classesamount' => $classesAmount
-      ];
-  }
+//       return [
+//           'appointmentAmount' => $appointmentAmount,
+//           'servicesAmount' => $servicesAmount,
+//           'classesamount' => $classesAmount
+//       ];
+//   }
+public function allamount()
+{
+    $currentYear = date('Y');
+    $currentMonth = date('m');
+    if ($currentMonth >= 4) {
+        $financialYearStart = $currentYear . '-04-01';
+        $financialYearEnd = ($currentYear + 1) . '-03-31';
+    } else {
+        $financialYearStart = ($currentYear - 1) . '-04-01';
+        $financialYearEnd = $currentYear . '-03-31';
+    }
+
+    // Fetch records from the classes table
+    $classesRecords = $this->db->table('classes')
+        ->where('created_at >=', $financialYearStart)
+        ->where('created_at <=', $financialYearEnd)
+        ->get()->getResult();
+
+    // Initialize total amount variable
+    $totalClassesAmount = 0;
+
+    // Loop through each record
+    foreach ($classesRecords as $record) {
+        // Split the Paid_Ammount string by comma and sum the values
+        $amounts = explode(',', $record->Paid_Ammount);
+        foreach ($amounts as $amount) {
+            // Remove any non-numeric characters and add to total
+            $amount = preg_replace('/[^0-9]/', '', $amount);
+            $totalClassesAmount += (int)$amount; // Convert string to integer
+        }
+    }
+
+    // Return the total classes amount along with other amounts
+    return [
+        'appointmentAmount' => $this->db->table('tbl_appointment')
+            ->selectSum('amount')
+            ->where('created_at >=', $financialYearStart)
+            ->where('created_at <=', $financialYearEnd)
+            ->where('conducted', 'Y')
+            ->get()->getRow()->amount,
+        'servicesAmount' => $this->db->table('services')
+            ->selectSum('amount')
+            ->where('created_at >=', $financialYearStart)
+            ->where('created_at <=', $financialYearEnd)
+            ->get()->getRow()->amount,
+        'classesAmount' => $totalClassesAmount
+    ];
+}
 
   public function getallslots($userID)
   {
@@ -129,6 +177,15 @@ public function insertslots($timeSlotId, $selectedDate,$lastInsertId)
         'time_slot_id' => $timeSlotId,
         'selected_date' => $selectedDate,
         'appm_id' => $lastInsertId,
+    ];
+    $this->db->table('book_slots')->insert($data); 
+}
+public function insertslotss($timeSlotId, $selectedDate,)
+{
+    $data = [
+        'time_slot_id' => $timeSlotId,
+        'selected_date' => $selectedDate,
+       
     ];
     $this->db->table('book_slots')->insert($data); 
 }
@@ -209,6 +266,12 @@ public function getallservicesReports()
     
     return $appointments;
 }
+public function getallclass()
+{
+    $appointments = $this->db->table('classes')->get()->getResultArray();
+    
+    return $appointments;
+}
 public function getcalenderallslots()
 {
     // Fetch the time_slot_ids and selected_date from the book_slots table
@@ -240,11 +303,28 @@ public function getcalenderallslots()
 
     return $result;
 }
+// public function bookedslots()
+// {
+//     // Perform a join query to fetch data from both tables
+//     $query = $this->db->table('book_slots')
+//                       ->join('tbl_slots', 'tbl_slots.id = book_slots.time_slot_id')
+//                       ->get();
+
+//     // Check if there are any results
+//     if ($query->getNumRows() > 0) {
+//         // Return the array containing booked slots data
+//         return $query->getResultArray();
+//     } else {
+//         // No matching records found, return an empty array
+//         return [];
+//     }
+// }
 public function bookedslots()
 {
     // Perform a join query to fetch data from both tables
     $query = $this->db->table('book_slots')
                       ->join('tbl_slots', 'tbl_slots.id = book_slots.time_slot_id')
+                      ->where('book_slots.appm_id IS NOT NULL') // Add the condition here
                       ->get();
 
     // Check if there are any results
@@ -256,6 +336,7 @@ public function bookedslots()
         return [];
     }
 }
+
 public function getUser()
 {
     return $this->db->table('tbl_user')->where('status', 'Y')->get()->getResultArray();

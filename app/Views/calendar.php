@@ -1,5 +1,9 @@
 <?php include("header.php"); ?>
-
+<style>
+   .fc-content {
+        background-color: burlywood;
+    }
+</style>
 <link href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.0/fullcalendar.min.css' rel='stylesheet' />
     <script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js'></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js'></script>

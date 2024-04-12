@@ -286,13 +286,19 @@
                                     </fieldset>
                                     <fieldset class="wizard-fieldset">
                                         <div class="row mt-4">
-                                            <div class="col-lg-6 col-md-6 col-12">
+                                            <!-- <div class="col-lg-6 col-md-6 col-12">
                                                 <h6><b>Date of Birth*(जन्म तारीख*)</b></h6>
                                                 <input type="date" name="dob" class="form-control wizard-required"
                                                     id="dob" max=""
                                                     value="<?php if(!empty($single)){ echo $single->dob; } ?>">
                                                 <div class="wizard-form-error bp"></div>
-                                            </div>
+                                            </div> -->
+                                            <div class="col-lg-6 col-md-6 col-12">
+    <h6><b>Date of Birth*(जन्म तारीख*)</b></h6>
+    <input type="date" name="dob" class="form-control wizard-required" id="dob"
+           value="<?php if(!empty($single)){ echo $single->dob; } ?>">
+    <div class="wizard-form-error bp"></div>
+</div>
                                             <div class="col-lg-6 col-md-6 col-12">
                                                 <h6><b>Time of Birth*(जन्म वेळ*)</b></h6>
                                                 <input type="time" name="tob" class="form-control wizard-required"
@@ -791,28 +797,28 @@
     </script>
 
     <script>
-    function copyUPI() {
-        /* Get the text field */
-        event.preventDefault();
-        var copyText = document.createElement('textarea');
-        copyText.value = "9822331983@idfcfirst";
+   function copyUPI() {
+    /* Get the text field */
+    event.preventDefault();
+    var copyText = document.createElement('textarea');
+    copyText.value = "9822331983@idfcfirst";
 
-        /* Append the text field to the body */
-        document.body.appendChild(copyText);
+    /* Append the text field to the body */
+    document.body.appendChild(copyText);
 
-        /* Select the text field */
-        copyText.select();
-        copyText.setSelectionRange(0, 99999); /* For mobile devices */
+    /* Select the text field */
+    copyText.select();
+    copyText.setSelectionRange(0, 99999); /* For mobile devices */
 
-        /* Copy the text inside the text field */
-        document.execCommand("copy");
+    /* Copy the text inside the text field */
+    document.execCommand("copy");
 
-        /* Alert the copied text */
-        // alert("UPI number copied: " + copyText.value);
+    /* Alert the copied text */
+    alert("UPI number copied: " + copyText.value);
 
-        /* Remove the text field from the body */
-        document.body.removeChild(copyText);
-    }
+    /* Remove the text field from the body */
+    document.body.removeChild(copyText);
+}
     </script>
     <script>
     jQuery(document).ready(function() {
@@ -923,6 +929,20 @@
         $(".time-div").show();
     }
     </script>
+    <script>
+    // Get today's date
+    var today = new Date();
+
+    // Format the date in yyyy-mm-dd (the same format as input type="date")
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); // January is 0!
+    var yyyy = today.getFullYear();
+
+    today = yyyy + '-' + mm + '-' + dd;
+
+    // Set the max attribute of the input field to today's date
+    document.getElementById("dob").setAttribute("max", today);
+</script>
 </body>
 
 </html>
