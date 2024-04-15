@@ -403,7 +403,7 @@
                                                             $isChecked = in_array($subject, $selectedSubjects);
                                                         ?>
 
-                                                        <div class="col-lg-3 col-md-6 col-6">
+                                                        <div class="col-lg-4 col-md-6 col-6">
                                                             <div class="form-check form-check-inline">
                                                                 <input class="form-check-input" type="checkbox"
                                                                     id="subject_<?php echo $subject ?>"
@@ -639,7 +639,13 @@
 
 
 
-    <script>
+<script>
+    var today = new Date();
+    var currentMonth = today.getMonth();
+    var currentYear = today.getFullYear();
+    var selectYear = document.getElementById("year");
+    var selectMonth = document.getElementById("month");
+
     function generate_year_range(start, end) {
         var years = "";
         for (var year = start; year <= end; year++) {
@@ -648,49 +654,26 @@
         return years;
     }
 
-    today = new Date();
-    currentMonth = today.getMonth();
-    currentYear = today.getFullYear();
-    selectYear = document.getElementById("year");
-    selectMonth = document.getElementById("month");
-
-
     createYear = generate_year_range(1970, 2050);
-    /** or
-     * createYear = generate_year_range( 1970, currentYear );
-     */
-
     document.getElementById("year").innerHTML = createYear;
 
-    var calendar = document.getElementById("calendar");
-    var lang = calendar.getAttribute('data-lang');
-
-    var months = "";
-    var days = "";
-
-    var monthDefault = ["January", "February", "March", "April", "May", "June", "July", "August", "September",
+    var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September",
         "October", "November", "December"
     ];
 
-    var dayDefault = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+    var days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
-    months = monthDefault;
-    days = dayDefault;
+    var monthAndYear = document.getElementById("monthAndYear");
 
     var $dataHead = "<tr>";
-    for (dhead in days) {
+    for (var dhead in days) {
         $dataHead += "<th data-days='" + days[dhead] + "'>" + days[dhead] + "</th>";
     }
     $dataHead += "</tr>";
 
-    //alert($dataHead);
     document.getElementById("thead-month").innerHTML = $dataHead;
 
-
-    monthAndYear = document.getElementById("monthAndYear");
     showCalendar(currentMonth, currentYear);
-
-
 
     function next() {
         currentYear = (currentMonth === 11) ? currentYear + 1 : currentYear;
@@ -711,26 +694,23 @@
     }
 
     function showCalendar(month, year) {
+        var today = new Date();
+        var todayDay = today.getDate();
+        var todayMonth = today.getMonth();
+        var todayYear = today.getFullYear();
 
         var firstDay = (new Date(year, month)).getDay() - 1;
 
-        tbl = document.getElementById("calendar-body");
-
-
+        var tbl = document.getElementById("calendar-body");
         tbl.innerHTML = "";
-
 
         monthAndYear.innerHTML = months[month] + " " + year;
         selectYear.value = year;
         selectMonth.value = month;
 
-        // creating all cells
         var date = 1;
         for (var i = 0; i < 6; i++) {
-
             var row = document.createElement("tr");
-
-
             for (var j = 0; j < 7; j++) {
                 if (i === 0 && j < firstDay) {
                     cell = document.createElement("td");
@@ -748,55 +728,47 @@
                     cell.className = "date-picker";
                     cell.innerHTML = "<span>" + date + "</span>";
 
-                    if (date === today.getDate() && year === today.getFullYear() && month === today.getMonth()) {
+                    if (date === todayDay && year === todayYear && month === todayMonth) {
                         cell.className = "date-picker selected";
                     }
                     row.appendChild(cell);
                     date++;
                 }
-
-
             }
-
             tbl.appendChild(row);
         }
 
-
-
-        // onclick date shows data 
         var dateCells = document.querySelectorAll('.date-picker');
         dateCells.forEach(function(cell) {
             cell.addEventListener('click', function() {
-                // Extract date and month name from clicked date element
                 var clickedDate = this.getAttribute('data-date');
                 var clickedMonth = this.getAttribute('data-month_name');
                 var clickedYear = this.getAttribute('data-year');
 
-                // Calculate day name
                 var dateObj = new Date(clickedYear, month, clickedDate);
-                var clickedDay = getDayName(dateObj.getDay());
-
-                // Display the clicked date in the specified div
-                var clickedDateDisplay = document.getElementById('clickedDateDisplay');
-                clickedDateDisplay.innerHTML = clickedDate + ' ' + clickedMonth + ' ' + clickedYear +
-                    ' (' + clickedDay + ')';
+                if (dateObj >= today) {
+                    var clickedDay = getDayName(dateObj.getDay());
+                    var clickedDateDisplay = document.getElementById('clickedDateDisplay');
+                    clickedDateDisplay.innerHTML = clickedDate + ' ' + clickedMonth + ' ' + clickedYear + ' (' + clickedDay + ')';
+                }
             });
+            var cellDate = new Date(cell.getAttribute('data-year'), month, cell.getAttribute('data-date'));
+            if (cellDate < today) {
+                cell.style.pointerEvents = 'none';
+                cell.style.opacity = '0.5';
+            }
         });
-
     }
-
-    // day show
 
     function getDayName(dayIndex) {
         var days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
         return days[dayIndex];
     }
 
-
     function daysInMonth(iMonth, iYear) {
         return 32 - new Date(iYear, iMonth, 32).getDate();
     }
-    </script>
+</script>
 
     <script>
    function copyUPI() {
