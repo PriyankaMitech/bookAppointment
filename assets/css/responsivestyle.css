@@ -1,11 +1,28 @@
 /* For Mobile Screen max-width: 767*/
 .addschedulec {
-  padding: 5%;
+  padding: 5% 15%;
 }
 .slotlist {
   margin-left: -45px !important;
 }
+
+.imgessuccss {
+  width: 30%;
+  height: auto;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+.form-wizard {
+  padding: 0px !important;
+}
+.form-wizard .wizard-form-radio input[type="radio"] ~ label {
+  font-size: 13px !important;
+}
 @media only screen and (max-width: 767px) {
+  .addschedulesuccess {
+    padding: 5% !important;
+  }
   .addschedulec {
     padding: 20px;
   }

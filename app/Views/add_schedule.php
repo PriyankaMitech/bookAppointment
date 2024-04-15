@@ -403,7 +403,7 @@
                                                             $isChecked = in_array($subject, $selectedSubjects);
                                                         ?>
 
-                                                        <div class="col-lg-3 col-md-6 col-6">
+                                                        <div class="col-lg-4 col-md-6 col-6">
                                                             <div class="form-check form-check-inline">
                                                                 <input class="form-check-input" type="checkbox"
                                                                     id="subject_<?php echo $subject ?>"
