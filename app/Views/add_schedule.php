@@ -14,7 +14,7 @@
 
 </head>
 
-<body>
+<body class="addschedulebody">
    
     <div class="container addschedulec">
         <div class="row">
@@ -821,37 +821,35 @@
         }
 
         // Create a list element
-        var $list = $('<ul>');
+        var $list = $('<ul class="row slotlist">');
 
-        // Loop through each slot and add it as a list item with radio button
-        slots.forEach(function(slot) {
-            var startTime = slot.start_time;
-            var endTime = slot.end_time;
-            var timeSlot = startTime;
-            var slotId = slot.id;
-            var $radioButton = $('<input type="radio" name="timeSlot" value="' + slotId + '">');
-            $radioButton.attr('data-selected-date', selectedDate); // Add selected date as a data attribute
-            $radioButton.attr('data-full-date', fullDate); // Add full date as a data attribute
-            var $label = $('<label>').text(timeSlot);
-            var $listItem = $('<li>').append($radioButton).append($label);
-            $listItem.on('change', function() {
-                if ($(this).find('input[type="radio"]').is(':checked')) {
-                    var selectedSlotId = $(this).find('input[type="radio"]').val();
-                    var selectedDate = $(this).find('input[type="radio"]').data(
-                    'selected-date'); // Retrieve selected date
-                    var fullDate = $(this).find('input[type="radio"]').data(
-                    'full-date'); // Retrieve full date
-                    console.log(
-                    selectedSlotId); // You can do whatever you want with the selected slot id here
-                    console.log(selectedDate); // Log or use the selected date here
-                    console.log(fullDate); // Log or use the full date here
-                }
-            });
-            $list.append($listItem);
-        });
+// Loop through each slot and add it as a list item with radio button
+slots.forEach(function(slot) {
+    var startTime = slot.start_time;
+    var endTime = slot.end_time;
+    var timeSlot = startTime;
+    var slotId = slot.id;
+    var $radioButton = $('<input type="radio" name="timeSlot" value="' + slotId + '">');
+    $radioButton.attr('data-selected-date', selectedDate); // Add selected date as a data attribute
+    $radioButton.attr('data-full-date', fullDate); // Add full date as a data attribute
+    var $label = $('<label>').text(timeSlot); // corrected label class attribute
+    var $listItem = $('<li>').addClass("col-md-6").append($radioButton).append($label); // corrected list item class attribute
+    $listItem.on('change', function() {
+        if ($(this).find('input[type="radio"]').is(':checked')) {
+            var selectedSlotId = $(this).find('input[type="radio"]').val();
+            var selectedDate = $(this).find('input[type="radio"]').data('selected-date'); // Retrieve selected date
+            var fullDate = $(this).find('input[type="radio"]').data('full-date'); // Retrieve full date
+            console.log(selectedSlotId); // You can do whatever you want with the selected slot id here
+            console.log(selectedDate); // Log or use the selected date here
+            console.log(fullDate); // Log or use the full date here
+        }
+    });
+    $list.append($listItem);
+});
 
-        // Append the list to the time-div
-        $(".time-div").append($list);
+// Append the list to the time-div
+$(".time-div").append($list);
+
 
         // Show the time-div
         $(".time-div").show();
