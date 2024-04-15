@@ -7,7 +7,7 @@
                 <div class="page-body">
                     <div class="card">
                         <div class="card-header">
-                            <h5>Class Information</h5>
+                            <h5><b>Class Information</b></h5>
                         </div>
                         <div class="card-block">
                             <div class="table-responsive">

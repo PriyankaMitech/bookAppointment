@@ -9,7 +9,7 @@
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h5>Booked Slots</h5>
+                                    <h5><b>Booked Slots</b></h5>
                                 </div>
                                 <div class="card-block">
                                     <div class="table-responsive">

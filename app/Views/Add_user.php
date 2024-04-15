@@ -10,7 +10,7 @@
                         <div class="col-md-8">
                             <div id="addUserForm">
                                 <div class="card">
-                                    <div class="card-header">Add Users</div>
+                                    <div class="card-header"><b>Add Users</b></div>
                                     <div class="card-body">
                                         <form action="user_create" method="post" id="userForm">
                                             <div class="form-group">
@@ -54,13 +54,15 @@
                                                     <input type="hidden" name="userId"
                                                         value="<?php echo $user['id']; ?>">
                                                     <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-                                                    <button type="button" class="btn btn-secondary btn-sm" id="createuser">Add User</button>
+                                                    
                                                 </form>
                                             </li>
                                             <?php endforeach; ?>
+                                           
                                         </ul>
                                     </div>
                                 </div>
+                                <!-- <button type="button" class="btn btn-secondary btn-sm" id="createuser">Add User</button> -->
                             </div>
                         </div>
                     </div>

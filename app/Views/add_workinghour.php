@@ -15,7 +15,7 @@
                                 <i class="icofont icofont-file-code bg-c-blue"></i>
                                 <div class="d-inline">
                                     <h4>Working Hours</h4>
-                                    <span>Lorem ipsum dolor sit <code>amet</code>, consectetur adipisicing elit</span>
+                                    <!-- <span>Lorem ipsum dolor sit <code>amet</code>, consectetur adipisicing elit</span> -->
                                 </div>
                             </div>
                         </div>
@@ -46,7 +46,7 @@
                             <!-- Working Hours card start -->
                             <div class="card p-3">
                                 <div class="card-header">
-                                    <h5>Working Hours</h5>
+                                    <h5><b>Working Hours </b></h5>
                                     <!-- <span>Add class of <code>.form-control</code> with <code>&lt;input&gt;</code> tag</span> -->
                                     <div class="card-header-right"><i class="icofont icofont-spinner-alt-5"></i></div>
 
