@@ -15,7 +15,7 @@
                 <div class="container">
                     <div class="card">
                         <div class="card-header">
-                            <h2 class="card-title">Appointment Form</h2>
+                            <h2 class="card-title">Appointment Form (Prediction)</h2>
                         </div>
                         <div class="card-body">
                             <form action="add_appointment" method="post">

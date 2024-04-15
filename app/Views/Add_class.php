@@ -78,6 +78,10 @@
                                             <input type="time" id="start_time" name="start_time" class="form-control" required>
                                         </div>
                                         <div class="form-group">
+                                            <label for="start_time">Batch Name:</label>
+                                            <input type="input" id="batch_name" name="batch_name" class="form-control" required>
+                                        </div>
+                                        <div class="form-group">
                                             <label for="fees">Fees:</label>
                                             <input type="text" id="fees" name="fees" class="form-control" required>
                                         </div>

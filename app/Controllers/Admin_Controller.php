@@ -11,22 +11,23 @@ class Admin_Controller extends BaseController
     {
         return view('login');
     }
-    public function login()
-    {
-        $model = new Admin_Model();
-        $where = [
-            'email' => $this->request->getVar('email'),
-            'password' => $this->request->getVar('password')      
-        ];
-        $result = $model->checkCredentials($where);
-        
-        if ($result != '') {
-            session()->set('user_id', $result['id']);
-            return redirect('admin_dashboard');
-        } else {
-            echo "Invalid credentials";
-        }
+   public function login()
+{
+    $model = new Admin_Model();
+    $where = [
+        'email' => $this->request->getVar('email'),
+        'password' => $this->request->getVar('password')      
+    ];
+    $result = $model->checkCredentials($where);
+    
+    if ($result != '') {
+        session()->set('user_id', $result['id']);
+        return redirect('admin_dashboard');
+    } else {
+        session()->setFlashdata('error', 'Invalid credentials');
+        return redirect()->to(base_url('/')); // Redirect back to login page
     }
+}
     public function admin_dashboard()
     {
         $session = session();
@@ -39,10 +40,11 @@ class Admin_Controller extends BaseController
         
         // Call allamount() method to get the sum of amounts from both tables
         $amountData = $model->allamount();
+      //  print_r($amountData);die;
         $data['appointmentAmount'] = $amountData['appointmentAmount'];
         $data['servicesAmount'] = $amountData['servicesAmount'];
-        $data['classesamount'] =$amountData['classesamount'];
-        $data['totalammount'] =$data['appointmentAmount'] + $data['servicesAmount']+$data['classesamount'] ;
+        $data['classesAmount'] =$amountData['classesAmount'];
+        $data['totalammount'] =$data['appointmentAmount'] + $data['servicesAmount']+$data['classesAmount'] ;
         $data['todayappoinments'] = $model->todayAppointments();
 
         return view('admin_dashboard', $data);
@@ -330,16 +332,11 @@ public function formdata()
     
     $model = new Admin_Model();
     $db = \Config\Database::connect();
-   
-
-    // Load the HTML email template
-  
-
-    // Insert all data into the database
     $subjects = implode(', ', $this->request->getPost('subjects'));
     $data = [
         'fullname' => $this->request->getPost('fullname'),
         'gender' => $this->request->getPost('gender'),
+        'marital_status' => $this->request->getPost('marital_status'),
         'contact_number' => $this->request->getPost('contact_number'),
         'email' => $this->request->getPost('email'),
         'appointmentType' => $this->request->getPost('appointmentType'),
@@ -406,7 +403,14 @@ public function formdata()
     $ccEmails = ['siddheshkadgemitech@gmail.com']; 
     sendConfirmationEmail($useremail, $ccEmails, $subject, $emailContent);
 
-    return redirect()->to('add_schedule');
+    // return redirect()->to('emailform');
+    return view('sucess',[
+        'fullname' => $fullname,
+        'appointmentType' => $appointmentType,
+        'timeSlot' => $timeSlot,
+        'selectedDate' => $selectedDate,
+        'lastinsertid' => $lastInsertId
+]);
 }
     public function getSlots()
 {
@@ -449,7 +453,7 @@ public function formdata()
         $db = \Config\Database::connect();
         $timeSlotId = $this->request->getPost('slot');
         $selectedDate = $this->request->getPost('appointment_date');
-        $model->insertslots($timeSlotId, $selectedDate);
+        $model->insertslotss($timeSlotId, $selectedDate);
         $subjects = implode(',', $this->request->getPost('subjects'));
         $data = [
             'fullname' => $this->request->getPost('fullname'),
@@ -497,6 +501,7 @@ public function formdata()
         $contactNumber = $this->request->getPost('contact_number');
         $startDate = $this->request->getPost('start_date');
         $endDate = $this->request->getPost('end_date');
+        $batch_name = $this->request->getPost('batch_name');
         $classDays = implode(',', $this->request->getPost('class_days')); // Convert array to comma-separated string
         $startTime = $this->request->getPost('start_time');
         $fees = $this->request->getPost('fees');
@@ -513,6 +518,7 @@ public function formdata()
             'contact_number' => $contactNumber,
             'start_date' => $startDate,
             'end_date' => $endDate,
+            'batch_name' =>$batch_name,
             'class_days' => $classDays,
             'start_time' => $startTime,
             'fees' => $fees
@@ -562,7 +568,9 @@ public function services_Reports()
 {
     $model = new Admin_Model();
     $data['allapt'] =$model->getallservicesReports();
-    //  print_r($data['allapt']);die;
+
+
+    //   print_r($data['allapt']);die;
     echo view('services_Reports',$data);
 }
 public function Appointment_status()
@@ -583,7 +591,7 @@ public function freezeSlots()
 
     $timeSlotId  = $this->request->getPost('time_slot_id');
     $selectedDate  = $this->request->getPost('selected_date');
-    $model->insertslots($timeSlotId, $selectedDate);
+    $model->insertslotss($timeSlotId, $selectedDate);
     return redirect()->to('my_slots');
 }
 public function Booked_Slots()
@@ -649,5 +657,55 @@ public function delete_user()
         ];
 
         return redirect()->to('Add_user');
+    }
+    public function Income()
+    {
+        $model = new Admin_Model();
+        $data['appoincome'] =$model->getappoincome();
+        $data['servicesincome']=$model->servicesincome();
+        $data['getallclass'] =$model->getallclass();
+        // echo '<pre>';print_r($data['getallclass']);die;
+        echo view('Income',$data);
+    }
+    public function Students()
+    {
+        $model = new Admin_Model();
+        $data['Students']=$model->getStudents();
+        // echo '<pre>';print_r($data['Students']);die;
+        echo view('Studentslist',$data);
+    }
+    public function add_fees()
+    {
+        $model = new Admin_Model();
+        $student_id = $this->request->getPost('student_id');
+        $paid_amount = $this->request->getPost('Paid_Ammount');
+        $existing_paid_amount = $model->db->table('classes')
+            ->select('Paid_Ammount')
+            ->where('id', $student_id)
+            ->get()
+            ->getRowArray()['Paid_Ammount'];
+        if ($existing_paid_amount !== null) {
+            $paid_amount = $existing_paid_amount . ',' . $paid_amount;
+        }
+        $data = ['Paid_Ammount' => $paid_amount];
+        $where = ['id' => $student_id];
+        $model->db->table('classes')->where($where)->update($data);
+        return redirect()->to('Students');
+    }
+    public function complete_class()
+    {  
+         $model = new Admin_Model();
+        $student_id = $this->request->getPost('student_id');
+        $paidstatus = $this->request->getPost('completion_status'); 
+        $data = [
+            'completion_status' => $paidstatus
+        ];
+        $where = ['id' => $student_id];
+        $model->db->table('classes')->where($where)->update($data);
+        return redirect()->to('Students');
+    }
+    public function sucess()
+    {
+        echo view('sucess');
     }
 }

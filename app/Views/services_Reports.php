@@ -79,12 +79,12 @@ function exportToExcel() {
     const ws = XLSX.utils.table_to_sheet(table);
     const wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
-    XLSX.writeFile(wb, "table.xlsx");
+    XLSX.writeFile(wb, "service.xlsx");
 }
 
 function exportToPDF() {
     const element = document.getElementById('dataTable');
-    html2pdf().from(element).save('table.pdf');
+    html2pdf().from(element).save('service_report.pdf');
 }
 
 // Add event listeners for date range filter and service filter

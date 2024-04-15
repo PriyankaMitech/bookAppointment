@@ -64,12 +64,12 @@ function exportToExcel() {
     const ws = XLSX.utils.table_to_sheet(table);
     const wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
-    XLSX.writeFile(wb, "table.xlsx");
+    XLSX.writeFile(wb, "Appointment_report.xlsx");
 }
 
 function exportToPDF() {
     const element = document.getElementById('dataTable');
-    html2pdf().from(element).save('table.pdf');
+    html2pdf().from(element).save('Appointment_report.pdf');
 }
 
 // Add event listener for date range filter
