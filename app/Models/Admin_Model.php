@@ -180,7 +180,7 @@ public function insertslots($timeSlotId, $selectedDate,$lastInsertId)
     ];
     $this->db->table('book_slots')->insert($data); 
 }
-public function insertslotss($timeSlotId, $selectedDate,)
+public function insertslotss($timeSlotId, $selectedDate)
 {
     $data = [
         'time_slot_id' => $timeSlotId,
