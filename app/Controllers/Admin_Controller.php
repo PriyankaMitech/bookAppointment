@@ -261,6 +261,9 @@ class Admin_Controller extends BaseController
         $update_data = $db->table($tbl_name)->where('user_id', $id)->where('day', $day);
         $update_data->update(['is_deleted' => 'Y']);
 
+        $db->table('tbl_slots')->where('day', $day)->delete();
+
+
         session()->setFlashdata('success', 'Data Deleted successfully.');
         return redirect()->to('add_workinghour');
     }
