@@ -711,4 +711,7 @@ public function delete_user()
     {
         echo view('sucess');
     }
+    public function emailform(){
+        echo view('emailform'); 
+    }
 }
