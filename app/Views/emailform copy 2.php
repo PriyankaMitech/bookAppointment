@@ -10,10 +10,9 @@
             margin: 0;
             padding: 0;
             background-color: #ffffff; /* White background color */
-            
         }
         .container {
-            max-width: 815px;
+            max-width: 600px;
             margin: 0 auto;
             padding: 20px;
             border: 1px solid #dddddd; /* Border color */
@@ -30,17 +29,6 @@
         .body {
             padding: 20px;
             background-color: white;
-            display: flex;
-            max-width: 815px;
-        }
-        .first-body{
-            width: 50%;
-            display:inline-block;
-        }
-        .second-body{
-            width: 50%;
-            display:inline-block;
-
         }
         .footer {
             background-color: #4CAF50;
@@ -55,11 +43,11 @@
 <body>
     <div class="container">
         <div class="header">
-            <h2>  New Appointment </h2>
+            <h2>Vedik Astrologer</h2>
         </div>
-        <div class="body" >
-            <div class="first-body">
-         
+        <div class="body">
+            <p>Hi <?php echo $fullname; ?>,</p>
+            <p>Thank you for booking with us! Your appointment request has been accepted.</p>
             <?php
 
                 $dateObj = new DateTime($selectedDate);
@@ -70,49 +58,27 @@
 
             ?>
 
+            <p>We're looking forward to seeing you on
+                <?=$formattedDate;?>, <?=$formattedTimeSlot;?>.
+            </p>
+            <p>Here's what you booked</p>
 
-                <p><b>When: </b> <?=$formattedDate;?>, <?=$formattedTimeSlot;?></p>
+
                 <p><b>Services:</b> Prediction; 30 minutes - Price varies</p>
+                <p><b>Date & time:</b> <?=$formattedDate;?>, <?=$formattedTimeSlot;?></p>
+                <p><b>Staff:</b> Mrunal kulkarni</p>
+                <!-- <p><b>Message:</b> 4thenad zv</p> -->
 
-                <p><b>Provider:</b> Mrunal kulkarni</p>
-          
-
-
-
-
-                <p><b>Customer: </b> <?php echo $fullname; ?></p>
-                <p><b>Email: </b> Prediction; 30 minutes - Price varies</p>
-
-                <p><b>Phone:</b> Mrunal kulkarni</p>
-
-                <p><b>Notes:</b> NA</p>
-                <p>
-                Thanks,<br>
-                Mrunal Kulkarni
-                </p>
-
+                <!-- <p><b>Location:</b> No location added</p> -->
 
          
-                <a href="http://localhost/appointment/reschedule/<?php //echo $lastinsertid; ?>" style="ext-decoration: none;
+                <a href="http://localhost/appointment/reschedule/<?php echo $lastinsertid; ?>" style="ext-decoration: none;
     background-color: yellow;
     font-weight: 600;
     color: black;
     padding: 10px;
     display: inline-block;
     border-radius: 4px;">Reschedule </a>
-    </div>
-    <div class="second-body">
-        <h4>Mrunal Kulkarni</h4>
-        <p>Vision Plus Shop No 20 Bhaktishakti </p>
-        <p>chowk Old Mumbai Pune highway</p>
-        <p>PCMC</p>
-        <p>Pune, Maharashtra 411044</p>
-        <p>+917499846591
-        </p>
-        <a href="https://vedikastrologer.com/" style="font-weight: 400;
-    color: #00a9ff;">View Website</a>
-
-    </div>
 
         </div>
      
