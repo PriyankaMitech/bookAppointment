@@ -17,11 +17,11 @@ function sendConfirmationEmail($email, $ccEmails = [], $Subject=null, $msg=null,
         $mail->isSMTP();
         $mail->Host     = 'smtp.gmail.com';
         $mail->SMTPAuth = true;
-        $mail->Username = 'siddheshkadgemitech@gmail.com';
-        $mail->Password = 'lxnpuyvyefpbcukr';
+        $mail->Username = 'mrunal@vedikastrologer.com';
+        $mail->Password = 'Happy@2024';
         $mail->SMTPSecure = 'tls';
         $mail->Port     = 587;
-        $mail->setFrom('siddheshkadgemitech@gmail.com', 'Vedik');
+        $mail->setFrom('mrunal@vedikastrologer.com', 'Vedik');
         $mail->addAddress($email, 'Recipient Name');
 
         // Add CC emails
