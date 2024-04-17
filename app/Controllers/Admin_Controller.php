@@ -403,7 +403,7 @@ public function formdata()
     // Send email
     $useremail = $this->request->getPost('email');
     $subject = 'Your Appointment Booked';
-    $ccEmails = ['mrunal@vedikastrologer.com']; 
+    $ccEmails = ['siddheshkadgemitech@gmail.com']; 
     sendConfirmationEmail($useremail, $ccEmails, $subject, $emailContent);
 
     // return redirect()->to('emailform');
@@ -449,18 +449,51 @@ public function formdata()
     {
         return view('Add_class');
     }
+    // public function add_appointment()
+    // {
+    //   //  print_r($_POST);die;
+    //     $model = new Admin_Model();
+    //     $db = \Config\Database::connect();
+    //     $timeSlotId = $this->request->getPost('slot');
+    //     $selectedDate = $this->request->getPost('appointment_date');
+    //     $model->insertslotss($timeSlotId, $selectedDate);
+    //     $subjects = implode(',', $this->request->getPost('subjects'));
+    //     $data = [
+    //         'fullname' => $this->request->getPost('fullname'),
+    //         'gender' => $this->request->getPost('gender'),
+    //         'contact_number' => $this->request->getPost('contact_number'),
+    //         'appointmentType' => $this->request->getPost('appointmentType'),
+    //         'appointmentOption'=> $this->request->getPost('appointmentOption'),
+    //         'source' => $this->request->getPost('source'),
+    //         'friendName' => $this->request->getPost('friendName'),
+    //         'timeSlot' => $this->request->getPost('slot'),
+    //         'appointment_date' =>$this->request->getPost('appointment_date'),
+    
+    //         'dob' => $this->request->getPost('dob'),
+    //         'tob' => $this->request->getPost('tob'),
+    //         'Country' => $this->request->getPost('Country'),
+    //         'State' => $this->request->getPost('State'),
+    //         'City' => $this->request->getPost('City'),
+    //         'twins' => $this->request->getPost('twins'),
+    //         'amount' => '700',
+    //         'subjects' => $subjects
+    //     ];
+    //     $db->table('tbl_appointment')->insert($data);
+    
+    //     return redirect()->to('add_appointment');
+    // }
     public function add_appointment()
-    {
-      //  print_r($_POST);die;
-        $model = new Admin_Model();
-        $db = \Config\Database::connect();
-        $timeSlotId = $this->request->getPost('slot');
-        $selectedDate = $this->request->getPost('appointment_date');
-        $model->insertslotss($timeSlotId, $selectedDate);
-        $subjects = implode(',', $this->request->getPost('subjects'));
-        $data = [
-            'fullname' => $this->request->getPost('fullname'),
+{
+    $model = new Admin_Model();
+    $db = \Config\Database::connect();
+  
+    $subjects = implode(',', $this->request->getPost('subjects'));
+
+   // print_r($_POST);die;
+    $data = [
+           'fullname' => $this->request->getPost('fullname'),
             'gender' => $this->request->getPost('gender'),
+            'email'=> $this->request->getPost('email'),
             'contact_number' => $this->request->getPost('contact_number'),
             'appointmentType' => $this->request->getPost('appointmentType'),
             'appointmentOption'=> $this->request->getPost('appointmentOption'),
@@ -477,11 +510,22 @@ public function formdata()
             'twins' => $this->request->getPost('twins'),
             'amount' => '700',
             'subjects' => $subjects
-        ];
-        $db->table('tbl_appointment')->insert($data);
+    ];
     
-        return redirect()->to('add_appointment');
-    }
+    $db->table('tbl_appointment')->insert($data);
+    
+    // Get the last inserted ID
+    $appm_id = $db->insertID();
+
+    // Update the newly inserted row with the appm_id
+    // $db->table('tbl_appointment')->set('appm_id', $appm_id)->where('id', $appm_id)->update();
+    
+    $timeSlotId = $this->request->getPost('slot');
+    $selectedDate = $this->request->getPost('appointment_date');
+    $model->insertslotsses($appm_id,$timeSlotId, $selectedDate);
+    
+    return redirect()->to('add_appointment');
+}
     public function getnewslots()
     {
         $model = new Admin_Model();

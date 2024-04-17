@@ -16,7 +16,7 @@
 
 
 <body class="addschedulebody">
-   
+
 
     <div class="container addschedulec">
         <div class="row">
@@ -236,7 +236,7 @@
 
                                         <div class="row mt-3">
                                             <div class="col-lg-7">
-                                                <h5>Select date </h5>
+                                                <h5>Select Date </h5>
                                                 <div class="wrapper">
                                                     <div class="container-calendar">
                                                         <h3 id="monthAndYear"></h3>
@@ -272,7 +272,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-lg-5 timedivp">
-                                                <h5>Select Slots here every slots Is for 30 min </h5>
+                                                <h6>Select Slots (every slots for 30 min)</h6>
                                                 <div class="time-div wizard-form-radio" style="display:none">
                                                     <!-- Time slots will be populated here -->
                                                 </div>
@@ -296,13 +296,13 @@
                                                 <div class="wizard-form-error bp"></div>
                                             </div> -->
                                             <div class="col-lg-6 col-md-6 col-12">
-    <h6><b>Date of Birth*(जन्म तारीख*)</b></h6>
-    <input type="date" name="dob" class="form-control wizard-required" id="dob"
-           value="<?php if(!empty($single)){ echo $single->dob; } ?>">
-    <div class="wizard-form-error bp"></div>
-</div>
+                                                <h6><b>Date Of Birth*(जन्म तारीख*)</b></h6>
+                                                <input type="date" name="dob" class="form-control wizard-required"
+                                                    id="dob" value="<?php if(!empty($single)){ echo $single->dob; } ?>">
+                                                <div class="wizard-form-error bp"></div>
+                                            </div>
                                             <div class="col-lg-6 col-md-6 col-12">
-                                                <h6><b>Time of Birth*(जन्म वेळ*)</b></h6>
+                                                <h6><b>Time Of Birth*(जन्म वेळ*)</b></h6>
                                                 <input type="time" name="tob" class="form-control wizard-required"
                                                     id="tob" value="<?php if(!empty($single)){ echo $single->tob; } ?>">
                                                 <div class="wizard-form-error bp"></div>
@@ -313,21 +313,21 @@
                                                 <h6><b>Place Of Birth *(जन्म ठिकाण*)</b></h6>
                                                 <div class="row mt-3">
                                                     <div class="col-lg-4 col-md-4 col-12">
-                                                        <h6><b>Country(देश*)</b></h6>
+                                                        <h6><b>Country (देश*)</b></h6>
                                                         <input type="text" name="Country"
                                                             class="form-control wizard-required" id="dob"
                                                             value="<?php if(!empty($single)){ echo $single->Country; } ?>">
                                                         <div class="wizard-form-error bp"></div>
                                                     </div>
                                                     <div class="col-lg-4 col-md-4 col-12">
-                                                        <h6><b>State*(राज्य*)</b></h6>
+                                                        <h6><b>State (राज्य*)</b></h6>
                                                         <input type="text" name="State"
                                                             class="form-control wizard-required" id="tob"
                                                             value="<?php if(!empty($single)){ echo $single->State; } ?>">
                                                         <div class="wizard-form-error bp"></div>
                                                     </div>
                                                     <div class="col-lg-4 col-md-4 col-12">
-                                                        <h6><b>City (शहर) *</b></h6>
+                                                        <h6><b>City (शहर*)</b></h6>
                                                         <input type="text" name="City"
                                                             class="form-control wizard-required" id="pob"
                                                             value="<?php if(!empty($single)){ echo $single->City; } ?>">
@@ -391,10 +391,10 @@
                                                         <?php 
                                                         // Define an array of all available subjects
                                                         $availableSubjects = array(
-                                                            'Education', 'Foreign Travel', 'Marriage', 'Re-marriage', 'Child birth', 
+                                                            'Education', 'Foreign Travel', 'Marriage', 'Re-Marriage', 'Child Birth', 
                                                             'Love Life', 'Divorce', 'Siblings', 'Job', 'Business', 'Partnership', 
-                                                            'Property', 'Others', 'Behavioural Issue', 'Finance', 'Share market', 
-                                                            'Health', 'Parents relation', 'Legal case'
+                                                            'Property', 'Others', 'Behavioural Issue', 'Finance', 'Share Market', 
+                                                            'Health', 'Parents Relation', 'Legal Case'
                                                         );
 
                                                         // Loop through each available subject
@@ -639,7 +639,7 @@
 
 
 
-<script>
+    <script>
     var today = new Date();
     var currentMonth = today.getMonth();
     var currentYear = today.getFullYear();
@@ -749,7 +749,8 @@
                 if (dateObj >= today) {
                     var clickedDay = getDayName(dateObj.getDay());
                     var clickedDateDisplay = document.getElementById('clickedDateDisplay');
-                    clickedDateDisplay.innerHTML = clickedDate + ' ' + clickedMonth + ' ' + clickedYear + ' (' + clickedDay + ')';
+                    clickedDateDisplay.innerHTML = clickedDate + ' ' + clickedMonth + ' ' +
+                        clickedYear + ' (' + clickedDay + ')';
                 }
             });
             var cellDate = new Date(cell.getAttribute('data-year'), month, cell.getAttribute('data-date'));
@@ -768,31 +769,31 @@
     function daysInMonth(iMonth, iYear) {
         return 32 - new Date(iYear, iMonth, 32).getDate();
     }
-</script>
+    </script>
 
     <script>
-   function copyUPI() {
-    /* Get the text field */
-    event.preventDefault();
-    var copyText = document.createElement('textarea');
-    copyText.value = "9822331983@idfcfirst";
+    function copyUPI() {
+        /* Get the text field */
+        event.preventDefault();
+        var copyText = document.createElement('textarea');
+        copyText.value = "9822331983@idfcfirst";
 
-    /* Append the text field to the body */
-    document.body.appendChild(copyText);
+        /* Append the text field to the body */
+        document.body.appendChild(copyText);
 
-    /* Select the text field */
-    copyText.select();
-    copyText.setSelectionRange(0, 99999); /* For mobile devices */
+        /* Select the text field */
+        copyText.select();
+        copyText.setSelectionRange(0, 99999); /* For mobile devices */
 
-    /* Copy the text inside the text field */
-    document.execCommand("copy");
+        /* Copy the text inside the text field */
+        document.execCommand("copy");
 
-    /* Alert the copied text */
-    alert("UPI number copied: " + copyText.value);
+        /* Alert the copied text */
+        alert("UPI number copied: " + copyText.value);
 
-    /* Remove the text field from the body */
-    document.body.removeChild(copyText);
-}
+        /* Remove the text field from the body */
+        document.body.removeChild(copyText);
+    }
     </script>
     <script>
     jQuery(document).ready(function() {
@@ -870,32 +871,36 @@
 
         var $list = $('<ul class="row slotlist">');
 
-// Loop through each slot and add it as a list item with radio button
-slots.forEach(function(slot) {
-    var startTime = slot.start_time;
-    var endTime = slot.end_time;
-    var timeSlot = startTime;
-    var slotId = slot.id;
-    var $radioButton = $('<input type="radio" name="timeSlot" value="' + slotId + '">');
-    $radioButton.attr('data-selected-date', selectedDate); // Add selected date as a data attribute
-    $radioButton.attr('data-full-date', fullDate); // Add full date as a data attribute
-    var $label = $('<label>').text(timeSlot); // corrected label class attribute
-    var $listItem = $('<li>').addClass("col-md-6").append($radioButton).append($label); // corrected list item class attribute
-    $listItem.on('change', function() {
-        if ($(this).find('input[type="radio"]').is(':checked')) {
-            var selectedSlotId = $(this).find('input[type="radio"]').val();
-            var selectedDate = $(this).find('input[type="radio"]').data('selected-date'); // Retrieve selected date
-            var fullDate = $(this).find('input[type="radio"]').data('full-date'); // Retrieve full date
-            console.log(selectedSlotId); // You can do whatever you want with the selected slot id here
-            console.log(selectedDate); // Log or use the selected date here
-            console.log(fullDate); // Log or use the full date here
-        }
-    });
-    $list.append($listItem);
-});
+        // Loop through each slot and add it as a list item with radio button
+        slots.forEach(function(slot) {
+            var startTime = slot.start_time;
+            var endTime = slot.end_time;
+            var timeSlot = startTime;
+            var slotId = slot.id;
+            var $radioButton = $('<input type="radio" name="timeSlot" value="' + slotId + '">');
+            $radioButton.attr('data-selected-date', selectedDate); // Add selected date as a data attribute
+            $radioButton.attr('data-full-date', fullDate); // Add full date as a data attribute
+            var $label = $('<label>').text(timeSlot); // corrected label class attribute
+            var $listItem = $('<li>').addClass("col-md-6").append($radioButton).append(
+            $label); // corrected list item class attribute
+            $listItem.on('change', function() {
+                if ($(this).find('input[type="radio"]').is(':checked')) {
+                    var selectedSlotId = $(this).find('input[type="radio"]').val();
+                    var selectedDate = $(this).find('input[type="radio"]').data(
+                    'selected-date'); // Retrieve selected date
+                    var fullDate = $(this).find('input[type="radio"]').data(
+                    'full-date'); // Retrieve full date
+                    console.log(
+                    selectedSlotId); // You can do whatever you want with the selected slot id here
+                    console.log(selectedDate); // Log or use the selected date here
+                    console.log(fullDate); // Log or use the full date here
+                }
+            });
+            $list.append($listItem);
+        });
 
-// Append the list to the time-div
-$(".time-div").append($list);
+        // Append the list to the time-div
+        $(".time-div").append($list);
 
 
         // Show the time-div
@@ -915,7 +920,7 @@ $(".time-div").append($list);
 
     // Set the max attribute of the input field to today's date
     document.getElementById("dob").setAttribute("max", today);
-</script>
+    </script>
 </body>
 
 </html>

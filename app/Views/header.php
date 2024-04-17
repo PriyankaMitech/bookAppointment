@@ -244,7 +244,7 @@
                                             <a href="<?=base_url(); ?>add_schedule">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                                                 <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Add
-                                                    schedule</span>
+                                                    Schedule</span>
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
                                         </li>
