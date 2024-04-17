@@ -23,7 +23,7 @@
                             <div class="page-header-breadcrumb">
                                 <ul class="breadcrumb-title">
                                     <li class="breadcrumb-item">
-                                        <a href="index.html">
+                                        <a href="<?php echo base_url() ?>admin_dashboard">
                                             <i class="icofont icofont-home"></i>
                                         </a>
                                     </li>

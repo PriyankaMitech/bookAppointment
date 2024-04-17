@@ -189,6 +189,16 @@ public function insertslotss($timeSlotId, $selectedDate)
     ];
     $this->db->table('book_slots')->insert($data); 
 }
+public function insertslotsses($appm_id,$timeSlotId, $selectedDate)
+{
+    $data = [
+        'appm_id' => $appm_id,
+        'time_slot_id' => $timeSlotId,
+        'selected_date' => $selectedDate,
+       
+    ];
+    $this->db->table('book_slots')->insert($data); 
+}
 public function updatedata($timeSlotId, $selectedDate,$lastInsertId)
 {
     $data = [

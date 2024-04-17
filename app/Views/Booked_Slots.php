@@ -23,7 +23,7 @@
                                                         <th>Start Time</th>
                                                         <th>End Time</th>
                                                         <th>Day</th>
-                                                        <th>Appointment date</th>
+                                                        <th>Appointment Date</th>
                                                         <th>Action</th>
                                                     </tr>
                                                 </thead>

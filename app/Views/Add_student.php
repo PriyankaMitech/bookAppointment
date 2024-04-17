@@ -3,7 +3,8 @@
 .form-check-input.box {
     margin-left: -0.25rem;
 }
-.form-check-input.red{
+
+.form-check-input.red {
     margin-left: -0.25rem;
 }
 </style>
@@ -107,7 +108,8 @@
                                 <div class="form-group row">
                                     <label for="dob" class="col-sm-3 col-form-label">Date of Birth:</label>
                                     <div class="col-sm-9">
-                                        <input type="date" id="dob" name="dob" class="form-control" required>
+                                        <input type="date" id="dob" name="dob" class="form-control" required
+                                            max="<?php echo date('Y-m-d'); ?>">
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -134,12 +136,12 @@
                                         <input type="text" id="City" name="City" class="form-control" required>
                                     </div>
                                 </div>
-                                <div class="form-group row">
+                                <!-- <div class="form-group row">
                                     <label for="amount" class="col-sm-3 col-form-label">Fee Amount:</label>
                                     <div class="col-sm-3">
                                         <input type="text" id="amount" name="amount" class="form-control" required>
                                     </div>
-                                </div>
+                                </div> -->
 
                                 <div class="form-group row">
                                     <label class="col-sm-3 col-form-label">Subjects:</label>
@@ -345,7 +347,8 @@ $(document).ready(function() {
                 $('#slots_container').empty();
                 // Check if slots array is empty
                 if (slots.length === 0) {
-                    $('#slots_container').html('<p>No slots available for selected date.</p>');
+                    $('#slots_container').html(
+                        '<p>No slots available for selected date.</p>');
                 } else {
                     // Iterate through each slot and append to slots container
                     $.each(slots, function(index, slot) {
@@ -353,7 +356,8 @@ $(document).ready(function() {
                             '<div class="form-check form-check-inline">' +
                             '<input class="form-check-input red" type="radio" id="slot_' +
                             slot.id + '" name="slot" value="' + slot.id + '">' +
-                            '<label class="form-check-label" for="slot_' + slot.id +
+                            '<label class="form-check-label" for="slot_' + slot
+                            .id +
                             '">' + slot.start_time + '</label>' +
                             '</div>');
                     });
