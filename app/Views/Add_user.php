@@ -78,74 +78,75 @@
 <?php include('footer.php'); ?>
 
 <script>
-     document.getElementById("viewUserBtn").addEventListener("click", function() {
-        document.getElementById("addUserForm").style.display = "none";
-        document.getElementById("userList").style.display = "block";
+document.addEventListener("DOMContentLoaded", function() {
+    document.getElementById("userForm").addEventListener("submit", function(event) {
+        var name = document.getElementById("name").value;
+        var email = document.getElementById("email").value;
+        var password = document.getElementById("password").value;
+        var confirmPassword = document.getElementById("confirmPassword").value;
+        var nameError = document.getElementById("nameError");
+        var emailError = document.getElementById("emailError");
+        var passwordError = document.getElementById("passwordError");
+        var confirmPasswordError = document.getElementById("confirmPasswordError");
+        var hasError = false; // Set hasError to false initially
+
+        // Reset error messages
+        nameError.textContent = "";
+        emailError.textContent = "";
+        passwordError.textContent = "";
+        confirmPasswordError.textContent = "";
+
+        // Validate name
+        if (!name.trim()) {
+            nameError.textContent = "Please enter your name";
+            nameError.style.display = "block";
+            hasError = true; // Set hasError to true if there's an error
+        }
+
+        // Validate email
+        if (!email.trim()) {
+            emailError.textContent = "Please enter your email";
+            emailError.style.display = "block";
+            hasError = true;
+        }
+
+        // Validate password
+        if (!password.trim()) {
+            passwordError.textContent = "Please enter your password";
+            passwordError.style.display = "block";
+            hasError = true;
+        }
+
+        // Validate confirm password
+        if (!confirmPassword.trim()) {
+            confirmPasswordError.textContent = "Please confirm your password";
+            confirmPasswordError.style.display = "block";
+            hasError = true;
+        }
+
+        // Check if passwords match
+        if (password.trim() !== confirmPassword.trim()) {
+            passwordError.textContent = "Passwords do not match";
+            passwordError.style.display = "block";
+            confirmPasswordError.textContent = "Passwords do not match";
+            confirmPasswordError.style.display = "block";
+            hasError = true;
+        }
+
+        // Prevent form submission if there's any error
+        if (hasError) {
+            event.preventDefault();
+        }
     });
+});
 
-    document.getElementById("createuser").addEventListener("click", function() {
-        document.getElementById("addUserForm").style.display = "block";
-        document.getElementById("userList").style.display = "none";
-    });
-    document.addEventListener("DOMContentLoaded", function() {
-        document.getElementById("userForm").addEventListener("submit", function(event) {
-            var name = document.getElementById("name").value;
-            var email = document.getElementById("email").value;
-            var password = document.getElementById("password").value;
-            var confirmPassword = document.getElementById("confirmPassword").value;
-            var nameError = document.getElementById("nameError");
-            var emailError = document.getElementById("emailError");
-            var passwordError = document.getElementById("passwordError");
-            var confirmPasswordError = document.getElementById("confirmPasswordError");
-            var hasError = false;
+document.getElementById("viewUserBtn").addEventListener("click", function() {
+    document.getElementById("addUserForm").style.display = "none";
+    document.getElementById("userList").style.display = "block";
+});
 
-            // Reset error messages
-            nameError.textContent = "";
-            emailError.textContent = "";
-            passwordError.textContent = "";
-            confirmPasswordError.textContent = "";
-
-            // Validate name
-            if (!name) {
-                nameError.textContent = "Please enter your name";
-                nameError.style.display = "block";
-                hasError = true;
-            }
-
-            // Validate email
-            if (!email) {
-                emailError.textContent = "Please enter your email";
-                emailError.style.display = "block";
-                hasError = true;
-            }
-
-            // Validate password
-            if (!password) {
-                passwordError.textContent = "Please enter your password";
-                passwordError.style.display = "block";
-                hasError = true;
-            }
-
-            // Validate confirm password
-            if (!confirmPassword) {
-                confirmPasswordError.textContent = "Please confirm your password";
-                confirmPasswordError.style.display = "block";
-                hasError = true;
-            }
-
-            // Check if passwords match
-            if (password !== confirmPassword) {
-                passwordError.textContent = "Passwords do not match";
-                passwordError.style.display = "block";
-                confirmPasswordError.textContent = "Passwords do not match";
-                confirmPasswordError.style.display = "block";
-                hasError = true;
-            }
-
-            // Prevent form submission if there's any error
-            if (hasError) {
-                event.preventDefault();
-            }
-        });
-    });
+document.getElementById("createuser").addEventListener("click", function() {
+    document.getElementById("addUserForm").style.display = "block";
+    document.getElementById("userList").style.display = "none";
+});
 </script>
