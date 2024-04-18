@@ -69,16 +69,10 @@
                 $formattedTimeSlot = date('h:i A', strtotime($timeSlot));
 
             ?>
-
-
                 <p><b>When: </b> <?=$formattedDate;?>, <?=$formattedTimeSlot;?></p>
                 <p><b>Services:</b> Prediction; 30 minutes - Price varies</p>
 
                 <p><b>Provider:</b> Mrunal kulkarni</p>
-          
-
-
-
 
                 <p><b>Customer: </b> <?php echo $fullname; ?></p>
                 <p><b>Email: </b> Prediction; 30 minutes - Price varies</p>
@@ -90,9 +84,6 @@
                 Thanks,<br>
                 Mrunal Kulkarni
                 </p>
-
-
-         
                 <a href="http://localhost/appointment/reschedule/<?php //echo $lastinsertid; ?>" style="ext-decoration: none;
     background-color: yellow;
     font-weight: 600;
