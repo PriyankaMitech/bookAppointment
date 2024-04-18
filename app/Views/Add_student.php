@@ -176,7 +176,7 @@
                                             <div class="form-check form-check-inline">
                                                 <input class="form-check-input box" type="checkbox" id="subject5"
                                                     name="subjects[]" value="Child birth">
-                                                <label class="form-check-label" for="subject5">Child birth</label>
+                                                <label class="form-check-label" for="subject5">Child Birth</label>
                                             </div>
                                             <!-- Checkbox 6 -->
                                             <div class="form-check form-check-inline">
@@ -238,7 +238,7 @@
                                             <div class="form-check form-check-inline">
                                                 <input class="form-check-input box" type="checkbox" id="subject16"
                                                     name="subjects[]" value="Share market">
-                                                <label class="form-check-label" for="subject16">Share market</label>
+                                                <label class="form-check-label" for="subject16">Share Market</label>
                                             </div>
                                             <!-- Checkbox 17 -->
                                             <div class="form-check form-check-inline">
@@ -250,13 +250,13 @@
                                             <div class="form-check form-check-inline">
                                                 <input class="form-check-input box" type="checkbox" id="subject18"
                                                     name="subjects[]" value="Parents relation">
-                                                <label class="form-check-label" for="subject18">Parents relation</label>
+                                                <label class="form-check-label" for="subject18">Parents Relation</label>
                                             </div>
                                             <!-- Checkbox 19 -->
                                             <div class="form-check form-check-inline">
                                                 <input class="form-check-input box" type="checkbox" id="subject19"
                                                     name="subjects[]" value="Legal case">
-                                                <label class="form-check-label" for="subject19">Legal case</label>
+                                                <label class="form-check-label" for="subject19">Legal Case</label>
                                             </div>
                                             <div class="form-check form-check-inline">
                                                 <input class="form-check-input box" type="checkbox" id="subject13"

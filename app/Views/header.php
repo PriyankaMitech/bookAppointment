@@ -362,7 +362,7 @@
                                             <a href="<?=base_url(); ?>services_Reports">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                                                 <span class="pcoded-mtext"
-                                                    data-i18n="nav.basic-components.breadcrumbs">services Reports</span>
+                                                    data-i18n="nav.basic-components.breadcrumbs">Services Reports</span>
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
                                         </li>
