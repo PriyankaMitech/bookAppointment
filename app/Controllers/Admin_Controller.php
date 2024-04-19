@@ -165,7 +165,89 @@ class Admin_Controller extends BaseController
 
     }
    
-    public function set_workinghour()
+//     public function set_workinghour()
+// {
+//     $userID = session('user_id');
+//     $days = $this->request->getVar('day[]');
+//     $startTimes = $this->request->getVar('start_time[]');
+//     $endTimes = $this->request->getVar('end_time[]');
+
+//     $currentYear = date('Y');
+
+//     // Create a common start and end date for the entire year
+//     $commonStartDate = $currentYear . '-01-01';
+//     $commonEndDate = $currentYear . '-12-31';
+
+//     // Validate and modify date format
+//     $commonStartDate = date('Y-m-d', strtotime($commonStartDate));
+//     $commonEndDate = date('Y-m-d', strtotime($commonEndDate));
+
+//     $db = \Config\Database::connect();
+//     $insertedSchedules = 0;
+//     $insertedSlots = 0;
+
+//     $db->table('tbl_schedule')->where('user_id', $userID)->delete();
+
+//     foreach ($days as $index => $day) {
+//         $data = [
+//             'user_id' => $userID,
+//             'day' => $day,
+//             'start_date' => $commonStartDate,
+//             'end_date' => $commonEndDate,
+//             'start_time' => $startTimes[$index],
+//             'end_time' => $endTimes[$index],
+//             'created_on' => date('Y-m-d H:i:s'),
+//         ];
+
+//         if ($this->request->getVar('id') == "") {
+//             $add_data = $db->table('tbl_schedule');
+//             $add_data->insert($data);
+//             $insertedSchedules++;
+//         } else {
+//             $update_data = $db->table('tbl_schedule')->where('id', $this->request->getVar('id'));
+//             $update_data->update($data);
+//         }
+
+//         // Convert start and end times to 45-minute increments and insert into tbl_slots
+//         $start = strtotime($startTimes[$index]);
+//         $end = strtotime($endTimes[$index]);
+
+//         while ($start < $end) {
+//             $slotEndTime = date('H:i', strtotime('+45 minutes', $start));
+//             if ($slotEndTime > date('H:i', $end)) {
+//                 $slotEndTime = date('H:i', $end);
+//             }
+
+//             // Insert into tbl_slots
+//             $slotData = [
+//                 'user_id' => $userID,
+//                 'day' => $day,
+//                 'start_time' => date('H:i', $start),
+//                 'end_time' => $slotEndTime,
+//                 'created_on' => date('Y-m-d H:i:s'),
+//             ];
+
+//             $db->table('tbl_slots')->insert($slotData);
+//             $insertedSlots++;
+
+//             $start = strtotime('+45 minutes', $start);
+//         }
+//     }
+
+//     if ($insertedSchedules > 0) {
+//         session()->setFlashdata('success', 'Schedules added successfully.');
+//     } else {
+//         session()->setFlashdata('success', 'Schedules updated successfully.');
+//     }
+
+//     if ($insertedSlots > 0) {
+//         session()->setFlashdata('success', 'Slots added successfully.');
+//     }
+
+//     return redirect()->to('add_workinghour');
+// }
+
+public function set_workinghour()
 {
     $userID = session('user_id');
     $days = $this->request->getVar('day[]');
@@ -215,7 +297,7 @@ class Admin_Controller extends BaseController
         while ($start < $end) {
             $slotEndTime = date('H:i', strtotime('+45 minutes', $start));
             if ($slotEndTime > date('H:i', $end)) {
-                $slotEndTime = date('H:i', $end);
+                break; // Break loop if the slot end time exceeds the end time
             }
 
             // Insert into tbl_slots
@@ -246,7 +328,6 @@ class Admin_Controller extends BaseController
 
     return redirect()->to('add_workinghour');
 }
-
     public function deleteworkinghour(){
         $db = \Config\Database::Connect();
 
@@ -295,41 +376,6 @@ public function calendar(){
 
 }
 
-//   public function formdata()
-// {
-//    // print_r($_POST);die;
-//     $model = new Admin_Model();
-//     $db = \Config\Database::connect();
-//     $timeSlotId = $this->request->getPost('timeSlot');
-//     $selectedDate = $this->request->getPost('selectedDate');
-//     $model->insertslots($timeSlotId, $selectedDate);
-//     $subjects = implode(',', $this->request->getPost('subjects'));
-//     $data = [
-//         'fullname' => $this->request->getPost('fullname'),
-//         'gender' => $this->request->getPost('gender'),
-//         'contact_number' => $this->request->getPost('contact_number'),
-//         'email' => $this->request->getPost('email'),
-//         'appointmentType' => $this->request->getPost('appointmentType'),
-//         'appointmentOption'=> $this->request->getPost('appointmentOption'),
-//         'source' => $this->request->getPost('source'),
-//         'friendName' => $this->request->getPost('friendName'),
-//         'timeSlot' => $this->request->getPost('timeSlot'),
-//         'appointment_date' => $selectedDate,
-//         'dob' => $this->request->getPost('dob'),
-//         'tob' => $this->request->getPost('tob'),
-//         'Country' => $this->request->getPost('Country'),
-//         'State' => $this->request->getPost('State'),
-//         'City' => $this->request->getPost('City'),
-//         'twins' => $this->request->getPost('twins'),
-//         'amount' => '700',
-//         'transaction_id' => $this->request->getPost('transaction_id'),
-//         'subjects' => $subjects
-//     ];
-//     $db->table('tbl_appointment')->insert($data);
-
-//     return redirect()->to('add_schedule');
-// }
-
 public function formdata()
 {
     
@@ -346,8 +392,8 @@ public function formdata()
         'appointmentOption' => $this->request->getPost('appointmentOption'),
         'source' => $this->request->getPost('source'),
         'friendName' => $this->request->getPost('friendName'),
-        'timeSlot' => $this->request->getPost('timeSlot'),
-        'appointment_date' => $this->request->getPost('selectedDate'),
+        'timeSot' => $this->request->getPost('timeSlot'),
+        'appolintment_date' => $this->request->getPost('selectedDate'),
         'dob' => $this->request->getPost('dob'),
         'tob' => $this->request->getPost('tob'),
         'Country' => $this->request->getPost('Country'),
