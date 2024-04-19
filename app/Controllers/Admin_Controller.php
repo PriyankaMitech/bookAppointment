@@ -403,7 +403,7 @@ public function formdata()
     // Send email
     $useremail = $this->request->getPost('email');
     $subject = 'Your Appointment Booked';
-    $ccEmails = ['siddheshkadgemitech@gmail.com']; 
+    $ccEmails = ['mrunal@vedikastrologer.com']; 
     sendConfirmationEmail($useremail, $ccEmails, $subject, $emailContent);
 
     // return redirect()->to('emailform');

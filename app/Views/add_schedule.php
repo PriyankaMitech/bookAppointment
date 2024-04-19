@@ -272,7 +272,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-lg-5 timedivp">
-                                                <h6>Select Slots (every slots for 30 min)</h6>
+                                                <h6>Select slots (every slots for 30 min)</h6>
                                                 <div class="time-div wizard-form-radio" style="display:none">
                                                     <!-- Time slots will be populated here -->
                                                 </div>
