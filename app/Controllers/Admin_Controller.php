@@ -371,95 +371,109 @@ public function calendar(){
     $model = new Admin_Model();
 
     $data['schedule'] =  $model->getcalenderallslots();
- //   echo '<pre>';print_r($data['schedule']);die;
+    $data['slots'] =  $model->getalluserslots();
+
+//    echo '<pre>';print_r($data['slots']);die;
     return view('calendar', $data);
 
 }
 
 public function formdata()
 {
-    
     $model = new Admin_Model();
     $db = \Config\Database::connect();
-    $subjects = implode(', ', $this->request->getPost('subjects'));
-    $data = [
-        'fullname' => $this->request->getPost('fullname'),
-        'gender' => $this->request->getPost('gender'),
-        'marital_status' => $this->request->getPost('marital_status'),
-        'contact_number' => $this->request->getPost('contact_number'),
-        'email' => $this->request->getPost('email'),
-        'appointmentType' => $this->request->getPost('appointmentType'),
-        'appointmentOption' => $this->request->getPost('appointmentOption'),
-        'source' => $this->request->getPost('source'),
-        'friendName' => $this->request->getPost('friendName'),
-        'timeSlot' => $this->request->getPost('timeSlot'),
-        'appointment_date' => $this->request->getPost('selectedDate'),
-        'dob' => $this->request->getPost('dob'),
-        'tob' => $this->request->getPost('tob'),
-        'Country' => $this->request->getPost('Country'),
-        'State' => $this->request->getPost('State'),
-        'City' => $this->request->getPost('City'),
-        'twins' => $this->request->getPost('twins'),
-        'amount' => '700',
-        'transaction_id' => $this->request->getPost('transaction_id'),
-        'subjects' => $subjects
-    ];
-    $lastInsertId = '';
-    if($this->request->getPost('ap_id') == ''){
-    $db->table('tbl_appointment')->insert($data);
 
-    $lastInsertId = $db->insertID();
+    $timeSlot = $this->request->getPost('timeSlot');
 
-    $timeSlotId = $this->request->getPost('timeSlot');
-    $selectedDate = $this->request->getPost('selectedDate');
+    $wherecond = array('time_slot_id' => $timeSlot);
 
-    $model->insertslots($timeSlotId, $selectedDate , $lastInsertId);
+    $sloats =  $model->getsinglerow('book_slots', $wherecond);
+    if(!empty($sloats)){
+        session()->setFlashdata('error', 'This slot is already selected');
+        $currentURL = current_url();
+        return redirect()->to('add_schedule'); // Redirect back to the same URL  
+      }else{
+        $subjects = implode(', ', $this->request->getPost('subjects'));
+            $data = [
+                'fullname' => $this->request->getPost('fullname'),
+                'gender' => $this->request->getPost('gender'),
+                'marital_status' => $this->request->getPost('marital_status'),
+                'contact_number' => $this->request->getPost('contact_number'),
+                'email' => $this->request->getPost('email'),
+                'appointmentType' => $this->request->getPost('appointmentType'),
+                'appointmentOption' => $this->request->getPost('appointmentOption'),
+                'source' => $this->request->getPost('source'),
+                'friendName' => $this->request->getPost('friendName'),
+                'timeSlot' => $this->request->getPost('timeSlot'),
+                'appointment_date' => $this->request->getPost('selectedDate'),
+                'dob' => $this->request->getPost('dob'),
+                'tob' => $this->request->getPost('tob'),
+                'Country' => $this->request->getPost('Country'),
+                'State' => $this->request->getPost('State'),
+                'City' => $this->request->getPost('City'),
+                'twins' => $this->request->getPost('twins'),
+                'amount' => '700',
+                'transaction_id' => $this->request->getPost('transaction_id'),
+                'subjects' => $subjects
+            ];
+            $lastInsertId = '';
+            if($this->request->getPost('ap_id') == ''){
+            $db->table('tbl_appointment')->insert($data);
 
-    }else{
-        $lastInsertId = $this->request->getPost('ap_id');
+            $lastInsertId = $db->insertID();
 
-        $db->table('tbl_appointment')->where('ap_id', $this->request->getPost('ap_id'))->update($data);
+            $timeSlotId = $this->request->getPost('timeSlot');
+            $selectedDate = $this->request->getPost('selectedDate');
+
+            $model->insertslots($timeSlotId, $selectedDate , $lastInsertId);
+
+            }else{
+                $lastInsertId = $this->request->getPost('ap_id');
+
+                $db->table('tbl_appointment')->where('ap_id', $this->request->getPost('ap_id'))->update($data);
 
 
-        $timeSlotId = $this->request->getPost('timeSlot');
-    $selectedDate = $this->request->getPost('selectedDate');
+                $timeSlotId = $this->request->getPost('timeSlot');
+            $selectedDate = $this->request->getPost('selectedDate');
 
-    $model->updatedata($timeSlotId, $selectedDate , $lastInsertId);
+            $model->updatedata($timeSlotId, $selectedDate , $lastInsertId);
 
-    }
-    
-    $wherecond = array('id' => $this->request->getPost('timeSlot'));
-    $timeSlotInfo = $model->getslotstime('tbl_slots', $wherecond);
+            }
+            
+            $wherecond = array('id' => $this->request->getPost('timeSlot'));
+            $timeSlotInfo = $model->getslotstime('tbl_slots', $wherecond);
 
-    // Extract time slot value from the result
-    $timeSlot = $timeSlotInfo ? $timeSlotInfo->start_time : '';
+            // Extract time slot value from the result
+            $timeSlot = $timeSlotInfo ? $timeSlotInfo->start_time : '';
 
-    // Prepare email content with specific values
-    $fullname = $this->request->getPost('fullname');
-    $appointmentType = $this->request->getPost('appointmentType');
-    $selectedDate = $this->request->getPost('selectedDate');
+            // Prepare email content with specific values
+            $fullname = $this->request->getPost('fullname');
+            $appointmentType = $this->request->getPost('appointmentType');
+            $selectedDate = $this->request->getPost('selectedDate');
 
-    $emailContent = view('emailform', [
-        'fullname' => $fullname,
-        'appointmentType' => $appointmentType,
-        'timeSlot' => $timeSlot,
-        'selectedDate' => $selectedDate,
-        'lastinsertid' => $lastInsertId
-    ]);
-    // Send email
-    $useremail = $this->request->getPost('email');
-    $subject = 'Your Appointment Booked';
-    $ccEmails = ['mrunal@vedikastrologer.com']; 
-    sendConfirmationEmail($useremail, $ccEmails, $subject, $emailContent);
+            $emailContent = view('emailform', [
+                'fullname' => $fullname,
+                'appointmentType' => $appointmentType,
+                'timeSlot' => $timeSlot,
+                'selectedDate' => $selectedDate,
+                'lastinsertid' => $lastInsertId
+            ]);
+            // Send email
+            $useremail = $this->request->getPost('email');
+            $subject = 'Your Appointment Booked';
+            $ccEmails = ['mrunal@vedikastrologer.com']; 
+            sendConfirmationEmail($useremail, $ccEmails, $subject, $emailContent);
 
-    // return redirect()->to('emailform');
-    return view('sucess',[
-        'fullname' => $fullname,
-        'appointmentType' => $appointmentType,
-        'timeSlot' => $timeSlot,
-        'selectedDate' => $selectedDate,
-        'lastinsertid' => $lastInsertId
-]);
+            // return redirect()->to('emailform');
+            return view('sucess',[
+                'fullname' => $fullname,
+                'appointmentType' => $appointmentType,
+                'timeSlot' => $timeSlot,
+                'selectedDate' => $selectedDate,
+                'lastinsertid' => $lastInsertId
+        ]);
+
+      }  
 }
     public function getSlots()
 {
@@ -804,4 +818,5 @@ public function delete_user()
     public function emailform(){
         echo view('emailform'); 
     }
+   
 }

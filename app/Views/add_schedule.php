@@ -16,6 +16,15 @@
 
 
 <body class="addschedulebody">
+<div id="flash-message-container">
+<?php
+$error = session()->getFlashdata('error');
+if ($error !== null) {
+    echo '<div class="alert alert-danger">' . $error . '</div>';
+}
+?>
+</div>
+
 
 
     <div class="container addschedulec">
