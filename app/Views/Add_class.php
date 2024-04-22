@@ -79,7 +79,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="start_time">Batch Name:</label>
-                                            <input type="input" id="batch_name" name="batch_name" class="form-control" required>
+                                            <input type="input" id="batch_name" name="batch_name" class="form-control">
                                         </div>
                                         <div class="form-group">
                                             <label for="fees">Fees:</label>

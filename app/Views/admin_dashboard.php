@@ -74,7 +74,7 @@
                         <!-- card1 end -->
                         <!-- card1 start -->
                         <div class="col-md-6 col-xl-3">
-                            <div class="card widget-card-1">
+                            <div class="card widget-card-1" id="todaysAppointmentWidget">
                                 <div class="card-block-small">
                                     <i class="icofont icofont-social-twitter bg-c-yellow card1-icon"></i>
                                     <span class="text-c-yellow f-w-600">Todays </span>
@@ -94,46 +94,57 @@
                 </div>
                 <div id="appointmentTableContainer" style="display: none;">
                     <form action="Appointment_status" method="post">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>Fullname</th>
-                                    <th>Gender</th>
-                                    <th>Contact Number</th>
-                                    <th>Appointment Type</th>
-                                    <th>Subjects</th>
-                                    <th>Time</th>
-                                    <th>Conducted</th>
-                                </tr>
-                            </thead>
-                            <tbody id="appointmentTableBody">
-                                <!-- Appointment details will be loaded here -->
-                                <?php foreach ($todayappoinments as $appointment): ?>
-                                <tr>
-                                    <td><?php echo $appointment['fullname']; ?></td>
-                                    <td><?php echo $appointment['gender']; ?></td>
-                                    <td><?php echo $appointment['contact_number']; ?></td>
-                                    <td><?php echo $appointment['appointmentType']; ?></td>
-                                    <td><?php echo $appointment['subjects']; ?></td>
-                                    <!-- Access start_time from bookSlotData -->
-                                    <td><?php echo $appointment['bookSlotData'][0]['start_time']; ?></td>
-                                    <!-- Add hidden input field to store appointment ID -->
-                                    <input type="hidden" name="appointment_ids"
-                                        value="<?php echo $appointment['ap_id']; ?>">
-                                    <!-- Add buttons with values 'Y' and 'N' -->
-                                    <td>
-                                        <button class="btn btn-success" type="submit" name="conducted"
-                                            value="Y">Yes</button>
-                                        <button class="btn btn-danger" type="submit" name="conducted"
-                                            value="N">No</button>
-                                    </td>
-                                </tr>
-                                <?php endforeach; ?>
-                            </tbody>
-                        </table>
+                        <div class="table-responsive">
+                            <div style="max-height: 300px; overflow-y: auto;">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Gender</th>
+                                            <th>Contact</th>
+                                            <th>Type</th>
+                                            <th>Subjects</th>
+                                            <th>Time</th>
+                                            <th>DOB</th>
+                                            <th>TOB</th>
+                                            <th>Source</th>
+                                            <th>Conducted</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="appointmentTableBody">
+                                        <!-- Appointment details will be loaded here -->
+                                        <?php foreach ($todayappoinments as $appointment): ?>
+                                        <tr>
+                                            <td><?php echo $appointment['fullname']; ?></td>
+                                            <td><?php echo $appointment['gender']; ?></td>
+                                            <td><?php echo $appointment['contact_number']; ?></td>
+                                            <td><?php echo $appointment['appointmentType']; ?></td>
+                                            <td><?php echo $appointment['subjects']; ?></td>
+                                            <!-- Access start_time from bookSlotData -->
+                                            <td><?php echo $appointment['bookSlotData'][0]['start_time']; ?></td>
+                                            <!-- Add hidden input field to store appointment ID -->
+                                            <td><?php echo date('d F Y', strtotime($appointment['dob'])); ?></td>
+                                            <td><?php echo substr($appointment['tob'], 0, 5); ?></td>
+                                            <td><?php echo $appointment['source']; ?></td>
+                                            <input type="hidden" name="appointment_ids"
+                                                value="<?php echo $appointment['ap_id']; ?>">
+                                            <!-- Add buttons with values 'Y' and 'N' -->
+                                            <td>
+                                                <button class="btn btn-success" type="submit" name="conducted"
+                                                    value="Y">Yes</button>
+                                                <button class="btn btn-danger" type="submit" name="conducted"
+                                                    value="N">No</button>
+                                            </td>
+                                        </tr>
+                                        <?php endforeach; ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </form>
-
                 </div>
+
+
                 <div id="styleSelector">
 
                 </div>

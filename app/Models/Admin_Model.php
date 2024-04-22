@@ -313,11 +313,13 @@ public function getcalenderallslots()
 
     return $result;
 }
-// public function bookedslots()
+
+//public function bookedslots()
 // {
 //     // Perform a join query to fetch data from both tables
 //     $query = $this->db->table('book_slots')
 //                       ->join('tbl_slots', 'tbl_slots.id = book_slots.time_slot_id')
+//                       ->where('book_slots.appm_id IS NOT NULL') // Add the condition here
 //                       ->get();
 
 //     // Check if there are any results
@@ -331,10 +333,12 @@ public function getcalenderallslots()
 // }
 public function bookedslots()
 {
-    // Perform a join query to fetch data from both tables
+    // Perform a join query to fetch data from all three tables
     $query = $this->db->table('book_slots')
                       ->join('tbl_slots', 'tbl_slots.id = book_slots.time_slot_id')
+                      ->join('tbl_appointment', 'tbl_appointment.ap_id = book_slots.appm_id')
                       ->where('book_slots.appm_id IS NOT NULL') // Add the condition here
+                      ->select('book_slots.*, tbl_appointment.*, tbl_slots.*') // Select all columns from all tables
                       ->get();
 
     // Check if there are any results
@@ -346,7 +350,6 @@ public function bookedslots()
         return [];
     }
 }
-
 public function getUser()
 {
     return $this->db->table('tbl_user')->where('status', 'Y')->get()->getResultArray();

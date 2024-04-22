@@ -240,14 +240,22 @@
                                         <span class="pcoded-mcaret"></span>
                                     </a>
                                     <ul class="pcoded-submenu">
-                                        <li class=" ">
+                                    <li class=" ">
+                                            <a href="<?=base_url(); ?>Booked_Slots">
+                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                                <span class="pcoded-mtext"
+                                                    data-i18n="nav.basic-components.breadcrumbs">Booked Slots</span>
+                                                <span class="pcoded-mcaret"></span>
+                                            </a>
+                                        </li>
+                                        <!-- <li class=" ">
                                             <a href="<?=base_url(); ?>add_schedule">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                                                 <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Add
                                                     Schedule</span>
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
-                                        </li>
+                                        </li> -->
 
                                         <li class=" ">
                                             <a href="<?=base_url(); ?>add_workinghour">
@@ -273,14 +281,7 @@
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
                                         </li>
-                                        <li class=" ">
-                                            <a href="<?=base_url(); ?>Booked_Slots">
-                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext"
-                                                    data-i18n="nav.basic-components.breadcrumbs">Booked Slots</span>
-                                                <span class="pcoded-mcaret"></span>
-                                            </a>
-                                        </li>
+                                       
                                         <li class=" ">
                                             <a href="<?=base_url(); ?>Add_user">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
@@ -289,14 +290,7 @@
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
                                         </li>
-                                        <li class=" ">
-                                            <a href="<?=base_url(); ?>Students">
-                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext"
-                                                    data-i18n="nav.basic-components.breadcrumbs">Students List</span>
-                                                <span class="pcoded-mcaret"></span>
-                                            </a>
-                                        </li>
+                                        
                                     </ul>
                                 </li>
 
@@ -308,7 +302,7 @@
                                     <a href="javascript:void(0)">
                                         <span class="pcoded-micon"><i class="ti-direction-alt"></i><b>M</b></span>
                                         <span class="pcoded-mtext" data-i18n="nav.menu-levels.main">Other
-                                            servicss</span>
+                                            services</span>
                                         <span class="pcoded-mcaret"></span>
                                     </a>
                                     <ul class="pcoded-submenu">
@@ -326,6 +320,14 @@
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                                                 <span class="pcoded-mtext"
                                                     data-i18n="nav.basic-components.breadcrumbs">Add Student</span>
+                                                <span class="pcoded-mcaret"></span>
+                                            </a>
+                                        </li>
+                                        <li class=" ">
+                                            <a href="<?=base_url(); ?>Students">
+                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                                <span class="pcoded-mtext"
+                                                    data-i18n="nav.basic-components.breadcrumbs">Students List</span>
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
                                         </li>
