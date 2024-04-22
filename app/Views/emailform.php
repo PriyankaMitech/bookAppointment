@@ -75,16 +75,17 @@
                 <p><b>Provider:</b> Mrunal kulkarni</p>
 
                 <p><b>Customer: </b> <?php echo $fullname; ?></p>
+
                 <p><b>Email: </b> Prediction; 30 minutes - Price varies</p>
 
                 <p><b>Phone:</b> Mrunal kulkarni</p>
 
                 <p><b>Notes:</b> NA</p>
-                <p>
-                Thanks,<br>
-                Mrunal Kulkarni
-                </p>
-                <a href="http://localhost/appointment/reschedule/<?php //echo $lastinsertid; ?>" style="ext-decoration: none;
+                    <p>
+                    Thanks,<br>
+                    Mrunal Kulkarni
+                    </p>
+                <a href="http://localhost/appointment/reschedule/<?php echo $lastinsertid; ?>" style="ext-decoration: none;
     background-color: yellow;
     font-weight: 600;
     color: black;

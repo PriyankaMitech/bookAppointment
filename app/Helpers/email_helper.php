@@ -12,6 +12,7 @@ require_once 'src/SMTP.php';
 
 function sendConfirmationEmail($email, $ccEmails = [], $Subject=null, $msg=null, $otp=null, $password=null, $sameValues=null)
 {
+  //  print_r($msg);die;
 try {
 $mail = new PHPMailer(true);
 $mail->isSMTP();
@@ -43,6 +44,7 @@ $mail->isHTML(true);
 $mail->Subject = $Subject;
 $mail->Body = $msg;
 $mail->send();
+echo $respone;exit();
 } catch (Exception $e) {
 echo "Email could not be sent. Mailer Error: {$mail->ErrorInfo}";
 return false;

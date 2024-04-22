@@ -7,6 +7,9 @@
 .form-check-input.red {
     margin-left: -0.25rem;
 }
+.subject .form-check-label {
+    padding-left: 0.25rem;
+}
 </style>
 <div class="pcoded-content">
     <div class="pcoded-inner-content">
@@ -146,131 +149,122 @@
                                 <div class="form-group row">
                                     <label class="col-sm-3 col-form-label">Subjects:</label>
                                     <div class="col-sm-9">
-                                        <!-- First set of checkboxes -->
-                                        <div class="inline-checkboxes">
-                                            <!-- Checkbox 1 -->
+                                    <div class="row form-group subject" style="margin-left: 8px !important;">
+                                        <div class="col-lg-3 col-md-6 col-6">
                                             <div class="form-check form-check-inline">
-                                                <input class="form-check-input box" type="checkbox" id="subject1"
-                                                    name="subjects[]" value="Education">
-                                                <label class="form-check-label" for="subject1">Education</label>
-                                            </div>
-                                            <!-- Checkbox 2 -->
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input box" type="checkbox" id="subject2"
-                                                    name="subjects[]" value="Foreign Travel">
-                                                <label class="form-check-label" for="subject2">Foreign Travel</label>
-                                            </div>
-                                            <!-- Checkbox 3 -->
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input box" type="checkbox" id="subject3"
-                                                    name="subjects[]" value="Marriage">
-                                                <label class="form-check-label" for="subject3">Marriage</label>
-                                            </div>
-                                            <!-- Checkbox 4 -->
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input box" type="checkbox" id="subject4"
-                                                    name="subjects[]" value="Re-marriage">
-                                                <label class="form-check-label" for="subject4">Re-marriage</label>
-                                            </div>
-                                            <!-- Checkbox 5 -->
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input box" type="checkbox" id="subject5"
-                                                    name="subjects[]" value="Child birth">
-                                                <label class="form-check-label" for="subject5">Child Birth</label>
-                                            </div>
-                                            <!-- Checkbox 6 -->
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input box" type="checkbox" id="subject6"
-                                                    name="subjects[]" value="Love Life">
-                                                <label class="form-check-label" for="subject6">Love Life</label>
-                                            </div>
-                                            <!-- Checkbox 7 -->
-
-                                        </div>
-                                        <!-- Second set of checkboxes -->
-                                        <div class="inline-checkboxes">
-                                            <!-- Checkbox 8 -->
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input box" type="checkbox" id="subject8"
-                                                    name="subjects[]" value="Siblings">
-                                                <label class="form-check-label" for="subject8">Siblings</label>
-                                            </div>
-                                            <!-- Checkbox 9 -->
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input box" type="checkbox" id="subject9"
-                                                    name="subjects[]" value="Job">
-                                                <label class="form-check-label" for="subject9">Job</label>
-                                            </div>
-                                            <!-- Checkbox 10 -->
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input box" type="checkbox" id="subject10"
-                                                    name="subjects[]" value="Business">
-                                                <label class="form-check-label" for="subject10">Business</label>
-                                            </div>
-                                            <!-- Checkbox 11 -->
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input box" type="checkbox" id="subject11"
-                                                    name="subjects[]" value="Partnership">
-                                                <label class="form-check-label" for="subject11">Partnership</label>
-                                            </div>
-                                            <!-- Checkbox 12 -->
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input box" type="checkbox" id="subject12"
-                                                    name="subjects[]" value="Property">
-                                                <label class="form-check-label" for="subject12">Property</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input box" type="checkbox" id="subject12"
-                                                    name="subjects[]" value="BehaviouralIssue">
-                                                <label class="form-check-label" for="subject12">Behavioural
-                                                    Issue</label>
-                                            </div>
-
-                                        </div>
-                                        <div class="inline-checkboxes">
-                                            <!-- Checkbox 15 -->
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input box" type="checkbox" id="subject15"
-                                                    name="subjects[]" value="Finance">
-                                                <label class="form-check-label" for="subject15">Finance</label>
-                                            </div>
-                                            <!-- Checkbox 16 -->
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input box" type="checkbox" id="subject16"
-                                                    name="subjects[]" value="Share market">
-                                                <label class="form-check-label" for="subject16">Share Market</label>
-                                            </div>
-                                            <!-- Checkbox 17 -->
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input box" type="checkbox" id="subject17"
-                                                    name="subjects[]" value="Health">
-                                                <label class="form-check-label" for="subject17">Health</label>
-                                            </div>
-                                            <!-- Checkbox 18 -->
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input box" type="checkbox" id="subject18"
-                                                    name="subjects[]" value="Parents relation">
-                                                <label class="form-check-label" for="subject18">Parents Relation</label>
-                                            </div>
-                                            <!-- Checkbox 19 -->
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input box" type="checkbox" id="subject19"
-                                                    name="subjects[]" value="Legal case">
-                                                <label class="form-check-label" for="subject19">Legal Case</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input box" type="checkbox" id="subject13"
-                                                    name="subjects[]" value="Others">
-                                                <label class="form-check-label" for="subject13">Others</label>
+                                                <input class="form-check-input" type="checkbox" id="subject_Education" name="subjects[]" value="Education">
+                                                <label class="form-check-label" for="subject_Education">Education</label>
                                             </div>
                                         </div>
-                                        <div class="inline-checkboxes">
+                                        <div class="col-lg-3 col-md-6 col-6">
                                             <div class="form-check form-check-inline">
-                                                <input class="form-check-input box" type="checkbox" id="subject7"
-                                                    name="subjects[]" value="Divorce">
-                                                <label class="form-check-label" for="subject7">Divorce</label>
+                                                <input class="form-check-input" type="checkbox" id="subject_Foreign Travel" name="subjects[]" value="Foreign Travel">
+                                                <label class="form-check-label" for="subject_Foreign Travel">Foreign Travel</label>
                                             </div>
                                         </div>
+                                        <div class="col-lg-3 col-md-6 col-6">
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="checkbox" id="subject_Marriage" name="subjects[]" value="Marriage">
+                                                <label class="form-check-label" for="subject_Marriage">Marriage</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3 col-md-6 col-6">
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="checkbox" id="subject_Re-Marriage" name="subjects[]" value="Re-Marriage">
+                                                <label class="form-check-label" for="subject_Re-Marriage">Re-Marriage</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3 col-md-6 col-6">
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="checkbox" id="subject_Child Birth" name="subjects[]" value="Child Birth">
+                                                <label class="form-check-label" for="subject_Child Birth">Child Birth</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3 col-md-6 col-6">
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="checkbox" id="subject_Love Life" name="subjects[]" value="Love Life">
+                                                <label class="form-check-label" for="subject_Love Life">Love Life</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3 col-md-6 col-6">
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="checkbox" id="subject_Divorce" name="subjects[]" value="Divorce">
+                                                <label class="form-check-label" for="subject_Divorce">Divorce</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3 col-md-6 col-6">
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="checkbox" id="subject_Siblings" name="subjects[]" value="Siblings">
+                                                <label class="form-check-label" for="subject_Siblings">Siblings</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3 col-md-6 col-6">
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="checkbox" id="subject_Job" name="subjects[]" value="Job">
+                                                <label class="form-check-label" for="subject_Job">Job</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3 col-md-6 col-6">
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="checkbox" id="subject_Business" name="subjects[]" value="Business">
+                                                <label class="form-check-label" for="subject_Business">Business</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3 col-md-6 col-6">
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="checkbox" id="subject_Partnership" name="subjects[]" value="Partnership">
+                                                <label class="form-check-label" for="subject_Partnership">Partnership</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3 col-md-6 col-6">
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="checkbox" id="subject_Property" name="subjects[]" value="Property">
+                                                <label class="form-check-label" for="subject_Property">Property</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3 col-md-6 col-6">
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="checkbox" id="subject_Others" name="subjects[]" value="Others">
+                                                <label class="form-check-label" for="subject_Others">Others</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3 col-md-6 col-6">
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="checkbox" id="subject_Behavioural Issue" name="subjects[]" value="Behavioural Issue">
+                                                <label class="form-check-label" for="subject_Behavioural Issue">Behavioural Issue</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3 col-md-6 col-6">
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="checkbox" id="subject_Finance" name="subjects[]" value="Finance">
+                                                <label class="form-check-label" for="subject_Finance">Finance</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3 col-md-6 col-6">
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="checkbox" id="subject_Share Market" name="subjects[]" value="Share Market">
+                                                <label class="form-check-label" for="subject_Share Market">Share Market</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3 col-md-6 col-6">
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="checkbox" id="subject_Health" name="subjects[]" value="Health">
+                                                <label class="form-check-label" for="subject_Health">Health</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3 col-md-6 col-6">
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="checkbox" id="subject_Parents Relation" name="subjects[]" value="Parents Relation">
+                                                <label class="form-check-label" for="subject_Parents Relation">Parents Relation</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3 col-md-6 col-6">
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="checkbox" id="subject_Legal Case" name="subjects[]" value="Legal Case">
+                                                <label class="form-check-label" for="subject_Legal Case">Legal Case</label>
+                                            </div>
+                                        </div> 
+                                    </div>
                                     </div>
                                 </div>
                                 <!-- <div class="form-group row">
@@ -290,8 +284,10 @@
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-sm-3 col-form-label">Slots:</label>
-                                    <div class="col-sm-9" id="slots_container">
+                                    <div class="col-sm-9" >
+                                        <div class="row" id="slots_container">
                                         <!-- Slots will be displayed here -->
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -353,13 +349,13 @@ $(document).ready(function() {
                     // Iterate through each slot and append to slots container
                     $.each(slots, function(index, slot) {
                         $('#slots_container').append(
-                            '<div class="form-check form-check-inline">' +
+                            '<div class="col-lg-3 col-md-6 col-6"><div class="form-check form-check-inline ">' +
                             '<input class="form-check-input red" type="radio" id="slot_' +
                             slot.id + '" name="slot" value="' + slot.id + '">' +
                             '<label class="form-check-label" for="slot_' + slot
                             .id +
                             '">' + slot.start_time + '</label>' +
-                            '</div>');
+                            '</div></div>');
                     });
 
                     // Add event listener to radio buttons
