@@ -46,7 +46,7 @@ class Admin_Controller extends BaseController
         $data['classesAmount'] =$amountData['classesAmount'];
         $data['totalammount'] =$data['appointmentAmount'] + $data['servicesAmount']+$data['classesAmount'] ;
         $data['todayappoinments'] = $model->todayAppointments();
-
+// echo '<pre>';print_r($data['todayappoinments']);die;
         return view('admin_dashboard', $data);
     }
 
@@ -706,7 +706,7 @@ public function Booked_Slots()
     $model = new Admin_Model();
 
     $data['bookedslots'] =$model->bookedslots();
-   // echo '<pre>'; print_r($data['bookedslots']);die;
+//   echo '<pre>'; print_r($data['bookedslots']);die;
     echo view('Booked_Slots',$data);
 }
 public function cancelBooking()
