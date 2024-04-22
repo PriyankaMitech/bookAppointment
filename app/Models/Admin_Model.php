@@ -207,13 +207,40 @@ public function updatedata($timeSlotId, $selectedDate,$lastInsertId)
     ];
     $this->db->table('book_slots')->where('appm_id', $lastInsertId)->update($data); 
 }
+// public function todayAppointments()
+// {
+//     $today = date('Y-m-d');
+
+//     // Query to fetch appointments with timeSlot
+//     $query = $this->db->table('tbl_appointment')
+//         ->where('appointment_date', $today)
+//         ->get();
+
+//     // Fetch the result
+//     $appointments = $query->getResultArray();
+
+//     // Fetch additional data from tbl_slots table
+//     foreach ($appointments as &$appointment) {
+//         $timeSlot = $appointment['timeSlot'];
+//         $bookSlotQuery = $this->db->table('tbl_slots')
+//             ->where('id', $timeSlot)
+//             ->get();
+
+//         $bookSlots = $bookSlotQuery->getResultArray();
+//         $appointment['bookSlotData'] = $bookSlots;
+//     }
+
+//     // Return the appointments
+//     return $appointments;
+// }
 public function todayAppointments()
 {
     $today = date('Y-m-d');
 
-    // Query to fetch appointments with timeSlot
+    // Query to fetch appointments with timeSlot and conducted = 'N'
     $query = $this->db->table('tbl_appointment')
         ->where('appointment_date', $today)
+        ->where('conducted', 'N') // Additional condition
         ->get();
 
     // Fetch the result
@@ -233,7 +260,6 @@ public function todayAppointments()
     // Return the appointments
     return $appointments;
 }
-
 public function getSlotsday($dayName,$fullDate)
 {
     // Fetch time_slot_ids from book_slots table for the given selected_date

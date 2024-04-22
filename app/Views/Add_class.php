@@ -5,10 +5,39 @@
         <!-- Main-body start -->
         <div class="main-body">
             <div class="page-wrapper">
+            <div class="page-header card">
+                    <div class="row align-items-end">
+                        <div class="col-lg-8">
+                            <div class="page-header-title">
+                                <i class="icofont icofont-file-code bg-c-blue"></i>
+                                <div class="d-inline">
+                                    <h4>Add Student</h4>
+                                    <!-- <span>Lorem ipsum dolor sit <code>amet</code>, consectetur adipisicing elit</span> -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="page-header-breadcrumb">
+                                <ul class="breadcrumb-title">
+                                    <li class="breadcrumb-item">
+                                        <a href="<?php echo base_url() ?>admin_dashboard">
+                                            <i class="icofont icofont-home"></i>
+                                        </a>
+                                    </li>
+                                    <li class="breadcrumb-item"><a href="#!">Add Student</a>
+                                    </li>
+                                    <li class="breadcrumb-item"><a href="#!">Add Student</a>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="container">
                     <div class="card">
                         <div class="card-header">
-                            <h2 class="card-title">Class Form</h2>
+                            <h2 class="card-title">Add Student</h2>
                         </div>
                         <div class="card-body">
                             <form action="classForm" method="post">

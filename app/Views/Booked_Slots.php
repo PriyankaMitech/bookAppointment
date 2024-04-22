@@ -4,6 +4,34 @@
     <div class="pcoded-inner-content">
         <div class="main-body">
             <div class="page-wrapper">
+            <div class="page-header card">
+                    <div class="row align-items-end">
+                        <div class="col-lg-8">
+                            <div class="page-header-title">
+                                <i class="icofont icofont-file-code bg-c-blue"></i>
+                                <div class="d-inline">
+                                    <h4>Booked Slots</h4>
+                                    <!-- <span>Lorem ipsum dolor sit <code>amet</code>, consectetur adipisicing elit</span> -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="page-header-breadcrumb">
+                                <ul class="breadcrumb-title">
+                                    <li class="breadcrumb-item">
+                                        <a href="<?php echo base_url() ?>admin_dashboard">
+                                            <i class="icofont icofont-home"></i>
+                                        </a>
+                                    </li>
+                                    <li class="breadcrumb-item"><a href="#!">Booked Slots</a>
+                                    </li>
+                                    
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="container">
                    
                     <div class="row">
@@ -30,8 +58,8 @@
                                                         <th>No</th>
                                                         <th>Name</th>
                                                         <th>Appointment Start Time</th>
-                                                        <th>Appointment End Time</th>
-                                                        <th>Day</th>
+                                                        <!-- <th>Appointment End Time</th> -->
+                                                        <!-- <th>Day</th> -->
                                                         <th>Type of service</th>                                         
                                                         <th>Appointment Date</th>
                                                         <th>Action</th>
@@ -55,8 +83,8 @@
                                                             <td><?php echo $counter++; ?></td>
                                                             <td><?php echo $slot['fullname']; ?></td>
                                                             <td><?php echo $slot['start_time']; ?></td>
-                                                            <td><?php echo $slot['end_time']; ?></td>
-                                                            <td><?php echo $slot['day']; ?></td>
+                                                            <!-- <td><?php echo $slot['end_time']; ?></td> -->
+                                                            <!-- <td><?php echo $slot['day']; ?></td> -->
                                                             <td><?php echo $slot['subjects']; ?></td>
                                                             <td><?php echo date('d F Y', strtotime($slot['selected_date'])); ?></td>
                                                             <td>
@@ -74,8 +102,8 @@
                                                             <td><?php echo $counter++; ?></td>
                                                             <td><?php echo $slot['fullname']; ?></td>
                                                             <td><?php echo $slot['start_time']; ?></td>
-                                                            <td><?php echo $slot['end_time']; ?></td>
-                                                            <td><?php echo $slot['day']; ?></td>
+                                                            <!-- <td><?php echo $slot['end_time']; ?></td> -->
+                                                            <!-- <td><?php echo $slot['day']; ?></td> -->
                                                             <td><?php echo $slot['subjects']; ?></td>
                                                             <td><?php echo date('d F Y', strtotime($slot['selected_date'])); ?></td>
                                                             <td>
