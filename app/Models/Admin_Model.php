@@ -284,35 +284,67 @@ public function getallclass()
 }
 public function getcalenderallslots()
 {
-    // Fetch the time_slot_ids and selected_date from the book_slots table
+    // Fetch the time_slot_ids, appm_id, and selected_date from the book_slots table
     $slotsData = $this->db->table('book_slots')
-                          ->select('time_slot_id, selected_date')
+                          ->select('time_slot_id, appm_id, selected_date')
                           ->get()
                           ->getResultArray();
 
-    // Extract the time_slot_ids and selected_date from the result set
+    // Extract the time_slot_ids, appm_id, and selected_date from the result set
     $time_slot_ids = array_column($slotsData, 'time_slot_id');
+    $appm_ids = array_column($slotsData, 'appm_id');
     $selected_dates = array_column($slotsData, 'selected_date');
 
-    // Fetch data from tbl_slots where active_status is 'Y' and id matches
+    // Fetch data from tbl_slots where active_status is 'Y'
     $slots = $this->db->table('tbl_slots')
                       ->where('active_status', 'Y')
-                      ->whereIn('id', $time_slot_ids)
                       ->get()
                       ->getResult();
+
+    // Initialize an array to store customer names indexed by appm_id
+    $customerNames = [];
+    
+    // Fetch customer names based on appm_ids
+    $customers = $this->db->table('tbl_appointment')
+                         ->whereIn('ap_id ', $appm_ids)
+                         ->get()
+                         ->getResult();
+    
+    // Store customer names in an array indexed by appm_id
+    foreach ($customers as $customer) {
+        $customerNames[$customer->ap_id] = $customer->fullname;
+    }
 
     // Combine the selected_date with the fetched slots
     $result = [];
     foreach ($slots as $slot) {
-        $index = array_search($slot->id, $time_slot_ids);
-        if ($index !== false) {
+        // Check if the time_slot_id exists in the $time_slot_ids array
+        if (in_array($slot->id, $time_slot_ids)) {
+            // Find the index of the matching time_slot_id
+            $index = array_search($slot->id, $time_slot_ids);
+            // Add appm_id and selected_date to the slot object
+            $slot->appm_id = $appm_ids[$index];
+            $slot->customer_name = $customerNames[$appm_ids[$index]]; // Add customer name
             $slot->start_date = $selected_dates[$index];
+            // Add the modified slot to the result array
             $result[] = $slot;
         }
     }
 
     return $result;
 }
+
+public function getalluserslots()
+{
+    // Fetch the time_slot_ids, appm_id, and selected_date from the book_slots table
+    $slotsData = $this->db->table('tbl_slots')
+                          ->get()
+                          ->getResultArray();
+ return $slotsData;
+}
+
+
+
 // public function bookedslots()
 // {
 //     // Perform a join query to fetch data from both tables

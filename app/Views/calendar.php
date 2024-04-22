@@ -1,8 +1,10 @@
 <?php include("header.php"); ?>
 <style>
-   .fc-content {
-        background-color: burlywood;
-    }
+.fc-content {
+    background-color: #303549;
+    color: #fff;
+    padding: 5px;
+}
 </style>
 <link href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.0/fullcalendar.min.css' rel='stylesheet' />
     <script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js'></script>
@@ -24,32 +26,37 @@
 <?php include("footer.php"); ?>
 
 <script>
-        $(document).ready(function() {
-            // PHP variable $schedule should contain the necessary schedule data
-            var scheduleData = <?php echo json_encode($schedule); ?>;
-            var events = [];
+    $(document).ready(function() {
+        // PHP variable $schedule should contain the necessary schedule data
+        var scheduleData = <?php echo json_encode($schedule); ?>;
+        var events = [];
 
-            // Iterate through each event in the scheduleData array
-            scheduleData.forEach(function(event) {
-                events.push({
-                    id: event.id,
-                    title: event.start_time, // You can set the event title to the day
-                    start: event.start_date, // Start date of the event
-                    end: event.start_date, // End date of the event
-                    allDay: true // All-day event
-                });
-            });
-
-            // Initialize FullCalendar with events data
-            var calendar = $('#calendar').fullCalendar({
-                header: {
-                    left: 'prev,next today',
-                    // center: 'title',
-                    right: 'month,agendaWeek,agendaDay'
-                },
-                editable: false, // Disable editing
-                events: events // Set events data
+        // Iterate through each event in the scheduleData array
+        scheduleData.forEach(function(event) {
+            // Concatenate the customer name with the event start time for the event title
+            var title = event.customer_name + ' - ' + event.start_time;
+            events.push({
+                id: event.id,
+                title: title, // Event title containing customer name and start time
+                start: event.start_date, // Start date of the event
+                end: event.start_date, // End date of the event
+                allDay: true // All-day event
             });
         });
-    </script>
+
+        // Initialize FullCalendar with events data
+        var calendar = $('#calendar').fullCalendar({
+            header: {
+                left: 'prev,next today',
+                // center: 'title',
+                right: 'month,agendaWeek,agendaDay'
+            },
+            editable: false, // Disable editing
+            events: events // Set events data
+        });
+    });
+</script>
+
+
+
    
