@@ -46,7 +46,9 @@ class Admin_Controller extends BaseController
         $data['classesAmount'] =$amountData['classesAmount'];
         $data['totalammount'] =$data['appointmentAmount'] + $data['servicesAmount']+$data['classesAmount'] ;
         $data['todayappoinments'] = $model->todayAppointments();
-// echo '<pre>';print_r($data['todayappoinments']);die;
+        $data['remaingslots'] = $model->todayRemainingSlots();
+
+// echo '<pre>';print_r($data['remaingslots']);die;
         return view('admin_dashboard', $data);
     }
 
@@ -579,10 +581,31 @@ public function formdata()
 
     // Update the newly inserted row with the appm_id
     // $db->table('tbl_appointment')->set('appm_id', $appm_id)->where('id', $appm_id)->update();
+
+    $wherecond = array('id' => $this->request->getPost('timeSlot'));
+            $timeSlotInfo = $model->getslotstime('tbl_slots', $wherecond);
+
+            // Extract time slot value from the result
+            $timeSlot = $timeSlotInfo ? $timeSlotInfo->start_time : '';
     
     $timeSlotId = $this->request->getPost('slot');
     $selectedDate = $this->request->getPost('appointment_date');
     $model->insertslotsses($appm_id,$timeSlotId, $selectedDate);
+    $lastInsertId = $db->insertID();
+
+
+    $emailContent = view('emailform', [
+        'fullname' => $this->request->getPost('fullname'),
+        'appointmentType' => $this->request->getPost('appointmentType'),
+        'timeSlot' => $timeSlot,
+        'selectedDate' => $selectedDate,
+        'lastinsertid' => $lastInsertId
+    ]);
+    // Send email
+    $useremail = $this->request->getPost('email');
+    $subject = 'Your Appointment Booked';
+    $ccEmails = ['mrunal@vedikastrologer.com']; 
+    sendConfirmationEmail($useremail, $ccEmails, $subject, $emailContent);
     
     return redirect()->to('add_appointment');
 }

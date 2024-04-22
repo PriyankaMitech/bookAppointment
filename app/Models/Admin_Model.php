@@ -416,5 +416,72 @@ public function getStudents()
 {
     return $this->db->table('classes')->where('completion_status', 'N')->get()->getResultArray();
 }
+
+
+// public function todayremaingslots(){
+//     $currentDayNumeric = date('N');
+
+//     // Calculate the difference to get the first day of the current week
+//     $firstCurrentDayNumeric = $currentDayNumeric - 1;
+
+//     // Subtract the difference from the current date to get the first day
+//     $firstCurrentDay = date('Y-m-d', strtotime("-$firstCurrentDayNumeric days"));
+
+//     // Convert the first day to the day name (like "Monday", "Tuesday", etc.)
+//     $firstCurrentDayName = date('l', strtotime($firstCurrentDay));
+
+//     $todayslot = $this->db->table('tbl_slots')->where('active_status', 'Y')->where('day',$firstCurrentDayName)->get()->getResultArray();
+
+//     // return $firstCurrentDayName;
+//    return $todayslot;
+
+// }
+
+public function todayRemainingSlots(){
+    $currentDayNumeric = date('N');
+
+    // Calculate the difference to get the first day of the current week
+    $firstCurrentDayNumeric = $currentDayNumeric - 1;
+
+    // Subtract the difference from the current date to get the first day
+    $firstCurrentDay = date('Y-m-d', strtotime("-$firstCurrentDayNumeric days"));
+
+    // Convert the first day to the day name (like "Monday", "Tuesday", etc.)
+    $firstCurrentDayName = date('l', strtotime($firstCurrentDay));
+
+    // Get all slots for the first day of the current week
+    $todayslots = $this->db->table('tbl_slots')
+                           ->where('active_status', 'Y')
+                           ->where('day', $firstCurrentDayName)
+                           ->get()
+                           ->getResultArray();
+                           
+                        //    
+
+
+    // Check if the slot is booked for the current date
+
+    foreach ($todayslots as &$slot) {
+        $slot['status'] = 'Available'; // Default status
+
+        // Check if the slot ID exists in the book_slots table for the current date
+        $isBooked = $this->db->table('book_slots')
+        ->where('time_slot_id', $slot['id'])
+        ->where('selected_date', date('Y-m-d')) // Current date
+        ->get()
+        ->getRowArray();
+
+        
+        // If the slot is booked, update the status
+        if ($isBooked) {
+            $slot['status'] = 'Booked';
+        }
+
+        // echo "<pre>";print_r($isBooked);exit();
+    }
+
+    return $todayslots;
+}
+
 }
 
