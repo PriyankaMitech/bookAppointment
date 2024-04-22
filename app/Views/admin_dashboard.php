@@ -107,10 +107,11 @@
                                             <th>Contact</th>
                                             <th>Type</th>
                                             <th>Subjects</th>
-                                            <th>Time</th>
+                                            <th>Appointment Time</th>
                                             <th>DOB</th>
                                             <th>TOB</th>
                                             <th>Source</th>
+                                            <th>Booked at</th>
                                             <th>Conducted</th>
                                         </tr>
                                     </thead>
@@ -126,6 +127,7 @@
                                             <td><?php echo date('d F Y', strtotime($appointment['dob'])); ?></td>
                                             <td><?php echo substr($appointment['tob'], 0, 5); ?></td>
                                             <td><?php echo $appointment['source']; ?></td>
+                                            <td><?php echo date('Y-m-d H:i:s', strtotime($appointment['created_at'])); ?></td>
                                             <input type="hidden" name="appointment_ids"
                                                 value="<?php echo $appointment['ap_id']; ?>">
                                             <td>
