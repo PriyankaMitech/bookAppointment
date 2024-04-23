@@ -90,6 +90,8 @@ class Admin_Controller extends BaseController
 
         $data['single'] =  $model->getsinglerow('tbl_appointment', $wherecond);
 
+        // echo "<pre>";print_r($data['single']);exit();
+
         if(!empty($data['single'])){
             $wherecond = array('id ' => $data['single']->timeSlot);
 
