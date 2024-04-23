@@ -32,31 +32,33 @@
                             <!-- Image for Payment -->
                             <img class="imges" src="<?=base_url(); ?>assets/images/vedik-logo.png" alt="Payment Method">
                         </div>
-                        <?php if(!empty($single)){ 
-
-                           date_default_timezone_set('Asia/Kolkata');
-                       
-                           // Get the current time in Asia/Kolkata timezone
-                           $current_time = time();
-                       
-                           // Get the start time of the appointment
-                           $start_time = strtotime($single->appointment_date . ' ' . $single->start_time);
-                       
-                           // Calculate the difference in seconds
-                           $time_diff = $start_time - $current_time;
-                       
-                           // Convert difference to hours
-                           $time_diff_hours = $time_diff / (60 * 60);
-                       
-                           // Check if the appointment is scheduled for today and the start time is less than or equal to 1 hour from now
-                           if (date('Y-m-d', $start_time) == date('Y-m-d', $current_time) && $time_diff_hours <= 1) {
-                         
-                   
-                       
+                        <?php
+                            if (!empty($single)) {
+                                date_default_timezone_set('Asia/Kolkata');
+                                
+                                // Get the current time in Asia/Kolkata timezone
+                                $current_time = time();
+                                
+                                // Get the start time of the appointment
+                                $start_time = strtotime($single->appointment_date . ' ' . $single->start_time);
+                                
+                                // Calculate the difference in seconds
+                                $time_diff = $start_time - $current_time;
+                                
+                                // Check if the time difference is less than or equal to 0
+                                if ($time_diff <= 0) {
                             ?>
-                             <div class="col-lg-8 col-md-8 col-12 p-3">
-                                    <h4>Sorry, you cannot reschedule the appointment because  only few minutes left to your appointment !</h4>
-                            </div>
+                                <div class="col-lg-8 col-md-8 col-12 p-3">
+                                    <h4>Sorry, you cannot reschedule the appointment because the appointment time has already passed!</h4>
+                                </div>
+                            <?php
+                                }
+                                // Check if the appointment is scheduled for today and the start time is less than or equal to 1 hour from now
+                                elseif (date('Y-m-d', $start_time) == date('Y-m-d', $current_time) && $time_diff_hours <= 1) {
+                            ?>
+                                <div class="col-lg-8 col-md-8 col-12 p-3">
+                                    <h4>Sorry, you cannot reschedule the appointment because only few minutes left for your appointment!</h4>
+                                </div>
                             <?php }else{ ?>
                                
                         <div class="form-wizard-header col-lg-10 col-md-10 col-12">
