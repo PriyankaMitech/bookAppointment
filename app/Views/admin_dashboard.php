@@ -193,7 +193,7 @@
                                                                                                 <th>Contact</th>
                                                                                                 <th>Type</th>
                                                                                                 <th>Subjects</th>
-                                                                                                <th>Time</th>
+                                                                                                <th>Appointment Time</th>
                                                                                                 <th>DOB</th>
                                                                                                 <th>TOB</th>
                                                                                                 <th>Source</th>
