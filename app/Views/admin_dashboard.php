@@ -249,7 +249,7 @@
                                                                                             if (!empty($remaingslots)) {
                                                                                                 $i = 1;
                                                                                                 foreach ($remaingslots as $data): 
-                                                                                                    if ($data['status'] === 'Available'):
+                                                                                                
                                                                                             ?>
                                                                                                         <tr>
                                                                                                             <td><?php echo $i ?></td>
@@ -258,7 +258,7 @@
                                                                                                         </tr>
                                                                                             <?php
                                                                                                         $i++;
-                                                                                                    endif;
+                                                                                                  
                                                                                                 endforeach;
                                                                                             }
                                                                                             ?>
