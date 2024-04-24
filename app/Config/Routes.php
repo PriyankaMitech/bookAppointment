@@ -15,6 +15,8 @@ $routes->get('sucess', 'Admin_Controller::sucess');
 $routes->get('emailform', 'Admin_Controller::emailform');
 $routes->post('get_user_details', 'Admin_Controller::get_user_details');
 $routes->post('update_user', 'Admin_Controller::update_user');
+$routes->get('emailformforreciver', 'Admin_Controller::emailformforreciver');
+
 
 $routes->post('set_schedule', 'Admin_Controller::set_schedule');
 $routes->post('save_schedule', 'Admin_Controller::save_schedule');
@@ -53,6 +55,10 @@ $routes->get('Income', 'Admin_Controller::Income');
 $routes->get('Students', 'Admin_Controller::Students');
 $routes->post('add_fees', 'Admin_Controller::add_fees');
 $routes->post('complete_class', 'Admin_Controller::complete_class');
+
+
+$routes->post('get_state_name_location','Admin_Controller::get_state_name_location');
+$routes->post('get_city_name_location','Admin_Controller::get_city_name_location');
 
 
 

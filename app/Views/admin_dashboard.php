@@ -95,55 +95,7 @@
 
                 
                 
-                <!-- <div class="card " id="appointmentTableContainer" style="display: none;">
-                    <form action="Appointment_status" method="post">
-                        <div class="table-responsive">
-                            <div style="max-height: 300px; overflow-y: auto;">
-                                <table class="table table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th>Name</th>
-                                            <th>Gender</th>
-                                            <th>Contact</th>
-                                            <th>Type</th>
-                                            <th>Subjects</th>
-                                            <th>Appointment Time</th>
-                                            <th>DOB</th>
-                                            <th>TOB</th>
-                                            <th>Source</th>
-                                            <th>Booked at</th>
-                                            <th>Conducted</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="appointmentTableBody">
-                                        <?php foreach ($todayappoinments as $appointment): ?>
-                                        <tr>
-                                            <td><?php echo $appointment['fullname']; ?></td>
-                                            <td><?php echo $appointment['gender']; ?></td>
-                                            <td><?php echo $appointment['contact_number']; ?></td>
-                                            <td><?php echo $appointment['appointmentType']; ?></td>
-                                            <td><?php echo $appointment['subjects']; ?></td>
-                                            <td><?php echo $appointment['bookSlotData'][0]['start_time']; ?></td>
-                                            <td><?php echo date('d F Y', strtotime($appointment['dob'])); ?></td>
-                                            <td><?php echo substr($appointment['tob'], 0, 5); ?></td>
-                                            <td><?php echo $appointment['source']; ?></td>
-                                            <td><?php echo date('Y-m-d H:i:s', strtotime($appointment['created_at'])); ?></td>
-                                            <input type="hidden" name="appointment_ids"
-                                                value="<?php echo $appointment['ap_id']; ?>">
-                                            <td>
-                                                <button class="btn btn-success" type="submit" name="conducted"
-                                                    value="Y">Yes</button>
-                                                <button class="btn btn-danger" type="submit" name="conducted"
-                                                    value="N">No</button>
-                                            </td>
-                                        </tr>
-                                        <?php endforeach; ?>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </form>
-                </div> -->
+             
 
                 <div class="row" id="appointmentTableContainer" style="display: none;">
                                             <div class="col-sm-12 col-md-12 col-12">
@@ -213,9 +165,24 @@
                                                                                                 <td><?php echo $appointment['contact_number']; ?></td>
                                                                                                 <td><?php echo $appointment['appointmentType']; ?></td>
                                                                                                 <td><?php echo $appointment['subjects']; ?></td>
-                                                                                                <td><?php echo $appointment['bookSlotData'][0]['start_time']; ?></td>
-                                                                                                <td><?php echo date('d F Y', strtotime($appointment['dob'])); ?></td>
-                                                                                                <td><?php echo substr($appointment['tob'], 0, 5); ?></td>
+                                                                                                <td>
+                                                                                                    <?php
+                                                                                                    if (!empty($appointment['bookSlotData']) && isset($appointment['bookSlotData'][0]['start_time'])) {
+                                                                                                        echo $appointment['bookSlotData'][0]['start_time'];
+                                                                                                    } else {
+                                                                                                        echo "N/A"; // Or any other appropriate message
+                                                                                                    }
+                                                                                                    ?>
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    <?php
+                                                                                                    if (isset($appointment['dob']) && !empty($appointment['dob'])) {
+                                                                                                        echo date('d F Y', strtotime($appointment['dob']));
+                                                                                                    } else {
+                                                                                                        echo "N/A"; // Or any other appropriate message
+                                                                                                    }
+                                                                                                    ?>
+                                                                                                </td>                                                                                                <td><?php echo substr($appointment['tob'], 0, 5); ?></td>
                                                                                                 <td><?php echo $appointment['source']; ?></td>
                                                                                                 <input type="hidden" name="appointment_ids"
                                                                                                     value="<?php echo $appointment['ap_id']; ?>">

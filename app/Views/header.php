@@ -236,73 +236,7 @@
                                 <li class="pcoded-hasmenu">
                                     <a href="javascript:void(0)">
                                         <span class="pcoded-micon"><i class="ti-layout-grid2-alt"></i></span>
-                                        <span class="pcoded-mtext" data-i18n="nav.basic-components.main">Schedule</span>
-                                        <span class="pcoded-mcaret"></span>
-                                    </a>
-                                    <ul class="pcoded-submenu">
-                                    <li class=" ">
-                                            <a href="<?=base_url(); ?>Booked_Slots">
-                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext"
-                                                    data-i18n="nav.basic-components.breadcrumbs">Booked Slots</span>
-                                                <span class="pcoded-mcaret"></span>
-                                            </a>
-                                        </li>
-                                        <!-- <li class=" ">
-                                            <a href="<?=base_url(); ?>add_schedule">
-                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Add
-                                                    Schedule</span>
-                                                <span class="pcoded-mcaret"></span>
-                                            </a>
-                                        </li> -->
-
-                                        <li class=" ">
-                                            <a href="<?=base_url(); ?>add_workinghour">
-                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext"
-                                                    data-i18n="nav.basic-components.alert">Working Hours</span>
-                                                <span class="pcoded-mcaret"></span>
-                                            </a>
-                                        </li>
-                                        <li class=" ">
-                                            <a href="<?=base_url(); ?>calendar">
-                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext"
-                                                    data-i18n="nav.basic-components.alert">Calendar</span>
-                                                <span class="pcoded-mcaret"></span>
-                                            </a>
-                                        </li>
-                                        <li class=" ">
-                                            <a href="<?=base_url(); ?>my_slots">
-                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext"
-                                                    data-i18n="nav.basic-components.breadcrumbs">My Slots</span>
-                                                <span class="pcoded-mcaret"></span>
-                                            </a>
-                                        </li>
-                                       
-                                        <li class=" ">
-                                            <a href="<?=base_url(); ?>Add_user">
-                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext"
-                                                    data-i18n="nav.basic-components.breadcrumbs">Add User</span>
-                                                <span class="pcoded-mcaret"></span>
-                                            </a>
-                                        </li>
-                                        
-                                    </ul>
-                                </li>
-
-
-                            </ul>
-
-                            <ul class="pcoded-item pcoded-left-item">
-                                <li class="pcoded-hasmenu ">
-                                    <a href="javascript:void(0)">
-                                        <span class="pcoded-micon"><i class="ti-direction-alt"></i><b>M</b></span>
-                                        <span class="pcoded-mtext" data-i18n="nav.menu-levels.main">Other
-                                            services</span>
+                                        <span class="pcoded-mtext" data-i18n="nav.basic-components.main">Appointment</span>
                                         <span class="pcoded-mcaret"></span>
                                     </a>
                                     <ul class="pcoded-submenu">
@@ -314,7 +248,94 @@
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
                                         </li>
+                                        <li class=" ">
+                                            <a href="<?=base_url(); ?>Booked_Slots">
+                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                                <span class="pcoded-mtext"
+                                                    data-i18n="nav.basic-components.breadcrumbs">List Of Appointment</span>
+                                                <span class="pcoded-mcaret"></span>
+                                            </a>
+                                        </li>
+                                       
+                                       
+                                       
+                                       
+                                       
+                                        
+                                    </ul>
+                                </li>
 
+
+                            </ul>
+
+                            <ul class="pcoded-item pcoded-left-item">
+                                <li class="pcoded-hasmenu ">
+                                    <a href="javascript:void(0)">
+                                        <span class="pcoded-micon"><i class="fa fa-gear" ></i><b>S</b></span>
+                                        <span class="pcoded-mtext" data-i18n="nav.menu-levels.main">Settings</span>
+                                        <span class="pcoded-mcaret"></span>
+                                    </a>
+                                    <ul class="pcoded-submenu">
+                                    <li class=" ">
+                                            <a href="<?=base_url(); ?>Add_user">
+                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                                <span class="pcoded-mtext"
+                                                    data-i18n="nav.basic-components.breadcrumbs">Add User</span>
+                                                <span class="pcoded-mcaret"></span>
+                                            </a>
+                                        </li>
+
+                                        <li class="">
+                                            <a href="<?=base_url(); ?>services">
+                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                                <span class="pcoded-mtext"
+                                                    data-i18n="nav.basic-components.breadcrumbs">Add Services</span>
+                                                <span class="pcoded-mcaret"></span>
+                                            </a>
+                                        </li>
+                                      
+                                        <li class=" ">
+                                            <a href="<?=base_url(); ?>add_workinghour">
+                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                                <span class="pcoded-mtext"
+                                                    data-i18n="nav.basic-components.alert">Add Working Hours</span>
+                                                <span class="pcoded-mcaret"></span>
+                                            </a>
+                                        </li>
+
+                                        <li class=" ">
+                                            <a href="<?=base_url(); ?>my_slots">
+                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                                <span class="pcoded-mtext"
+                                                    data-i18n="nav.basic-components.breadcrumbs">List Of Working Hours</span>
+                                                <span class="pcoded-mcaret"></span>
+                                            </a>
+                                        </li>
+                                        
+                                    </ul>
+                                </li>
+                            </ul>
+                            <ul class="pcoded-item pcoded-left-item">
+                                <li class="">
+                                <a href="<?=base_url(); ?>calendar">
+                                                <span class="pcoded-micon"><i class="fa fa-calendar" aria-hidden="true"></i>
+</span>
+                                                <span class="pcoded-mtext"
+                                                    data-i18n="nav.basic-components.alert">Calendar</span>
+                                                <span class="pcoded-mcaret"></span>
+                                            </a>
+                                </li>
+
+                            </ul>
+                            <ul class="pcoded-item pcoded-left-item">
+                                <li class="pcoded-hasmenu ">
+                                    <a href="javascript:void(0)">
+                                        <span class="pcoded-micon"><i class="ti-direction-alt"></i><b>M</b></span>
+                                        <span class="pcoded-mtext" data-i18n="nav.menu-levels.main">Class</span>
+                                        <span class="pcoded-mcaret"></span>
+                                    </a>
+                                    <ul class="pcoded-submenu">
+                                    
                                         <li class="">
                                             <a href="<?=base_url(); ?>Add_class">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
@@ -331,14 +352,7 @@
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
                                         </li>
-                                        <li class="">
-                                            <a href="<?=base_url(); ?>services">
-                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext"
-                                                    data-i18n="nav.basic-components.breadcrumbs">Services</span>
-                                                <span class="pcoded-mcaret"></span>
-                                            </a>
-                                        </li>
+                                       
 
                                     </ul>
                                 </li>
@@ -346,7 +360,7 @@
                             <ul class="pcoded-item pcoded-left-item">
                                 <li class="pcoded-hasmenu ">
                                     <a href="javascript:void(0)">
-                                        <span class="pcoded-micon"><i class="ti-direction-alt"></i><b>M</b></span>
+                                        <span class="pcoded-micon"><i class="fa fa-file" aria-hidden="true"></i><b>R</b></span>
                                         <span class="pcoded-mtext" data-i18n="nav.menu-levels.main">Reports</span>
                                         <span class="pcoded-mcaret"></span>
                                     </a>

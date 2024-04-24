@@ -59,26 +59,30 @@
             ?>
 
             <p>We're looking forward to seeing you on
-                <?=$formattedDate;?>, <?=$formattedTimeSlot;?>.
+                <?=$formattedDate;?>, at <?=$formattedTimeSlot;?>.
             </p>
             <p>Here's what you booked</p>
 
 
                 <p><b>Services:</b> Prediction; 30 minutes - Price varies</p>
-                <p><b>Date & time:</b> <?=$formattedDate;?>, <?=$formattedTimeSlot;?></p>
-                <p><b>Staff:</b> Mrunal kulkarni</p>
+                <p><b>Date :</b> <?=$formattedDate;?>, </p>
+                <p><b>Time : </b> <?=$formattedTimeSlot;?> </p>
+                <p><b>Staff :</b> Mrunal kulkarni</p>
                 <!-- <p><b>Message:</b> 4thenad zv</p> -->
 
                 <!-- <p><b>Location:</b> No location added</p> -->
 
          
                 <a href="http://localhost/appointment/reschedule/<?php echo $lastinsertid; ?>" style="ext-decoration: none;
-    background-color: yellow;
-    font-weight: 600;
-    color: black;
-    padding: 10px;
-    display: inline-block;
-    border-radius: 4px;">Reschedule </a>
+                    background-color: yellow;
+                    font-weight: 600;
+                    color: black;
+                    padding: 10px;
+                    display: inline-block;
+                    border-radius: 4px;
+                    margin-top: 10%;
+                    ">Reschedule 
+                </a>
 
         </div>
      

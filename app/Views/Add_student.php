@@ -71,18 +71,69 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
+                                    <label for="twins" class="col-sm-3 col-form-label">Gender</label>
+                                    <div class="col-sm-9">
+                                        <div class="row">
+                                            <div class="col-sm-2">
+                                                <div class="wizard-form-radio">
+                                                    <input name="gender" id="Male" type="radio" value="Male" checked >
+                                                    <label for="Male">Male</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <div class="wizard-form-radio">
+                                                    <input name="gender" id="Female" type="radio"  value="Female">
+                                                    <label for="Female">Female</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="twins" class="col-sm-3 col-form-label">Marital Status</label>
+                                    <div class="col-sm-9">
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <div class="wizard-form-radio">
+                                                    <input name="marital_status" id="Unmarried" type="radio"  value="Unmarried" checked>
+                                                    <label for="Unmarried">Unmarried</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <div class="wizard-form-radio">
+                                                    <input name="marital_status" id="Married" type="radio"  value="Married">
+                                                    <label for="Married">Married</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <div class="wizard-form-radio">
+                                                    <input name="marital_status" id="Divorced" type="radio"  value="Divorced">
+                                                    <label for="Divorced">Divorced</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <div class="wizard-form-radio">
+                                                    <input name="marital_status" id="Widow/Widower" type="radio"  value="Widow/Widower">
+                                                    <label for="Widow/Widower">Widow/Widower</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
                                     <label for="twins" class="col-sm-3 col-form-label">Are you one of the twins:</label>
                                     <div class="col-sm-9">
                                         <div class="row">
                                             <div class="col-sm-2">
                                                 <div class="wizard-form-radio">
-                                                    <input name="twins" id="twinsYes" type="radio" value="yes">
+                                                    <input name="twins" id="twinsYes" type="radio" value="Yes">
                                                     <label for="twinsYes">Yes</label>
                                                 </div>
                                             </div>
                                             <div class="col-sm-2">
                                                 <div class="wizard-form-radio">
-                                                    <input name="twins" id="twinsNo" type="radio" checked value="no">
+                                                    <input name="twins" id="twinsNo" type="radio" checked value="No">
                                                     <label for="twinsNo">No</label>
                                                 </div>
                                             </div>
@@ -149,24 +200,63 @@
                                         <input type="time" id="tob" name="tob" class="form-control" required>
                                     </div>
                                 </div>
+                              
                                 <div class="form-group row">
-                                    <label for="Country" class="col-sm-3 col-form-label">Country:</label>
+                                    <label for="country" class="col-sm-3 col-form-label">Country:</label>
                                     <div class="col-sm-9">
-                                        <input type="text" id="Country" name="Country" class="form-control" required>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
+                                            
+                                                <select class="form-control choosen" id="country_id" name="Country">
+                                                    <option value="">Please select country</option>
+                                                    <?php if(!empty($country)){foreach($country as $country_result){?>
+                                                    <option value="<?=$country_result->id?>"
+                                                        <?php if(!empty($single) && $single->country_id == $country_result->id){?>selected="selected"
+                                                        <?php }?>><?=$country_result->name?></option>
+                                                    <?php } } ?>
+                                                </select>
+                                            </div>
+                                        </div>
+                             
+
+                                    <div class="form-group row">
                                     <label for="state" class="col-sm-3 col-form-label">State:</label>
+                             
                                     <div class="col-sm-9">
-                                        <input type="text" id="state" name="State" class="form-control" required>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
+                                        <select class="form-control choosen" id="state_id" name="State">
+                                            <option value="">Please select state</option>
+                                            <?php if((!empty($single)) != "") {?>
+                                            <?php 
+                                                if(!empty($states)){
+                                                    
+                                                foreach($states as $state_result){
+                                                    ?>
+
+                                            <option value="<?=$state_result->id?>"
+                                                <?php if(!empty($single) && $single->state_id == $state_result->id){?>selected="selected"
+                                                <?php }?>><?=$state_result->name?></option>
+                                            <?php } } ?>
+                                            <?php }?>
+                                        </select>
+                                        </div>
+                                      </div>
+                                 
+
+                                    <div class="form-group row">
                                     <label for="City" class="col-sm-3 col-form-label">City:</label>
                                     <div class="col-sm-9">
-                                        <input type="text" id="City" name="City" class="form-control" required>
-                                    </div>
-                                </div>
+                                            <select class="form-control choosen" id="city_id" name="City">
+                                            <option value="">Please select city</option>
+                                            <?php if((!empty($single)) != "") {?>
+                                            <?php if(!empty($citys)){foreach($citys as $city_result){?>
+                                            <option value="<?=$city_result->id?>"
+                                                <?php if(!empty($single) && $single->city_id == $city_result->id){?>selected="selected"
+                                                <?php }?>><?=$city_result->name?></option>
+                                            <?php } } ?>
+                                            <?php }?>
+                                            </select>
+                                        </div>
+                                      </div>
+                                 
+
                                 <!-- <div class="form-group row">
                                     <label for="amount" class="col-sm-3 col-form-label">Fee Amount:</label>
                                     <div class="col-sm-3">
@@ -402,3 +492,56 @@ $(document).ready(function() {
     });
 });
 </script>
+
+<script>
+
+
+    $("#country_id").change(function() {
+
+        $.ajax({
+            type: "post",
+            url: "<?=base_url();?>get_state_name_location",
+            data: {
+                'country_id': $("#country_id").val()
+            },
+            success: function(data) {
+                console.log(data);
+                $('#state_id').empty();
+                $('#state_id').append('<option value="">Choose ...</option>');
+                var opts = $.parseJSON(data);
+                $.each(opts, function(i, d) {
+                    $('#state_id').append('<option value="' + d.id + '">' + d.name +
+                        '</option>');
+                });
+                $('#state_id').trigger("chosen:updated");
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.log(textStatus, errorThrown);
+            }
+        });
+    });
+    $("#state_id").change(function() {
+
+        $.ajax({
+            type: "post",
+            url: "<?=base_url();?>get_city_name_location",
+            data: {
+                'state_id': $("#state_id").val()
+            },
+            success: function(data) {
+                console.log(data);
+                $('#city_id').empty();
+                $('#city_id').append('<option value="">Choose ...</option>');
+                var opts = $.parseJSON(data);
+                $.each(opts, function(i, d) {
+                    $('#city_id').append('<option value="' + d.id + '">' + d.name +
+                        '</option>');
+                });
+                $('#city_id').trigger("chosen:updated");
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.log(textStatus, errorThrown);
+            }
+        });
+    })
+    </script>

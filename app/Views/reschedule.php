@@ -322,21 +322,59 @@
                                                 <h6><b>Place Of Birth *(जन्म ठिकाण*)</b></h6>
                                                 <div class="row mt-3">
                                                     <div class="col-lg-4 col-md-4 col-12">
-                                                        <h6><b>Country(देश*)</b></h6>
-                                                        <input type="text" name="Country"
-                                                            class="form-control wizard-required" id="dob" value="<?php if(!empty($single)){ echo $single->Country; } ?>">
+                                                        <h6><b>Country (देश*)</b></h6>
+                                                        <!-- <input type="text" name="Country"
+                                                            class="form-control wizard-required" id="dob"
+                                                            value="<?php if(!empty($single)){ echo $single->Country; } ?>"> -->
+
+                                                            <select class="form-control choosen" id="country_id" name="Country">
+                                                                <option value="">Please select country</option>
+                                                                <?php if(!empty($country)){foreach($country as $country_result){?>
+                                                                <option value="<?=$country_result->id?>"
+                                                                    <?php if(!empty($single) && $single->Country == $country_result->id){?>selected="selected"
+                                                                    <?php }?>><?=$country_result->name?></option>
+                                                                <?php } } ?>
+                                                            </select>
                                                         <div class="wizard-form-error bp"></div>
                                                     </div>
                                                     <div class="col-lg-4 col-md-4 col-12">
-                                                        <h6><b>State*(राज्य*)</b></h6>
-                                                        <input type="text" name="State"
-                                                            class="form-control wizard-required" id="tob" value="<?php if(!empty($single)){ echo $single->State; } ?>">
+                                                        <h6><b>State (राज्य*)</b></h6>
+                                                        <!-- <input type="text" name="State"
+                                                            class="form-control wizard-required" id="tob"
+                                                            value="<?php if(!empty($single)){ echo $single->State; } ?>"> -->
+                                                            <select class="form-control choosen" id="state_id" name="State">
+                                                                <option value="">Please select state</option>
+                                                                <?php if((!empty($single)) != "") {?>
+                                                                <?php 
+                                                                    if(!empty($states)){
+                                                                        
+                                                                    foreach($states as $state_result){
+                                                                        ?>
+
+                                                                <option value="<?=$state_result->id?>"
+                                                                    <?php if(!empty($single) && $single->State == $state_result->id){?>selected="selected"
+                                                                    <?php }?>><?=$state_result->name?></option>
+                                                                <?php } } ?>
+                                                                <?php }?>
+                                                            </select>
                                                         <div class="wizard-form-error bp"></div>
                                                     </div>
                                                     <div class="col-lg-4 col-md-4 col-12">
-                                                        <h6><b>City (शहर) *</b></h6>
-                                                        <input type="text" name="City"
-                                                            class="form-control wizard-required" id="pob" value="<?php if(!empty($single)){ echo $single->City; } ?>">
+                                                        <h6><b>City (शहर*)</b></h6>
+                                                        <!-- <input type="text" name="City"
+                                                            class="form-control wizard-required" id="pob"
+                                                            value="<?php if(!empty($single)){ echo $single->City; } ?>">
+                                                         -->
+                                                         <select class="form-control choosen" id="city_id" name="City">
+                                                                <option value="">Please select city</option>
+                                                                <?php if((!empty($single)) != "") {?>
+                                                                <?php if(!empty($citys)){foreach($citys as $city_result){?>
+                                                                <option value="<?=$city_result->id?>"
+                                                                    <?php if(!empty($single) && $single->City == $city_result->id){?>selected="selected"
+                                                                    <?php }?>><?=$city_result->name?></option>
+                                                                <?php } } ?>
+                                                                <?php }?>
+                                                            </select>
                                                         <div class="wizard-form-error bp"></div>
                                                     </div>
                                                 </div>
@@ -932,6 +970,58 @@
         $(".time-div").show();
     }
     </script>
+    <script>
+
+
+$("#country_id").change(function() {
+
+    $.ajax({
+        type: "post",
+        url: "<?=base_url();?>get_state_name_location",
+        data: {
+            'country_id': $("#country_id").val()
+        },
+        success: function(data) {
+            console.log(data);
+            $('#state_id').empty();
+            $('#state_id').append('<option value="">Choose ...</option>');
+            var opts = $.parseJSON(data);
+            $.each(opts, function(i, d) {
+                $('#state_id').append('<option value="' + d.id + '">' + d.name +
+                    '</option>');
+            });
+            $('#state_id').trigger("chosen:updated");
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.log(textStatus, errorThrown);
+        }
+    });
+});
+$("#state_id").change(function() {
+
+    $.ajax({
+        type: "post",
+        url: "<?=base_url();?>get_city_name_location",
+        data: {
+            'state_id': $("#state_id").val()
+        },
+        success: function(data) {
+            console.log(data);
+            $('#city_id').empty();
+            $('#city_id').append('<option value="">Choose ...</option>');
+            var opts = $.parseJSON(data);
+            $.each(opts, function(i, d) {
+                $('#city_id').append('<option value="' + d.id + '">' + d.name +
+                    '</option>');
+            });
+            $('#city_id').trigger("chosen:updated");
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.log(textStatus, errorThrown);
+        }
+    });
+})
+</script>
 </body>
 
 </html>
