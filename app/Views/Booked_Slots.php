@@ -59,10 +59,10 @@
                                                     <tr>
                                                         <th>Sr.No</th>
                                                         <th>Name</th>
-                                                        <th>Appointment Date</th>
-                                                        <th>Appointment Time</th>
-                                                        <th>Appointment Type</th>  
-                                                        <th>Subjects</th>
+                                                        <th>Date</th>
+                                                        <th>Time</th>
+                                                        <th>Type</th>  
+                                                        <!-- <th>Subjects</th> -->
                                                         <th>Contact Number</th>
                                                         <th>Email Id</th>
                                                         <th>Gender</th>
@@ -93,7 +93,7 @@
                                                             <td> <?php echo date('d F Y', strtotime($slot['appointment_date'])); ?></td>
                                                             <td><?php echo $slot['start_time']; ?> - <?php echo $slot['end_time']; ?></td>
                                                             <td><?php echo $slot['appointmentType'] ?></td>
-                                                            <td><?php echo $slot['subjects']; ?></td>
+                                                            <!-- <td><?php// echo $slot['subjects']; ?></td> -->
                                                             <td><?php echo $slot['contact_number'] ?></td>
                                                             <td><?php echo $slot['email']; ?></td>
                                                             <td><?php echo $slot['gender'] ?></td>
@@ -121,7 +121,7 @@
                                                             <td> <?php echo date('d F Y', strtotime($slot['appointment_date'])); ?></td>
                                                             <td><?php echo $slot['start_time']; ?> - <?php echo $slot['end_time']; ?></td>
                                                             <td><?php echo $slot['appointmentType'] ?></td>
-                                                            <td><?php echo $slot['subjects']; ?></td>
+                                                            <!-- <td><?php //echo $slot['subjects']; ?></td> -->
                                                             <td><?php echo $slot['contact_number'] ?></td>
                                                             <td><?php echo $slot['email']; ?></td>
                                                             <td><?php echo $slot['gender'] ?></td>

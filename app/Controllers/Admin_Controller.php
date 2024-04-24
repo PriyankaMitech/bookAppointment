@@ -48,7 +48,7 @@ class Admin_Controller extends BaseController
         $data['todayappoinments'] = $model->todayAppointments();
         $data['remaingslots'] = $model->todayRemainingSlots();
 
-// echo '<pre>';print_r($data['remaingslots']);die;
+// echo '<pre>';print_r($data['todayappoinments']);die;
         return view('admin_dashboard', $data);
     }
 
