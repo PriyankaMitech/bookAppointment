@@ -924,9 +924,7 @@ public function delete_user()
     public function emailform(){
         echo view('emailform'); 
     }
-    public function emailformforreciver(){
-        echo view('emailformforreciver'); 
-    }
+
 
     public function get_state_name_location(){
         $model = new Admin_Model();
@@ -993,22 +991,7 @@ public function delete_user()
         echo view('emailformforreciver'); 
     }
 
-    public function get_state_name_location(){
-        $model = new Admin_Model();
-        $country_id = $this->request->getVar('country_id');
-        // echo "hiii";
-        // echo $country_id; exit();
-
-		$model->get_state_name_location($country_id);
-	}
-
-    public function get_city_name_location(){
-
-        $model = new Admin_Model();
-        $state_id = $this->request->getVar('state_id');
-   
-		$model->get_city_name_location($state_id);
-	}
+  
    
 
 }
