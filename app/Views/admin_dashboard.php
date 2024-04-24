@@ -9,6 +9,21 @@
                     <div class="row">
                         <!-- card1 start -->
                         <div class="col-md-6 col-xl-3">
+                            <div class="card widget-card-1" id="todaysAppointmentWidget">
+                                <div class="card-block-small">
+                                    <i class="icofont icofont-social-twitter bg-c-yellow card1-icon"></i>
+                                    <span class="text-c-yellow f-w-600">Todays </span>
+                                    <h4><?php echo ($todayappoinments !== null) ? count($todayappoinments) : 0; ?></h4>
+                                    <div>
+                                        <span class="f-left m-t-10 text-muted">
+                                            <i class="text-c-yellow f-16 icofont icofont-refresh m-r-10"
+                                                id="todaysAppointmentWidget"></i>Todays Appointment
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xl-3">
                             <div class="card widget-card-1">
                                 <div class="card-block-small">
                                     <i class="icofont icofont-pie-chart bg-c-blue card1-icon"></i>
@@ -73,21 +88,7 @@
                         </div>
                         <!-- card1 end -->
                         <!-- card1 start -->
-                        <div class="col-md-6 col-xl-3">
-                            <div class="card widget-card-1" id="todaysAppointmentWidget">
-                                <div class="card-block-small">
-                                    <i class="icofont icofont-social-twitter bg-c-yellow card1-icon"></i>
-                                    <span class="text-c-yellow f-w-600">Todays </span>
-                                    <h4><?php echo ($todayappoinments !== null) ? count($todayappoinments) : 0; ?></h4>
-                                    <div>
-                                        <span class="f-left m-t-10 text-muted">
-                                            <i class="text-c-yellow f-16 icofont icofont-refresh m-r-10"
-                                                id="todaysAppointmentWidget"></i>Todays Appointment
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        
 
 
                     </div>
@@ -97,7 +98,7 @@
                 
              
 
-                <div class="row" id="appointmentTableContainer" style="display: none;">
+                <div class="row" id="appointmentTableContainer" style="">
                                             <div class="col-sm-12 col-md-12 col-12">
                                                 <!-- Tab variant tab card start -->
                                                 <div class="card">
@@ -139,7 +140,7 @@
                                                                                     <table class="table table-bordered">
                                                                                         <thead>
                                                                                             <tr>
-                                                                                                <th>Sr.No</th>
+                                                                                                <!-- <th>Sr.No</th>
                                                                                                 <th>Name</th>
                                                                                                 <th>Gender</th>
                                                                                                 <th>Contact</th>
@@ -149,49 +150,80 @@
                                                                                                 <th>DOB</th>
                                                                                                 <th>TOB</th>
                                                                                                 <th>Source</th>
+                                                                                                 -->
+
+                                                                                                <th>Sr.No</th>
                                                                                                 <th>Conducted</th>
+                                                                                                <th>Name</th>
+                                                                                                <th>Date</th>
+                                                                                                <th>Time</th>
+                                                                                                <th>Type</th>  
+                                                                                                <th>Date of Birth</th>
+                                                                                                <th>Date of Time</th>
+
+                                                                                                <th>Place of Birth</th>
+                                                                                                <!-- <th>Subjects</th> -->
+                                                                                                <th>Contact Number</th>
+                                                                                                <th>Email Id</th>
+                                                                                                <th>Gender</th>
+                                                                                                <th>Marital Status</th>
+                                                                                                <th>Are you one of the twins</th>
+                                                                                                
+                                                                                            </tr>
                                                                                             </tr>
                                                                                         </thead>
                                                                                         <tbody id="appointmentTableBody">
                                                                                             <?php 
+                                                                                            // echo "<pre>";print_r($todayappoinments);exit();
                                                                                             if(!empty($todayappoinments)){
                                                                                                 $i=1;
                                                                                             foreach ($todayappoinments as $appointment): ?>
                                                                                             <tr>
-                                                                                                <td><?php echo $i; ?></td>
-
-                                                                                                <td><?php echo $appointment['fullname']; ?></td>
-                                                                                                <td><?php echo $appointment['gender']; ?></td>
-                                                                                                <td><?php echo $appointment['contact_number']; ?></td>
-                                                                                                <td><?php echo $appointment['appointmentType']; ?></td>
-                                                                                                <td><?php echo $appointment['subjects']; ?></td>
-                                                                                                <td>
-                                                                                                    <?php
-                                                                                                    if (!empty($appointment['bookSlotData']) && isset($appointment['bookSlotData'][0]['start_time'])) {
-                                                                                                        echo $appointment['bookSlotData'][0]['start_time'];
-                                                                                                    } else {
-                                                                                                        echo "N/A"; // Or any other appropriate message
-                                                                                                    }
-                                                                                                    ?>
-                                                                                                </td>
-                                                                                                <td>
-                                                                                                    <?php
-                                                                                                    if (isset($appointment['dob']) && !empty($appointment['dob'])) {
-                                                                                                        echo date('d F Y', strtotime($appointment['dob']));
-                                                                                                    } else {
-                                                                                                        echo "N/A"; // Or any other appropriate message
-                                                                                                    }
-                                                                                                    ?>
-                                                                                                </td>                                                                                                <td><?php echo substr($appointment['tob'], 0, 5); ?></td>
-                                                                                                <td><?php echo $appointment['source']; ?></td>
-                                                                                                <input type="hidden" name="appointment_ids"
-                                                                                                    value="<?php echo $appointment['ap_id']; ?>">
-                                                                                                <td>
+                                                                                            <td><?php echo $i; ?></td>
+                                                                                            <td>
                                                                                                     <button class="btn btn-success" type="submit" name="conducted"
                                                                                                         value="Y">Yes</button>
                                                                                                     <button class="btn btn-danger" type="submit" name="conducted"
                                                                                                         value="N">No</button>
                                                                                                 </td>
+                                                                                            <td><?php echo $appointment['fullname']; ?></td>
+                                                                                            <td> <?php echo date('d F Y', strtotime($appointment['appointment_date'])); ?></td>
+                                                                                            <td> <?php
+                                                                                                    if (!empty($appointment['bookSlotData']) && isset($appointment['bookSlotData'][0]['start_time'])) {
+                                                                                                        echo $appointment['bookSlotData'][0]['start_time'];
+                                                                                                    } else {
+                                                                                                        echo "N/A"; // Or any other appropriate message
+                                                                                                    }
+                                                                                                    ?></td>
+                                                                                            <td><?php echo $appointment['appointmentType'] ?></td>
+                                                                                            <td> <?php
+                                                                                                    if (isset($appointment['dob']) && !empty($appointment['dob'])) {
+                                                                                                        echo date('d F Y', strtotime($appointment['dob']));
+                                                                                                    } else {
+                                                                                                        echo "N/A"; // Or any other appropriate message
+                                                                                                    }
+                                                                                                    ?></td>
+                                                                                            <td><?php echo $appointment['tob'] ?></td>
+                                                                                            <td><?php echo $appointment['city_name']; ?>, <?php echo $appointment['state_name']; ?>, <?php echo $appointment['country_name']; ?></td>
+                                                                                            <!-- <td><?php// echo $slot['subjects']; ?></td> -->
+                                                                                            <td><?php echo $appointment['contact_number'] ?></td>
+                                                                                            <td><?php echo $appointment['email']; ?></td>
+                                                                                            <td><?php echo $appointment['gender'] ?></td>
+                                                                                            <td><?php echo $appointment['marital_status'] ?></td>
+
+
+                                                                                            <td><?php echo $appointment['twins'] ?></td>
+                                                                                          
+                                                                                                <!-- <td><?php //echo $i; ?></td>
+
+                                                                                                <td><?php //echo $appointment['fullname']; ?></td>
+                                                                                                <td><?php //echo $appointment['gender']; ?></td>
+                                                                                                <td><?php //echo $appointment['contact_number']; ?></td>
+                                                                                                <td><?php //echo $appointment['appointmentType']; ?></td>
+                                                                                                <td><?php // $appointment['subjects']; ?></td> -->
+                                                                                                <input type="hidden" name="appointment_ids"
+                                                                                                    value="<?php echo $appointment['ap_id']; ?>">
+                                                                                              
                                                                                             </tr>
                                                                                             <?php $i++; endforeach; }?>
                                                                                         </tbody>

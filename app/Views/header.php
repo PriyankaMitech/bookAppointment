@@ -252,7 +252,7 @@
                                             <a href="<?=base_url(); ?>Booked_Slots">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                                                 <span class="pcoded-mtext"
-                                                    data-i18n="nav.basic-components.breadcrumbs">List Of Appointment</span>
+                                                    data-i18n="nav.basic-components.breadcrumbs">List of Appointment</span>
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
                                         </li>
@@ -289,7 +289,7 @@
                                             <a href="<?=base_url(); ?>services">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                                                 <span class="pcoded-mtext"
-                                                    data-i18n="nav.basic-components.breadcrumbs">Add Services</span>
+                                                    data-i18n="nav.basic-components.breadcrumbs">Reg Services</span>
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
                                         </li>
@@ -307,7 +307,7 @@
                                             <a href="<?=base_url(); ?>my_slots">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                                                 <span class="pcoded-mtext"
-                                                    data-i18n="nav.basic-components.breadcrumbs">List Of Working Hours</span>
+                                                    data-i18n="nav.basic-components.breadcrumbs">List of Working Hours</span>
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
                                         </li>
