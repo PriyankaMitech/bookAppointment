@@ -924,6 +924,51 @@ public function delete_user()
     public function emailform(){
         echo view('emailform'); 
     }
+
+    public function get_user_details()
+    {
+        $userId = $this->request->getPost('userId');
+        $model = new Admin_Model();
+        $wherecond = array('id ' => $userId);
+        $user =  $model->getsinglerow('tbl_user', $wherecond);
+        if ($user) {
+            return $this->response->setJSON($user);
+        } else {
+            return $this->response->setJSON(['error' => 'User not found']);
+        }
+    }
+    public function update_user()
+    {
+        $userId = $this->request->getPost('userId');
+        $editName = $this->request->getPost('editName');
+        $editEmail = $this->request->getPost('editEmail');
+        $Password = $this->request->getPost('Password');
+        // Get the database connection instance
+        $db = \Config\Database::connect();
+    
+        // Check if the user exists
+        $builder = $db->table('tbl_user');
+        $user = $builder->getWhere(['id' => $userId])->getRow();
+    
+        if (!$user) {
+            return $this->response->setJSON(['error' => 'User not found']);
+        }
+    
+        // Prepare data for update
+        $data = [
+            'name' => $editName,
+            'email' => $editEmail,
+            'Password' => $Password
+        ];
+    
+        // Perform the update operation
+        $builder->where('id', $userId);
+        $builder->update($data);
+
+        return redirect()->to('Add_user');
+        
+    }
+
     public function emailformforreciver(){
         echo view('emailformforreciver'); 
     }
@@ -945,4 +990,5 @@ public function delete_user()
 		$model->get_city_name_location($state_id);
 	}
    
+
 }

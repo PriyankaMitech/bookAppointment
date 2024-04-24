@@ -502,6 +502,15 @@ public function todayRemainingSlots() {
 
     return $remainingSlots;
 }
+
+
+public function update_user($userId, $data)
+{
+  //  print_r($data);die;
+    // Update the user information in the 'update_user' table where 'id' matches $userId
+    return $this->table('update_user')->where('id', $userId)->update($data);
+}
+
 public function get_country_name(){
     return $this->db->table('countries')
     ->get()
