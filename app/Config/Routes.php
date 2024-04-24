@@ -13,12 +13,9 @@ $routes->get('add_schedule', 'Admin_Controller::add_schedule');
 $routes->get('add_schedule/(:any)', 'Admin_Controller::add_schedule/$1');
 $routes->get('sucess', 'Admin_Controller::sucess');
 $routes->get('emailform', 'Admin_Controller::emailform');
-
 $routes->post('get_user_details', 'Admin_Controller::get_user_details');
 $routes->post('update_user', 'Admin_Controller::update_user');
-
 $routes->get('emailformforreciver', 'Admin_Controller::emailformforreciver');
-
 
 
 $routes->post('set_schedule', 'Admin_Controller::set_schedule');
