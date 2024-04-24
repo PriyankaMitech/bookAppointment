@@ -50,6 +50,22 @@
             border-bottom-left-radius: 10px;
             border-bottom-right-radius: 10px;
         }
+        .first_part{
+            padding: 20px;
+            border: 1px solid #ccc;
+        }
+        .second_part{
+            padding: 20px; 
+            border: 1px solid #ccc;
+        }
+        .third_part{
+            padding: 20px;
+            border: 1px solid #ccc;
+        }
+        .second-body{
+            padding: 20px !important; 
+            border: 1px solid #ccc;
+        }
     </style>
 </head>
 <body>
@@ -69,29 +85,54 @@
                 $formattedTimeSlot = date('h:i A', strtotime($timeSlot));
 
             ?>
-                <p><b>When: </b> <?=$formattedDate;?>, <?=$formattedTimeSlot;?></p>
-                <p><b>Services:</b> Prediction; 30 minutes - Price varies</p>
+            <div class="first_part"> 
+                <p><b>Appointment Date : </b> <?=$formattedDate;?></p>
+                <p><b>Date : </b> <?=$formattedTimeSlot;?></p>
+                <p><b>Appointment Type : </b> <?=$appointmentType;?></p>
+                <p><b>Services :</b> Prediction; 30 minutes - Price varies</p>
 
                 <p><b>Provider:</b> Mrunal kulkarni</p>
+            </div>
+            <div class="second_part"> 
 
-                <p><b>Customer: </b> <?php echo $fullname; ?></p>
+                <p><b>Customer Name : </b> <?php echo $fullname; ?></p>
 
-                <p><b>Email: </b> Prediction; 30 minutes - Price varies</p>
+                <p><b>Subjects :</b> <?=$subjects;?></p>
 
-                <p><b>Phone:</b> Mrunal kulkarni</p>
 
-                <p><b>Notes:</b> NA</p>
+                <p><b>Contact Number : </b>  <?=$contact_number;?></p>
+
+                <p><b>Email Id :</b>  <?=$email;?></p>
+
+                <p><b>Gender :</b>  <?=$gender;?></p>
+
+                <p><b>Marital Status :</b>  <?=$marital_status;?></p>
+
+                <p><b>Are you one of the twins : </b>  <?=$twins;?></p>
+                <?php $dateofb = date('d F Y', strtotime($dob));?>
+
+                <p><b>Date of Birth :</b>  <?=$dateofb;?> </p>
+
+                <p><b>Time Of Birth: </b> <?=$tob;?></p>
+
+                <p><b>Place Of Birth :</b>  <?=$City;?>, <?=$State;?>, <?=$Country;?></p>
+
+              
+
+            </div>
+            <div class="third_part"> 
                     <p>
                     Thanks,<br>
                     Mrunal Kulkarni
                     </p>
-                <a href="http://localhost/appointment/reschedule/<?php echo $lastinsertid; ?>" style="ext-decoration: none;
+            </div>
+                <!-- <a href="http://localhost/appointment/reschedule/<?php //echo $lastinsertid; ?>" style="ext-decoration: none;
     background-color: yellow;
     font-weight: 600;
     color: black;
     padding: 10px;
     display: inline-block;
-    border-radius: 4px;">Reschedule </a>
+    border-radius: 4px;">Reschedule </a> -->
     </div>
     <div class="second-body">
         <h4>Mrunal Kulkarni</h4>

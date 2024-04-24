@@ -68,6 +68,9 @@ class Admin_Controller extends BaseController
         $wherecond = array('ap_id ' => $secondSegment);
 
         $data['single'] =  $model->getsinglerow('tbl_appointment', $wherecond);
+        $data['country'] = $model->get_country_name();
+        $data['states'] = $model->get_states_name();
+        $data['citys'] = $model->get_citys_name();
 
         // echo "<pre>";print_r($data['single']);exit();
 
@@ -80,6 +83,9 @@ class Admin_Controller extends BaseController
         $model = new Admin_Model();
         $wherecond = array('user_id' => $userID);
         $data['schedule_data'] =  $model->getalldata('tbl_schedule', $wherecond);
+        $data['country'] = $model->get_country_name();
+        $data['states'] = $model->get_states_name();
+        $data['citys'] = $model->get_citys_name();
 
         $uri = service('uri');
 
@@ -446,36 +452,67 @@ public function formdata()
             
             $wherecond = array('id' => $this->request->getPost('timeSlot'));
             $timeSlotInfo = $model->getslotstime('tbl_slots', $wherecond);
-
-            // Extract time slot value from the result
             $timeSlot = $timeSlotInfo ? $timeSlotInfo->start_time : '';
 
-            // Prepare email content with specific values
-            $fullname = $this->request->getPost('fullname');
-            $appointmentType = $this->request->getPost('appointmentType');
-            $selectedDate = $this->request->getPost('selectedDate');
+            $appoint_data = $model->bookedslotsingle($lastInsertId);
 
-            $emailContent = view('emailform', [
-                'fullname' => $fullname,
-                'appointmentType' => $appointmentType,
+            if (!empty($appoint_data)) {
+                $senderMsg = view('emailform', [
+                    'fullname' => $this->request->getPost('fullname'),
+                    'appointmentType' => $this->request->getPost('appointmentType'),
+                    'timeSlot' => $timeSlot,
+                    'selectedDate' => $selectedDate,
+                    'lastinsertid' => $lastInsertId,
+                    'gender' => $appoint_data['gender'],
+                    'marital_status' => $appoint_data['marital_status'],
+                    'contact_number' => $appoint_data['contact_number'],
+                    'appointmentOption' => $appoint_data['appointmentOption'],
+                    'source' => $appoint_data['source'],
+                    'friendName' => $appoint_data['friendName'],
+                    'timeSlot' => $appoint_data['timeSlot'],
+                    'email' => $appoint_data['email'],
+                    // 'appointment_date' => $appoint_data['selectedDate'],
+                    'dob' => $appoint_data['dob'],
+                    'tob' => $appoint_data['tob'],
+                    'Country' => $appoint_data['country_name'],
+                    'State' => $appoint_data['state_name'],
+                    'City' => $appoint_data['city_name'],
+                    'twins' => $appoint_data['twins'],
+                    'subjects' => $subjects
+                ]);
+          
+            
+            $receiverMsg = view('emailformforreciver', [
+                'fullname' => $this->request->getPost('fullname'),
+                'appointmentType' => $this->request->getPost('appointmentType'),
                 'timeSlot' => $timeSlot,
                 'selectedDate' => $selectedDate,
                 'lastinsertid' => $lastInsertId
             ]);
+            
             // Send email
             $useremail = $this->request->getPost('email');
-            $subject = 'Your Appointment Booked';
-            $ccEmails = ['mrunal@vedikastrologer.com']; 
-            sendConfirmationEmail($useremail, $ccEmails, $subject, $emailContent);
+            $ccEmails = ['mrunal@vedikastrologer.com'];
+            
+            $appointmentDateTime = date('d F Y', strtotime($selectedDate));
+            
+            $receiverSubject = 'Your Appointment is booked Successfully.';
+            $senderSubject = 'You Have a New Appointment of ' . $this->request->getPost('fullname') . ' on ' . $appointmentDateTime . ' at ' . $timeSlot;
+            
+            sendConfirmationEmail($useremail, $ccEmails, $receiverSubject, $receiverMsg, $senderSubject, $senderMsg);
+            
+           
 
-            // return redirect()->to('emailform');
-            return view('sucess',[
-                'fullname' => $fullname,
-                'appointmentType' => $appointmentType,
-                'timeSlot' => $timeSlot,
-                'selectedDate' => $selectedDate,
-                'lastinsertid' => $lastInsertId
+        }
+
+        return view('sucess', [
+            'fullname' => $this->request->getPost('fullname'),
+            'appointmentType' => $this->request->getPost('appointmentType'),
+            'timeSlot' => $timeSlot,
+            'selectedDate' => $selectedDate,
+            'lastinsertid' => $lastInsertId
         ]);
+            
 
       }  
 }
@@ -507,7 +544,12 @@ public function formdata()
 
     public function Add_student()
     {
-        return view('Add_student');
+        $model = new Admin_Model();
+
+        $data['country'] = $model->get_country_name();
+        $data['states'] = $model->get_states_name();
+        $data['citys'] = $model->get_citys_name();
+        return view('Add_student',$data);
     }
     public function Add_class()
     {
@@ -557,6 +599,8 @@ public function formdata()
     $data = [
            'fullname' => $this->request->getPost('fullname'),
             'gender' => $this->request->getPost('gender'),
+            'marital_status' => $this->request->getPost('marital_status'),
+
             'email'=> $this->request->getPost('email'),
             'contact_number' => $this->request->getPost('contact_number'),
             'appointmentType' => $this->request->getPost('appointmentType'),
@@ -584,31 +628,68 @@ public function formdata()
     // Update the newly inserted row with the appm_id
     // $db->table('tbl_appointment')->set('appm_id', $appm_id)->where('id', $appm_id)->update();
 
-    $wherecond = array('id' => $this->request->getPost('timeSlot'));
-            $timeSlotInfo = $model->getslotstime('tbl_slots', $wherecond);
-
-            // Extract time slot value from the result
-            $timeSlot = $timeSlotInfo ? $timeSlotInfo->start_time : '';
+   
     
     $timeSlotId = $this->request->getPost('slot');
     $selectedDate = $this->request->getPost('appointment_date');
     $model->insertslotsses($appm_id,$timeSlotId, $selectedDate);
-    $lastInsertId = $db->insertID();
+    // $lastInsertId = $db->insertID();
 
 
-    $emailContent = view('emailform', [
+    $wherecond = array('id' => $this->request->getPost('slot'));
+    $timeSlotInfo = $model->getslotstime('tbl_slots', $wherecond);
+
+    // Extract time slot value from the result
+    $timeSlot = $timeSlotInfo ? $timeSlotInfo->start_time : '';
+
+    $appoint_data = $model->bookedslotsingle($appm_id);
+
+if (!empty($appoint_data)) {
+    $senderMsg = view('emailform', [
         'fullname' => $this->request->getPost('fullname'),
         'appointmentType' => $this->request->getPost('appointmentType'),
         'timeSlot' => $timeSlot,
         'selectedDate' => $selectedDate,
-        'lastinsertid' => $lastInsertId
+        'lastinsertid' => $appm_id,
+        'gender' => $appoint_data['gender'],
+        'marital_status' => $appoint_data['marital_status'],
+        'contact_number' => $appoint_data['contact_number'],
+        'appointmentOption' => $appoint_data['appointmentOption'],
+        'source' => $appoint_data['source'],
+        'friendName' => $appoint_data['friendName'],
+        'timeSlot' => $appoint_data['timeSlot'],
+        'email' => $appoint_data['email'],
+        // 'appointment_date' => $appoint_data['selectedDate'],
+        'dob' => $appoint_data['dob'],
+        'tob' => $appoint_data['tob'],
+        'Country' => $appoint_data['country_name'],
+        'State' => $appoint_data['state_name'],
+        'City' => $appoint_data['city_name'],
+        'twins' => $appoint_data['twins'],
+        'subjects' => $subjects
+    ]);
+
+
+    $receiverMsg = view('emailformforreciver', [
+        'fullname' => $this->request->getPost('fullname'),
+        'appointmentType' => $this->request->getPost('appointmentType'),
+        'timeSlot' => $timeSlot,
+        'selectedDate' => $selectedDate,
+        'lastinsertid' => $appm_id
     ]);
     // Send email
     $useremail = $this->request->getPost('email');
     $subject = 'Your Appointment Booked';
     $ccEmails = ['mrunal@vedikastrologer.com']; 
-    sendConfirmationEmail($useremail, $ccEmails, $subject, $emailContent);
-    
+
+    $appointmentDateTime = date('d F Y', strtotime($selectedDate));
+
+
+    $receiverSubject = 'Your Appoinment is booked Succefully.';
+    $senderSubject = 'You Have New Appointment of ' . $this->request->getPost('fullname') . ' on this date & time ' . $appointmentDateTime . ' - ' . $timeSlot;
+
+    sendConfirmationEmail($useremail, $ccEmails, $receiverSubject,  $receiverMsg, $senderSubject, $senderMsg, );
+}
     return redirect()->to('add_appointment');
 }
     public function getnewslots()
@@ -843,6 +924,7 @@ public function delete_user()
     public function emailform(){
         echo view('emailform'); 
     }
+
     public function get_user_details()
     {
         $userId = $this->request->getPost('userId');
@@ -886,4 +968,27 @@ public function delete_user()
         return redirect()->to('Add_user');
         
     }
+
+    public function emailformforreciver(){
+        echo view('emailformforreciver'); 
+    }
+
+    public function get_state_name_location(){
+        $model = new Admin_Model();
+        $country_id = $this->request->getVar('country_id');
+        // echo "hiii";
+        // echo $country_id; exit();
+
+		$model->get_state_name_location($country_id);
+	}
+
+    public function get_city_name_location(){
+
+        $model = new Admin_Model();
+        $state_id = $this->request->getVar('state_id');
+   
+		$model->get_city_name_location($state_id);
+	}
+   
+
 }
