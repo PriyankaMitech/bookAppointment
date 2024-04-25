@@ -17,6 +17,8 @@ $routes->post('get_user_details', 'Admin_Controller::get_user_details');
 $routes->post('update_user', 'Admin_Controller::update_user');
 $routes->get('emailformforreciver', 'Admin_Controller::emailformforreciver');
 
+$routes->get('Services_List', 'Admin_Controller::Services_List');
+$routes->post('cancelservices', 'Admin_Controller::cancelservices');
 
 $routes->post('set_schedule', 'Admin_Controller::set_schedule');
 $routes->post('save_schedule', 'Admin_Controller::save_schedule');
