@@ -32,7 +32,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="container">
+                <div class="container card p-5">
                     <!-- Date range filter input -->
                     <div class="row">
                         <div class="col-md-3 form-group">
@@ -44,8 +44,8 @@
                             <input type="date" id="toDate" class="form-control">
                         </div>
                         <div class="col-md-6" style="padding-top: 28px;">
-                            <button class="btn btn-primary mr-2" onclick="exportToExcel()">Export to Excel</button>
-                            <button class="btn btn-primary" onclick="exportToPDF()">Export to PDF</button>
+                        <button class="btn btn-primary " onclick="exportToExcel()">Excel</button>
+                            <button class="btn btn-primary" onclick="exportToPDF()">PDF</button>
                             <button class="btn btn-warning" onclick="toggleIncome()">View income</button>
                             <!-- Toggle button -->
                         </div>
@@ -69,6 +69,7 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                <?php if(!empty($getallclass)) { ?>
                                 <?php foreach ($getallclass as $count => $appointment): ?>
                                 <tr>
                                     <td><?php echo $count + 1; ?></td>
@@ -83,15 +84,21 @@
                                     <td><?php echo $appointment['fees']; ?></td>
                                     <td>
                                         <?php
-                    // Split the "Paid Fees" string by commas
-                    $paidAmounts = explode(',', $appointment['Paid_Ammount']);
-                    // Sum up the values for this row
-                    $rowTotal = array_sum($paidAmounts);
-                    echo $rowTotal; // Display the sum for this row
-                ?>
+                                            // Split the "Paid Fees" string by commas
+                                            $paidAmounts = explode(',', $appointment['Paid_Ammount']);
+                                            // Sum up the values for this row
+                                            $rowTotal = array_sum($paidAmounts);
+                                            echo $rowTotal; // Display the sum for this row
+                                        ?>
                                     </td>
                                 </tr>
                                 <?php endforeach; ?>
+                                <?php }else{ ?>
+                                    <tr>
+                                    <td colspan="7"><p>No records found.</p></td>
+                               
+                                </tr>
+                                    <?php } ?>
                             </tbody>
                         </table>
 

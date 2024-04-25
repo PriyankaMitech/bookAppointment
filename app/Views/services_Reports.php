@@ -34,14 +34,14 @@
                         </div>
                     </div>
                 </div>
-                <div class="container">
+                <div class="container card p-5">
                     <!-- Date range filter input and service filter -->
                     <div class="row">
-                        <div class="col-md-2 form-group">
+                        <div class="col-md-3 form-group">
                             <label for="fromDate">From Date:</label>
                             <input type="date" id="fromDate" class="form-control">
                         </div>
-                        <div class="col-md-2 form-group">
+                        <div class="col-md-3 form-group">
                             <label for="toDate">To Date:</label>
                             <input type="date" id="toDate" class="form-control">
                         </div>
@@ -58,9 +58,9 @@
                                 <!-- Add more options as needed -->
                             </select>
                         </div>
-                        <div class="col-md-5" style="padding-top: 28px;">
-                            <button class="btn btn-primary " onclick="exportToExcel()">Export to Excel</button>
-                            <button class="btn btn-primary" onclick="exportToPDF()">Export to PDF</button>
+                        <div class="col-md-3" style="padding-top: 28px;">
+                            <button class="btn btn-primary " onclick="exportToExcel()">Excel</button>
+                            <button class="btn btn-primary" onclick="exportToPDF()">PDF</button>
                         </div>
                     </div>
                     <table id="dataTable" class="table table-bordered">
@@ -76,9 +76,10 @@
                             </tr>
                         </thead>
                         <tbody>
+                            <?php if(!empty($allapt)){ $i=1; ?>
                             <?php foreach ($allapt as $appointment): ?>
                                 <tr>
-                                    <td><?php echo $appointment['id']; ?></td>
+                                    <td><?=$i;?></td>
                                     <td><?php echo $appointment['name']; ?></td>
                                     <td><?php echo $appointment['email']; ?></td>
                                     <td><?php echo $appointment['mobile']; ?></td>
@@ -86,7 +87,13 @@
                                     <td><?php echo date('d-m-Y', strtotime($appointment['service_date'])); ?></td>
                                     <td><?php echo $appointment['amount']; ?></td>
                                 </tr>
-                            <?php endforeach; ?>
+                            <?php $i++; endforeach; ?>
+                            <?php }else{ ?>
+                                <tr>
+                                    <td colspan="7"><p>No records found.</p></td>
+                               
+                                </tr>
+                            <?php } ?>
                         </tbody>
                     </table>
                 </div>
