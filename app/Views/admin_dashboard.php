@@ -119,7 +119,7 @@
                                                                         <div class="slide"></div>
                                                                     </li>
                                                                     <li class="nav-item">
-                                                                        <a class="nav-link" data-toggle="tab" href="#profile7" role="tab"><i class="icofont icofont-ui-clock "></i>Remainng Slots</a>
+                                                                        <a class="nav-link" data-toggle="tab" href="#profile7" role="tab"><i class="icofont icofont-ui-clock "></i>Empty Slots</a>
                                                                         <div class="slide"></div>
                                                                     </li>
                                                                     <!-- <li class="nav-item">

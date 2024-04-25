@@ -91,7 +91,7 @@
                                                             <td><?php echo $i; ?></td>
                                                             <td><?php echo $slot['fullname']; ?></td>
                                                             <td> <?php echo date('d F Y', strtotime($slot['appointment_date'])); ?></td>
-                                                            <td><?php echo $slot['start_time']; ?> - <?php echo $slot['end_time']; ?></td>
+                                                            <td><?php echo $slot['start_time']; ?></td>
                                                             <td><?php echo $slot['appointmentType'] ?></td>
                                                             <!-- <td><?php// echo $slot['subjects']; ?></td> -->
                                                             <td><?php echo $slot['contact_number'] ?></td>
@@ -119,7 +119,7 @@
                                                         <td><?php echo $i; ?></td>
                                                             <td><?php echo $slot['fullname']; ?></td>
                                                             <td> <?php echo date('d F Y', strtotime($slot['appointment_date'])); ?></td>
-                                                            <td><?php echo $slot['start_time']; ?> - <?php echo $slot['end_time']; ?></td>
+                                                            <td><?php echo $slot['start_time']; ?> </td>
                                                             <td><?php echo $slot['appointmentType'] ?></td>
                                                             <!-- <td><?php //echo $slot['subjects']; ?></td> -->
                                                             <td><?php echo $slot['contact_number'] ?></td>

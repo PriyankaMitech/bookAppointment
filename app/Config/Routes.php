@@ -18,6 +18,8 @@ $routes->post('update_user', 'Admin_Controller::update_user');
 $routes->get('emailformforreciver', 'Admin_Controller::emailformforreciver');
 
 
+
+
 $routes->post('set_schedule', 'Admin_Controller::set_schedule');
 $routes->post('save_schedule', 'Admin_Controller::save_schedule');
 $routes->get('add_workinghour','Admin_Controller::add_workinghour');
@@ -40,6 +42,9 @@ $routes->post('freezeSlots', 'Admin_Controller::freezeSlots');
 $routes->get('Booked_Slots', 'Admin_Controller::Booked_Slots');
 $routes->post('cancelBooking', 'Admin_Controller::cancelBooking');
 $routes->get('Add_user', 'Admin_Controller::Add_user');
+$routes->get('user-list', 'Admin_Controller::user_list');
+
+
 $routes->post('user_create', 'Admin_Controller::user_create');
 $routes->post('delete_user', 'Admin_Controller::delete_user');
 

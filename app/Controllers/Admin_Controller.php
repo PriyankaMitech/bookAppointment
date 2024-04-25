@@ -841,6 +841,15 @@ public function Add_user()
     // echo '<pre>'; print_r($data['getUser']);die;
     echo view('Add_user',$data);
 }
+
+public function user_list()
+{
+    $model = new Admin_Model();
+
+    $data['getUser'] =$model->getUser();
+    // echo '<pre>'; print_r($data['getUser']);die;
+    echo view('user_list',$data);
+}
 public function user_create()
 {
   // print_r($_POST) ;die;

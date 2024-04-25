@@ -34,7 +34,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="container">
+                <div class="container card p-5">
                     <!-- Date range filter input -->
                     <div class="row">
                         <div class="col-md-3 form-group">
@@ -46,14 +46,15 @@
                             <input type="date" id="toDate" class="form-control">
                         </div>
                         <div class="col-md-6" style="padding-top: 28px;">
-                            <button class="btn btn-primary mr-2" onclick="exportToExcel()">Export to Excel</button>
-                            <button class="btn btn-primary" onclick="exportToPDF()">Export to PDF</button>
+                       
+                            <button class="btn btn-primary " onclick="exportToExcel()">Excel</button>
+                            <button class="btn btn-primary" onclick="exportToPDF()">PDF</button>
                         </div>
                     </div>
                     <table id="dataTable" class="table table-bordered">
                         <thead>
                             <tr>
-                                <th>ID</th>
+                                <th>Sr. No</th>
                                 <th>Name</th>
                                 <th>Email</th>
                                 <th>Contact Number</th>
@@ -62,16 +63,23 @@
                             </tr>
                         </thead>
                         <tbody>
+                            <?php if(!empty($allapt)){ $i=1; ?>
                             <?php foreach ($allapt as $appointment): ?>
                                 <tr>
-                                    <td><?php echo $appointment['ap_id']; ?></td>
+                                    <td><?=$i;?></td>
                                     <td><?php echo $appointment['fullname']; ?></td>
                                     <td><?php echo $appointment['email']; ?></td>
                                     <td><?php echo $appointment['contact_number']; ?></td>
                                     <td><?php echo $appointment['appointmentType']; ?></td>
                                     <td><?php echo date('d-m-Y', strtotime($appointment['appointment_date'])); ?></td>
                                 </tr>
-                            <?php endforeach; ?>
+                            <?php $i++; endforeach; ?>
+                            <?php }else{ ?>
+                                <tr>
+                                    <td colspan="5"><p>No records found.</p></td>
+                               
+                                </tr>
+                                <?php } ?>
                         </tbody>
                     </table>
                 </div>

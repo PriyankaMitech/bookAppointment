@@ -10,7 +10,7 @@
                             <div class="page-header-title">
                                 <i class="icofont icofont-file-code bg-c-blue"></i>
                                 <div class="d-inline">
-                                    <h4>My Slots</h4>
+                                    <h4>List Of Working Hours</h4>
                                     <!-- <span>Lorem ipsum dolor sit <code>amet</code>, consectetur adipisicing elit</span> -->
                                 </div>
                             </div>
@@ -23,7 +23,7 @@
                                             <i class="icofont icofont-home"></i>
                                         </a>
                                     </li>
-                                    <li class="breadcrumb-item"><a href="#!">My Slots</a>
+                                    <li class="breadcrumb-item"><a href="#!">List Of Working Hours</a>
                                     </li>
                                     
 
@@ -71,7 +71,7 @@
                                                             <button
                                                                 class="btn <?php echo $slot->active_status == 'Y' ? 'btn-danger' : 'btn-success'; ?> btn-sm float-right toggle-status"
                                                                 data-form-id="statusForm_<?php echo $slot->id; ?>">
-                                                                <?php echo $slot->active_status == 'Y' ? 'Deactivate' : 'Activate'; ?>
+                                                                <?php echo $slot->active_status == 'Y' ? 'Deactivate A Slot' : 'Activate A Slot'; ?>
                                                             </button>
                                                         </form>
                                                         <form id="freezeForm_<?php echo $slot->id; ?>" method="post"
@@ -86,7 +86,7 @@
                                                             </div>
                                                             <button
                                                                 class="btn btn-warning btn-sm float-right mr-2 freeze-slot"
-                                                                data-form-id="freezeForm_<?php echo $slot->id; ?>">Freeze</button>
+                                                                data-form-id="freezeForm_<?php echo $slot->id; ?>">Freeze A Date</button>
                                                         </form>
                                                     </li>
                                                 </ul>
