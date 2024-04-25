@@ -10,7 +10,7 @@
                             <div class="page-header-title">
                                 <i class="icofont icofont-file-code bg-c-blue"></i>
                                 <div class="d-inline">
-                                    <h4>Income Report</h4>
+                                    <h4> Class Income Report</h4>
                                     <!-- <span>Lorem ipsum dolor sit <code>amet</code>, consectetur adipisicing elit</span> -->
                                 </div>
                             </div>
@@ -23,7 +23,7 @@
                                             <i class="icofont icofont-home"></i>
                                         </a>
                                     </li>
-                                    <li class="breadcrumb-item"><a href="#!">Income Report</a>
+                                    <li class="breadcrumb-item"><a href="#!">Class Income Report</a>
                                     </li>
                                     
 

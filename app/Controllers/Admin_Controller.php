@@ -1000,7 +1000,27 @@ public function delete_user()
         echo view('emailformforreciver'); 
     }
 
+  public function Services_List()
+  {
+
+    $model = new Admin_Model();
+    $wherecond = array('is_deleted' => 'N');
+    $data['services'] =  $model->getalldata('services', $wherecond);
+    echo view('Services_List',$data);
+  }
+  public function cancelservices()
+  {
+      
+      $db = \Config\Database::Connect();
+      $slotId = $this->request->getPost('slot_id');
+    //   print_r($slotId);die;
+      // Delete row from book_slots table
+      $db->table('services')
+               ->where('id', $slotId)
+               ->delete();
   
-   
+     
+      return redirect()->to('Services_List'); 
+  }
 
 }
