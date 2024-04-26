@@ -240,7 +240,7 @@ public function todayAppointments()
     // Query to fetch appointments with timeSlot and conducted = 'N'
     $query = $this->db->table('tbl_appointment')
     ->where('appointment_date', $today)
-    ->where('conducted', 'N')
+    ->where('conducted IS NULL')
     ->join('countries', 'tbl_appointment.Country = countries.id')
     ->join('states', 'tbl_appointment.State = states.id')
     ->join('cities', 'tbl_appointment.City = cities.id')
