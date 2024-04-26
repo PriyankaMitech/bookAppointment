@@ -140,17 +140,7 @@
                                                                                     <table class="table table-bordered">
                                                                                         <thead>
                                                                                             <tr>
-                                                                                                <!-- <th>Sr.No</th>
-                                                                                                <th>Name</th>
-                                                                                                <th>Gender</th>
-                                                                                                <th>Contact</th>
-                                                                                                <th>Type</th>
-                                                                                                <th>Subjects</th>
-                                                                                                <th>Appointment Time</th>
-                                                                                                <th>DOB</th>
-                                                                                                <th>TOB</th>
-                                                                                                <th>Source</th>
-                                                                                                 -->
+                                                                                              
 
                                                                                                 <th>Sr.No</th>
                                                                                                 <th>Conducted</th>
@@ -162,7 +152,6 @@
                                                                                                 <th>Date of Time</th>
 
                                                                                                 <th>Place of Birth</th>
-                                                                                                <!-- <th>Subjects</th> -->
                                                                                                 <th>Contact Number</th>
                                                                                                 <th>Email Id</th>
                                                                                                 <th>Gender</th>
@@ -174,7 +163,6 @@
                                                                                         </thead>
                                                                                         <tbody id="appointmentTableBody">
                                                                                             <?php 
-                                                                                            // echo "<pre>";print_r($todayappoinments);exit();
                                                                                             if(!empty($todayappoinments)){
                                                                                                 $i=1;
                                                                                             foreach ($todayappoinments as $appointment): ?>
@@ -205,7 +193,6 @@
                                                                                                     ?></td>
                                                                                             <td><?php echo $appointment['tob'] ?></td>
                                                                                             <td><?php echo $appointment['city_name']; ?>, <?php echo $appointment['state_name']; ?>, <?php echo $appointment['country_name']; ?></td>
-                                                                                            <!-- <td><?php// echo $slot['subjects']; ?></td> -->
                                                                                             <td><?php echo $appointment['contact_number'] ?></td>
                                                                                             <td><?php echo $appointment['email']; ?></td>
                                                                                             <td><?php echo $appointment['gender'] ?></td>
@@ -214,13 +201,7 @@
 
                                                                                             <td><?php echo $appointment['twins'] ?></td>
                                                                                           
-                                                                                                <!-- <td><?php //echo $i; ?></td>
-
-                                                                                                <td><?php //echo $appointment['fullname']; ?></td>
-                                                                                                <td><?php //echo $appointment['gender']; ?></td>
-                                                                                                <td><?php //echo $appointment['contact_number']; ?></td>
-                                                                                                <td><?php //echo $appointment['appointmentType']; ?></td>
-                                                                                                <td><?php // $appointment['subjects']; ?></td> -->
+                                                                                              
                                                                                                 <input type="hidden" name="appointment_ids"
                                                                                                     value="<?php echo $appointment['ap_id']; ?>">
                                                                                               
