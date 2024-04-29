@@ -777,26 +777,36 @@
         }
 
         var dateCells = document.querySelectorAll('.date-picker');
-        dateCells.forEach(function(cell) {
-            cell.addEventListener('click', function() {
-                var clickedDate = this.getAttribute('data-date');
-                var clickedMonth = this.getAttribute('data-month_name');
-                var clickedYear = this.getAttribute('data-year');
+dateCells.forEach(function(cell) {
+    cell.addEventListener('click', function() {
+        var clickedDate = this.getAttribute('data-date');
+        var clickedMonth = this.getAttribute('data-month_name');
+        var clickedYear = this.getAttribute('data-year');
 
-                var dateObj = new Date(clickedYear, month, clickedDate);
-                if (dateObj >= today) {
-                    var clickedDay = getDayName(dateObj.getDay());
-                    var clickedDateDisplay = document.getElementById('clickedDateDisplay');
-                    clickedDateDisplay.innerHTML = clickedDate + ' ' + clickedMonth + ' ' +
-                        clickedYear + ' (' + clickedDay + ')';
-                }
-            });
-            var cellDate = new Date(cell.getAttribute('data-year'), month, cell.getAttribute('data-date'));
-            if (cellDate < today) {
-                cell.style.pointerEvents = 'none';
-                cell.style.opacity = '0.5';
-            }
-        });
+        var dateObj = new Date(clickedYear, month, clickedDate);
+        if (dateObj >= today) {
+            var clickedDay = getDayName(dateObj.getDay());
+            var clickedDateDisplay = document.getElementById('clickedDateDisplay');
+            clickedDateDisplay.innerHTML = clickedDate + ' ' + clickedMonth + ' ' +
+                clickedYear + ' (' + clickedDay + ')';
+        }
+    });
+
+    var cellDate = new Date(cell.getAttribute('data-year'), month, cell.getAttribute('data-date'));
+    // Check if the cell date is before today's date and not equal to today's date
+    if (cellDate < today && !isToday(cellDate)) {
+        cell.style.pointerEvents = 'none';
+        cell.style.opacity = '0.5';
+    }
+});
+
+// Function to check if a date is today's date
+function isToday(date) {
+    var todayDate = new Date();
+    return date.getDate() === todayDate.getDate() &&
+           date.getMonth() === todayDate.getMonth() &&
+           date.getFullYear() === todayDate.getFullYear();
+}
     }
 
     function getDayName(dayIndex) {

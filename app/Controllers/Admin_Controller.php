@@ -1039,5 +1039,8 @@ public function delete_user()
      
       return redirect()->to('Services_List'); 
   }
-
+public function preparing_kundali()
+{
+    echo view('preparing_kundali');
+}
 }

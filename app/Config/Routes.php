@@ -65,6 +65,7 @@ $routes->get('Income', 'Admin_Controller::Income');
 $routes->get('Students', 'Admin_Controller::Students');
 $routes->post('add_fees', 'Admin_Controller::add_fees');
 $routes->post('complete_class', 'Admin_Controller::complete_class');
+$routes->get('preparing_kundali', 'Admin_Controller::preparing_kundali');
 
 
 $routes->post('get_state_name_location','Admin_Controller::get_state_name_location');
