@@ -4,7 +4,7 @@
     <div class="pcoded-inner-content">
         <div class="main-body">
             <div class="page-wrapper">
-            <div class="page-header card">
+                <div class="page-header card">
                     <div class="row align-items-end">
                         <div class="col-lg-8">
                             <div class="page-header-title">
@@ -25,7 +25,7 @@
                                     </li>
                                     <li class="breadcrumb-item"><a href="#!">List Of Appoinment</a>
                                     </li>
-                                    
+
 
                                 </ul>
                             </div>
@@ -33,7 +33,7 @@
                     </div>
                 </div>
                 <div class="container">
-                   
+
                     <div class="row">
                         <div class="col-md-12">
                             <div class="card">
@@ -44,37 +44,41 @@
                                     <form action="" method="GET" class="form-inline mb-3">
                                         <div class="form-group mr-2">
                                             <label for="filter_date" class="mr-2">Filter by Date:</label>
-                                            <input type="date" class="form-control" id="filter_date" name="filter_date">
+                                            <input type="date" class="form-control" id="filter_date" name="filter_date"
+                                                value="<?php echo isset($_GET['filter_date']) ? htmlspecialchars($_GET['filter_date']) : ''; ?>">
                                         </div>
                                         <button type="submit" class="btn btn-primary">Apply Filter</button>
+                                        <?php if (isset($_GET['filter_date'])): ?>
+                                        <button type="button" class="btn btn-danger ml-2" onclick="removeFilter()">Remove
+                                            Filter</button>
+                                        <?php endif; ?>
                                     </form>
                                     <div class="table-responsive">
                                         <?php
                                         // echo "<pre>";print_r($bookedslots);exit();
                                         if (empty($bookedslots)): ?>
-                                            <p>No records found.</p>
+                                        <p>No records found.</p>
                                         <?php else: ?>
-                                            <table class="table table-bordered">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Sr.No</th>
-                                                        <th>Name</th>
-                                                        <th>Date</th>
-                                                        <th>Time</th>
-                                                        <th>Type</th>  
-                                                        <!-- <th>Subjects</th> -->
-                                                        <th>Contact Number</th>
-                                                        <th>Email Id</th>
-                                                        <th>Gender</th>
-                                                        <th>Marital Status</th>
-                                                        <th>Are you one of the twins</th>
-                                                        <th>Date & Time of Birth</th>
-                                                        <th>Place Of Birth</th>
-                                                        <th>Action</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <?php 
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th>Sr.No</th>
+                                                    <th>Name</th>
+                                                    <th>Date</th>
+                                                    <th>Time</th>
+                                                    <th>Type</th>
+                                                    <th>Contact</th>
+                                                    <th>Email Id</th>
+                                                    <th>Gender</th>
+                                                    <th>Marital Status</th>
+                                                    <th>twins</th>
+                                                    <th>Date & Time of Birth</th>
+                                                    <th>Place Of Birth</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php 
                                                     // Get the selected date from the form input
                                                         $filter_date = isset($_GET['filter_date']) ? $_GET['filter_date'] : null;
                                                         // Initialize a counter
@@ -87,61 +91,70 @@
                                                         // Check if the selected date matches the booked slot date
                                                         if ($filter_date && $slot['selected_date'] == $filter_date):
                                                     ?>
-                                                        <tr>
-                                                            <td><?php echo $i; ?></td>
-                                                            <td><?php echo $slot['fullname']; ?></td>
-                                                            <td> <?php echo date('d F Y', strtotime($slot['appointment_date'])); ?></td>
-                                                            <td><?php echo $slot['start_time']; ?></td>
-                                                            <td><?php echo $slot['appointmentType'] ?></td>
-                                                            <!-- <td><?php// echo $slot['subjects']; ?></td> -->
-                                                            <td><?php echo $slot['contact_number'] ?></td>
-                                                            <td><?php echo $slot['email']; ?></td>
-                                                            <td><?php echo $slot['gender'] ?></td>
-                                                            <td><?php echo $slot['marital_status'] ?></td>
+                                                <tr>
+                                                    <td><?php echo $i; ?></td>
+                                                    <td><?php echo $slot['fullname']; ?></td>
+                                                    <td> <?php echo date('d F Y', strtotime($slot['appointment_date'])); ?>
+                                                    </td>
+                                                    <td><?php echo $slot['start_time']; ?></td>
+                                                    <td><?php echo $slot['appointmentType'] ?></td>
+                                                    <td><?php echo $slot['contact_number'] ?></td>
+                                                    <td><?php echo $slot['email']; ?></td>
+                                                    <td><?php echo $slot['gender'] ?></td>
+                                                    <td><?php echo $slot['marital_status'] ?></td>
 
 
-                                                            <td><?php echo $slot['twins'] ?></td>
-                                                            <td><?php echo date('d F Y', strtotime($slot['dob'])); ?> -  <?php echo $slot['tob']; ?></td>
-                                                            <td><?php echo $slot['city_name']; ?>, <?php echo $slot['state_name']; ?>, <?php echo $slot['country_name']; ?></td>
+                                                    <td><?php echo $slot['twins'] ?></td>
+                                                    <td><?php echo date('d F Y', strtotime($slot['dob'])); ?> -
+                                                        <?php echo $slot['tob']; ?></td>
+                                                    <td><?php echo $slot['city_name']; ?>,
+                                                        <?php echo $slot['state_name']; ?>,
+                                                        <?php echo $slot['country_name']; ?></td>
 
-                                                            <td>
-                                                                <form action="cancelBooking" method="post">
-                                                                    <input type="hidden" name="slot_id" value="<?php echo $slot['id']; ?>">
-                                                                    <button type="submit" class="btn btn-danger">Cancel</button>
-                                                                </form>
-                                                            </td>
-                                                        </tr>
-                                                    <?php 
+                                                    <td>
+                                                        <form action="cancelBooking" method="post">
+                                                            <input type="hidden" name="slot_id"
+                                                                value="<?php echo $slot['id']; ?>">
+                                                            <button type="submit" class="btn btn-danger">Cancel</button>
+                                                        </form>
+                                                    </td>
+                                                </tr>
+                                                <?php 
                                                         // If no filter is applied, display all booked slots
                                                         elseif (!$filter_date):
                                                     ?>
-                                                        <tr>
-                                                        <td><?php echo $i; ?></td>
-                                                            <td><?php echo $slot['fullname']; ?></td>
-                                                            <td> <?php echo date('d F Y', strtotime($slot['appointment_date'])); ?></td>
-                                                            <td><?php echo $slot['start_time']; ?> </td>
-                                                            <td><?php echo $slot['appointmentType'] ?></td>
-                                                            <!-- <td><?php //echo $slot['subjects']; ?></td> -->
-                                                            <td><?php echo $slot['contact_number'] ?></td>
-                                                            <td><?php echo $slot['email']; ?></td>
-                                                            <td><?php echo $slot['gender'] ?></td>
-                                                            <td><?php echo $slot['marital_status'] ?></td>
-                                                            <td><?php echo $slot['twins'] ?></td>
-                                                            <td><?php echo date('d F Y', strtotime($slot['dob'])); ?> -  <?php echo $slot['tob']; ?></td>
-                                                            <td><?php echo $slot['city_name']; ?>, <?php echo $slot['state_name']; ?>, <?php echo $slot['country_name']; ?></td>
+                                                <tr>
+                                                    <td><?php echo $i; ?></td>
+                                                    <td><?php echo $slot['fullname']; ?></td>
+                                                    <td> <?php echo date('d F Y', strtotime($slot['appointment_date'])); ?>
+                                                    </td>
+                                                    <td><?php echo $slot['start_time']; ?> </td>
+                                                    <td><?php echo $slot['appointmentType'] ?></td>
+                                                    <!-- <td><?php //echo $slot['subjects']; ?></td> -->
+                                                    <td><?php echo $slot['contact_number'] ?></td>
+                                                    <td><?php echo $slot['email']; ?></td>
+                                                    <td><?php echo $slot['gender'] ?></td>
+                                                    <td><?php echo $slot['marital_status'] ?></td>
+                                                    <td><?php echo $slot['twins'] ?></td>
+                                                    <td><?php echo date('d F Y', strtotime($slot['dob'])); ?> -
+                                                        <?php echo $slot['tob']; ?></td>
+                                                    <td><?php echo $slot['city_name']; ?>,
+                                                        <?php echo $slot['state_name']; ?>,
+                                                        <?php echo $slot['country_name']; ?></td>
 
-                                                            <td>
-                                                                <form action="cancelBooking" method="post">
-                                                                    <input type="hidden" name="slot_id" value="<?php echo $slot['id']; ?>">
-                                                                    <button type="submit" class="btn btn-danger">Cancel</button>
-                                                                </form>
-                                                            </td>
-                                                        </tr>
-                                                    <?php 
+                                                    <td>
+                                                        <form action="cancelBooking" method="post">
+                                                            <input type="hidden" name="slot_id"
+                                                                value="<?php echo $slot['id']; ?>">
+                                                            <button type="submit" class="btn btn-danger">Cancel</button>
+                                                        </form>
+                                                    </td>
+                                                </tr>
+                                                <?php 
                                                         endif; // End check for selected date
                                                         $i++; endforeach; ?>
-                                                </tbody>
-                                            </table>
+                                            </tbody>
+                                        </table>
                                         <?php endif; ?>
                                     </div>
                                 </div>

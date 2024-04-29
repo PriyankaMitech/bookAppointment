@@ -27,8 +27,8 @@
                                     <li class="breadcrumb-item"><a href="#!">User List</a>
                                     </li>
                                     <li class="breadcrumb-item">
-                                    <a href="<?=base_url(); ?>Add_user">Add
-                                        Users</a>
+                                        <a href="<?=base_url(); ?>Add_user">Add
+                                            Users</a>
                                     </li>
 
 
@@ -51,7 +51,7 @@
                                                     <tr>
                                                         <th>Name</th>
                                                         <th>Email</th>
-                                                        <th>Password</th>
+
                                                         <th>Actions</th>
                                                     </tr>
                                                 </thead>
@@ -60,7 +60,7 @@
                                                     <tr>
                                                         <td><?php echo $user['name']; ?></td>
                                                         <td><?php echo $user['email']; ?></td>
-                                                        <td><?php echo $user['password']; ?></td>
+
                                                         <td>
                                                             <div class="row">
                                                                 <div class="col-auto">
@@ -119,9 +119,17 @@
                                                         name="editEmail" required>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="Password">Password</label>
-                                                    <input type="email" class="form-control" id="Password"
-                                                        name="Password" required>
+                                                    <label for="editPassword">Password</label>
+                                                    <input type="password" class="form-control" id="editPassword"
+                                                        name="editPassword" required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="confirmPassword">Confirm Password</label>
+                                                    <input type="password" class="form-control" id="confirmPassword"
+                                                        name="confirmPassword" required>
+                                                    <div class="invalid-feedback">
+                                                        Passwords do not match.
+                                                    </div>
                                                 </div>
                                                 <button type="submit" class="btn btn-primary">Save changes</button>
                                             </form>
@@ -156,7 +164,7 @@ $(document).ready(function() {
                 $('#editUserId').val(response.id);
                 $('#editName').val(response.name);
                 $('#editEmail').val(response.email);
-                $('#Password').val(response.Password);
+
                 $('#editUserModal').modal('show');
             },
             error: function() {
@@ -164,5 +172,16 @@ $(document).ready(function() {
             }
         });
     });
+});
+
+$('#editUserForm').submit(function(event) {
+    var password = $('#editPassword').val();
+    var confirmPassword = $('#confirmPassword').val();
+    if (password !== confirmPassword) {
+        $('#confirmPassword').addClass('is-invalid');
+        event.preventDefault(); // Prevent form submission
+    } else {
+        $('#confirmPassword').removeClass('is-invalid');
+    }
 });
 </script>

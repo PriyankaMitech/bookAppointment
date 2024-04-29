@@ -6,7 +6,7 @@
         <!-- Main-body start -->
         <div class="main-body">
             <div class="page-wrapper">
-            <div class="page-header card">
+                <div class="page-header card">
                     <div class="row align-items-end">
                         <div class="col-lg-8">
                             <div class="page-header-title">
@@ -27,7 +27,7 @@
                                     </li>
                                     <li class="breadcrumb-item"><a href="#!">Appointment Report</a>
                                     </li>
-                                    
+
 
                                 </ul>
                             </div>
@@ -46,7 +46,7 @@
                             <input type="date" id="toDate" class="form-control">
                         </div>
                         <div class="col-md-6" style="padding-top: 28px;">
-                       
+
                             <button class="btn btn-primary " onclick="exportToExcel()">Excel</button>
                             <button class="btn btn-primary" onclick="exportToPDF()">PDF</button>
                         </div>
@@ -57,7 +57,7 @@
                                 <th>Sr. No</th>
                                 <th>Name</th>
                                 <th>Email</th>
-                                <th>Contact Number</th>
+                                <th>Contact</th>
                                 <th>Appointment Type</th>
                                 <th>Appointment Date</th>
                             </tr>
@@ -65,70 +65,74 @@
                         <tbody>
                             <?php if(!empty($allapt)){ $i=1; ?>
                             <?php foreach ($allapt as $appointment): ?>
-                                <tr>
-                                    <td><?=$i;?></td>
-                                    <td><?php echo $appointment['fullname']; ?></td>
-                                    <td><?php echo $appointment['email']; ?></td>
-                                    <td><?php echo $appointment['contact_number']; ?></td>
-                                    <td><?php echo $appointment['appointmentType']; ?></td>
-                                    <td><?php echo date('d-m-Y', strtotime($appointment['appointment_date'])); ?></td>
-                                </tr>
+                            <tr>
+                                <td><?=$i;?></td>
+                                <td><?php echo $appointment['fullname']; ?></td>
+                                <td><?php echo $appointment['email']; ?></td>
+                                <td><?php echo $appointment['contact_number']; ?></td>
+                                <td><?php echo $appointment['appointmentType']; ?></td>
+                                <td><?php echo date('d-m-Y', strtotime($appointment['appointment_date'])); ?></td>
+                            </tr>
                             <?php $i++; endforeach; ?>
                             <?php }else{ ?>
-                                <tr>
-                                    <td colspan="5"><p>No records found.</p></td>
-                               
-                                </tr>
-                                <?php } ?>
+                            <tr>
+                                <td colspan="5">
+                                    <p>No records found.</p>
+                                </td>
+
+                            </tr>
+                            <?php } ?>
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<!-- Include required JavaScript libraries -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.1/xlsx.full.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
 
-<!-- JavaScript for exporting functionality -->
-<script>
-function exportToExcel() {
-    const table = document.getElementById('dataTable');
-    const ws = XLSX.utils.table_to_sheet(table);
-    const wb = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
-    XLSX.writeFile(wb, "Appointment_report.xlsx");
-}
+    <!-- Include required JavaScript libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.1/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
 
-function exportToPDF() {
-    const element = document.getElementById('dataTable');
-    html2pdf().from(element).save('Appointment_report.pdf');
-}
+    <!-- JavaScript for exporting functionality -->
+    <script>
+    function exportToExcel() {
+        const table = document.getElementById('dataTable');
+        const ws = XLSX.utils.table_to_sheet(table);
+        const wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
+        XLSX.writeFile(wb, "Appointment_report.xlsx");
+    }
 
-// Add event listener for date range filter
-document.getElementById('fromDate').addEventListener('change', filterByDateRange);
-document.getElementById('toDate').addEventListener('change', filterByDateRange);
+    function exportToPDF() {
+        const element = document.getElementById('dataTable');
+        html2pdf().from(element).save('Appointment_report.pdf');
+    }
 
-function filterByDateRange() {
-    const fromDate = document.getElementById('fromDate').value;
-    const toDate = document.getElementById('toDate').value;
-    const rows = document.querySelectorAll('#dataTable tbody tr');
+    // Add event listener for date range filter
+    document.getElementById('fromDate').addEventListener('change', filterByDateRange);
+    document.getElementById('toDate').addEventListener('change', filterByDateRange);
 
-    rows.forEach(row => {
-        const appointmentDate = row.cells[5].innerText; // Assuming Appointment Date is in the 6th column (index 5)
-        const formattedAppointmentDate = formatDate(appointmentDate);
-        row.style.display = (formattedAppointmentDate >= fromDate && formattedAppointmentDate <= toDate) ? 'table-row' : 'none';
-    });
-}
+    function filterByDateRange() {
+        const fromDate = document.getElementById('fromDate').value;
+        const toDate = document.getElementById('toDate').value;
+        const rows = document.querySelectorAll('#dataTable tbody tr');
 
-// Function to format date as dd-mm-yyyy
-function formatDate(date) {
-    const parts = date.split('-');
-    return `${parts[2]}-${parts[1]}-${parts[0]}`;
-}
-</script>
+        rows.forEach(row => {
+            const appointmentDate = row.cells[5]
+                .innerText; // Assuming Appointment Date is in the 6th column (index 5)
+            const formattedAppointmentDate = formatDate(appointmentDate);
+            row.style.display = (formattedAppointmentDate >= fromDate && formattedAppointmentDate <= toDate) ?
+                'table-row' : 'none';
+        });
+    }
 
-<?php include('footer.php'); ?>
+    // Function to format date as dd-mm-yyyy
+    function formatDate(date) {
+        const parts = date.split('-');
+        return `${parts[2]}-${parts[1]}-${parts[0]}`;
+    }
+    </script>
+
+    <?php include('footer.php'); ?>

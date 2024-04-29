@@ -52,6 +52,7 @@
                                             <th>Class Time</th>
                                             <th>Fees</th>
                                             <th>Paid Amount</th>
+                                            <th>Marksheet No</th>
                                             <th>Action</th>
                                             <th>Action</th>
                                         </tr>
@@ -79,6 +80,7 @@
                                                 <td><?php echo $item['start_time']; ?></td>
                                                 <td><?php echo $item['fees']; ?></td>
                                                 <td><?php echo $totalPaidAmount; ?></td>
+                                                <td><?php echo $item['Certificatid']; ?></td>
                                                 <!-- Display the total paid amount -->
                                                 <td>
                                                     <!-- Add Fees Button -->
@@ -89,6 +91,7 @@
                                                         <button class="btn btn-sucess" type="submit">Add Fees</button>
                                                     </form>
                                                 </td>
+                                               
                                                 <td>
                                                     <!-- Complete Class Button -->
                                                     <form action="complete_class" method="post">

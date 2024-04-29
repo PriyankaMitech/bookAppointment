@@ -19,6 +19,7 @@ $routes->get('emailformforreciver', 'Admin_Controller::emailformforreciver');
 
 $routes->get('Services_List', 'Admin_Controller::Services_List');
 $routes->post('cancelservices', 'Admin_Controller::cancelservices');
+$routes->get('All_Appointment', 'Admin_Controller::All_Appointment');
 
 
 
@@ -32,6 +33,8 @@ $routes->get('my_slots', 'Admin_Controller::my_slots');
 $routes->post('updateStatus', 'Admin_Controller::updateStatus');
 $routes->get('add_appointment', 'Admin_Controller::Add_student');
 $routes->get('Add_class', 'Admin_Controller::Add_class');
+$routes->get('getallincome', 'Admin_Controller::getallincome');
+
 $routes->post('getnewslots', 'Admin_Controller::getnewslots');
 $routes->post('classForm', 'Admin_Controller::classForm');
 $routes->get('logout', 'Admin_Controller::logout');

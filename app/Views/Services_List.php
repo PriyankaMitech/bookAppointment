@@ -36,12 +36,17 @@
                                     <h5><b>List Of Appoinment</b></h5>
                                 </div>
                                 <div class="card-block">
-                                    <form action="" method="GET" class="form-inline mb-3">
+                                <form action="" method="GET" class="form-inline mb-3">
                                         <div class="form-group mr-2">
                                             <label for="filter_date" class="mr-2">Filter by Date:</label>
-                                            <input type="date" class="form-control" id="filter_date" name="filter_date">
+                                            <input type="date" class="form-control" id="filter_date" name="filter_date"
+                                                value="<?php echo isset($_GET['filter_date']) ? htmlspecialchars($_GET['filter_date']) : ''; ?>">
                                         </div>
                                         <button type="submit" class="btn btn-primary">Apply Filter</button>
+                                        <?php if (isset($_GET['filter_date'])): ?>
+                                        <button type="button" class="btn btn-danger ml-2" onclick="removeFilter()">Remove
+                                            Filter</button>
+                                        <?php endif; ?>
                                     </form>
                                     <div class="table-responsive">
                                         <?php

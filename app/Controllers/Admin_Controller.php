@@ -51,7 +51,12 @@ class Admin_Controller extends BaseController
 // echo '<pre>';print_r($data['todayappoinments']);die;
         return view('admin_dashboard', $data);
     }
-
+        public function  All_Appointment() {
+            $model = new Admin_Model();
+          $data['bookedslots'] =$model->getallAppointment();
+            // print_r($data['bookedslots']);die;
+            echo view('All_Appointment',$data);
+        }
     public function add_schedule()
     {
        
@@ -715,6 +720,7 @@ if (!empty($appoint_data)) {
         $startDate = $this->request->getPost('start_date');
         $endDate = $this->request->getPost('end_date');
         $batch_name = $this->request->getPost('batch_name');
+        $Certificatid = $this->request->getPost('Certificatid');
         $classDays = implode(',', $this->request->getPost('class_days')); // Convert array to comma-separated string
         $startTime = $this->request->getPost('start_time');
         $fees = $this->request->getPost('fees');
@@ -734,6 +740,7 @@ if (!empty($appoint_data)) {
             'batch_name' =>$batch_name,
             'class_days' => $classDays,
             'start_time' => $startTime,
+            'Certificatid' =>$Certificatid,
             'fees' => $fees
         ]);
     
@@ -887,6 +894,15 @@ public function delete_user()
         $data['servicesincome']=$model->servicesincome();
         $data['getallclass'] =$model->getallclass();
         // echo '<pre>';print_r($data['getallclass']);die;
+        echo view('allIncome',$data);
+    }
+    public function getallincome()
+    {
+        $model = new Admin_Model();
+        $data['appoincome'] =$model->getappoincome();
+        $data['servicesincome']=$model->servicesincome();
+        $data['getallclass'] =$model->getallclass();
+        // echo '<pre>';print_r($data['getallclass']);die;
         echo view('Income',$data);
     }
     public function Students()
@@ -966,10 +982,11 @@ public function delete_user()
     }
     public function update_user()
     {
+       // print_r($_POST);die;
         $userId = $this->request->getPost('userId');
         $editName = $this->request->getPost('editName');
         $editEmail = $this->request->getPost('editEmail');
-        $Password = $this->request->getPost('Password');
+        $Password = $this->request->getPost('editPassword');
         // Get the database connection instance
         $db = \Config\Database::connect();
     

@@ -26,8 +26,7 @@
                                     </li>
                                     <li class="breadcrumb-item"><a href="#!">Add Student</a>
                                     </li>
-                                    <li class="breadcrumb-item"><a href="#!">Add Student</a>
-                                    </li>
+                                   
 
                                 </ul>
                             </div>
@@ -44,24 +43,28 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="name">Name:</label>
+                                            <label for="name">Name *:</label>
                                             <input type="text" id="name" name="name" class="form-control" required>
                                         </div>
                                         <div class="form-group">
                                             <label for="email">Email:</label>
-                                            <input type="email" id="email" name="email" class="form-control" required>
+                                            <input type="email" id="email" name="email" class="form-control" >
                                         </div>
                                         <div class="form-group">
-                                            <label for="contact_number">Contact Number:</label>
+                                            <label for="contact_number">Contact Number *:</label>
                                             <input type="tel" id="contact_number" name="contact_number" class="form-control" required>
                                         </div>
                                         <div class="form-group">
-                                            <label for="start_date">Class Beginning Date:</label>
+                                            <label for="start_date">Class Beginning Date *:</label>
                                             <input type="date" id="start_date" name="start_date" class="form-control" required>
                                         </div>
                                         <div class="form-group">
-                                            <label for="end_date">Class End Date:</label>
+                                            <label for="end_date">Class End Date *:</label>
                                             <input type="date" id="end_date" name="end_date" class="form-control" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="end_date">Certificate & Marksheet code *:</label>
+                                            <input type="text" id="Certificate" name="Certificatid" class="form-control" required>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -103,7 +106,7 @@
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label for="start_time">Class Time:</label>
+                                            <label for="start_time">Class Time *:</label>
                                             <input type="time" id="start_time" name="start_time" class="form-control" required>
                                         </div>
                                         <div class="form-group">
@@ -111,7 +114,7 @@
                                             <input type="input" id="batch_name" name="batch_name" class="form-control">
                                         </div>
                                         <div class="form-group">
-                                            <label for="fees">Fees:</label>
+                                            <label for="fees">Fees *:</label>
                                             <input type="text" id="fees" name="fees" class="form-control" required>
                                         </div>
                                         

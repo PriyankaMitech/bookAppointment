@@ -10,7 +10,7 @@
                             <div class="page-header-title">
                                 <i class="icofont icofont-file-code bg-c-blue"></i>
                                 <div class="d-inline">
-                                    <h4>Income Report</h4>
+                                    <h4>Class Income Report</h4>
                                     <!-- <span>Lorem ipsum dolor sit <code>amet</code>, consectetur adipisicing elit</span> -->
                                 </div>
                             </div>
@@ -23,7 +23,7 @@
                                             <i class="icofont icofont-home"></i>
                                         </a>
                                     </li>
-                                    <li class="breadcrumb-item"><a href="#!">Income Report</a>
+                                    <li class="breadcrumb-item"><a href="#!">Class Income Report</a>
                                     </li>
                                     
 
@@ -33,8 +33,71 @@
                     </div>
                 </div>
                 <div class="container card p-5">
-                    <div class="card" id="incomeCards">
-                        <!-- Cards container -->
+                    <!-- Date range filter input -->
+                    <div class="row">
+                        <div class="col-md-3 form-group">
+                            <label for="fromDate">From Date:</label>
+                            <input type="date" id="fromDate" class="form-control">
+                        </div>
+                        <div class="col-md-3 form-group">
+                            <label for="toDate">To Date:</label>
+                            <input type="date" id="toDate" class="form-control">
+                        </div>
+                        <div class="col-md-6" style="padding-top: 28px;">
+                        <button class="btn btn-primary " onclick="exportToExcel()">Excel</button>
+                            <button class="btn btn-primary" onclick="exportToPDF()">PDF</button>
+                           
+                        </div>
+                    </div>
+                    <div class="table-wrapper" id="tableWrapper">
+                        <!-- Table wrapper -->
+                        <table id="dataTable" class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Contact Number</th>
+                                 
+                                    <th>Batch Name</th>
+                                    <th>Fees</th>
+                                    <th>Paid Fees</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php if(!empty($getallclass)) { ?>
+                                <?php foreach ($getallclass as $count => $appointment): ?>
+                                <tr>
+                                    <td><?php echo $count + 1; ?></td>
+                                    <td><?php echo $appointment['name']; ?></td>
+                                    <td><?php echo $appointment['email']; ?></td>
+                                    <td><?php echo $appointment['contact_number']; ?></td>
+                                  
+                                    <td><?php echo $appointment['batch_name']; ?></td>
+                                    <td><?php echo $appointment['fees']; ?></td>
+                                    <td>
+                                        <?php
+                                         
+                                            $paidAmounts = explode(',', $appointment['Paid_Ammount']);
+                                         
+                                            $rowTotal = array_sum($paidAmounts);
+                                            echo $rowTotal;
+                                        ?>
+                                    </td>
+                                </tr>
+                                <?php endforeach; ?>
+                                <?php }else{ ?>
+                                    <tr>
+                                    <td colspan="7"><p>No records found.</p></td>
+                               
+                                </tr>
+                                    <?php } ?>
+                            </tbody>
+                        </table>
+
+                    </div>
+
+                    <div class="card" id="incomeCards" style="display: none;">
                         <div class="card-header">
                             <h5>Appointment Income</h5>
                         </div>
@@ -46,39 +109,32 @@
                                             <th>Month</th>
                                             <th>Current Month Total</th>
                                             <th>Financial Year Total</th>
-                                            <th>Total Income</th> <!-- New Column -->
+                                            <th>Total Income</th> 
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php
-                                        // Get current month and year
                                         $currentMonth = date('m');
                                         $currentYear = date('Y');
                                         $financialYearStart = ($currentMonth < 4) ? ($currentYear - 1) . '-04-01' : $currentYear . '-04-01'; // April 1st of the current or previous year
                                         $financialYearEnd = ($currentMonth < 4) ? $currentYear . '-03-31' : ($currentYear + 1) . '-03-31'; // March 31st of the current or next year
-
-                                        // Initialize variables for current month, financial year, and total incomes
                                         $currentMonthTotal = 0;
                                         $financialYearTotal = 0;
                                         $totalIncome = 0;
 
                                         foreach ($appoincome as $income) {
-                                            // Extract month and year from appointment date
                                             $appointmentMonth = date('m', strtotime($income['created_at']));
                                             $appointmentYear = date('Y', strtotime($income['created_at']));
                                             $incomeAmount = $income['amount'];
 
-                                            // Check if appointment is in the current month
                                             if ($currentMonth == $appointmentMonth && $currentYear == $appointmentYear) {
                                                 $currentMonthTotal += $incomeAmount;
                                             }
 
-                                            // Check if appointment is in the financial year
                                             if ($income['created_at'] >= $financialYearStart && $income['created_at'] <= $financialYearEnd) {
                                                 $financialYearTotal += $incomeAmount;
                                             }
 
-                                            // Increment total income for each appointment
                                             $totalIncome += $incomeAmount;
                                         }
                                         ?>
@@ -86,15 +142,14 @@
                                             <td><?php echo date('F Y'); ?></td>
                                             <td><?php echo $currentMonthTotal; ?></td>
                                             <td><?php echo $financialYearTotal; ?></td>
-                                            <td><?php echo $totalIncome; ?></td> <!-- Display total income -->
+                                            <td><?php echo $totalIncome; ?></td> 
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
-                    <div class="card" id="serviceIncomeCards">
-                        <!-- Cards container -->
+                    <div class="card" id="serviceIncomeCards" style="display: none;">
                         <div class="card-header">
                             <h5>Service Income</h5>
                         </div>
@@ -106,40 +161,29 @@
                                             <th>Month</th>
                                             <th>Current Month Total</th>
                                             <th>Financial Year Total</th>
-                                            <th>Total Income</th> <!-- New Column -->
+                                            <th>Total Income</th>
 
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php
-                                        // Get current month and year
                                         $currentMonth = date('m');
                                         $currentYear = date('Y');
                                         $financialYearStart = ($currentMonth < 4) ? ($currentYear - 1) . '-04-01' : $currentYear . '-04-01'; // April 1st of the current or previous year
                                         $financialYearEnd = ($currentMonth < 4) ? $currentYear . '-03-31' : ($currentYear + 1) . '-03-31'; // March 31st of the current or next year
-
-                                        // Initialize variables for current month, financial year, and total incomes
                                         $currentMonthTotal = 0;
                                         $financialYearTotal = 0;
                                         $totalIncome = 0;
-
                                         foreach ($servicesincome as $income) {
-                                            // Extract month and year from appointment date
                                             $appointmentMonth = date('m', strtotime($income['created_at']));
                                             $appointmentYear = date('Y', strtotime($income['created_at']));
                                             $incomeAmount = $income['amount'];
-
-                                            // Check if appointment is in the current month
                                             if ($currentMonth == $appointmentMonth && $currentYear == $appointmentYear) {
                                                 $currentMonthTotal += $incomeAmount;
                                             }
-
-                                            // Check if appointment is in the financial year
                                             if ($income['created_at'] >= $financialYearStart && $income['created_at'] <= $financialYearEnd) {
                                                 $financialYearTotal += $incomeAmount;
                                             }
-
-                                            // Increment total income for each appointment
                                             $totalIncome += $incomeAmount;
                                         }
                                         ?>
@@ -147,69 +191,7 @@
                                             <td><?php echo date('F Y'); ?></td>
                                             <td><?php echo $currentMonthTotal; ?></td>
                                             <td><?php echo $financialYearTotal; ?></td>
-                                            <td><?php echo $totalIncome; ?></td> <!-- Display total income -->
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card" id="serviceIncomeCards">
-                        <!-- Cards container -->
-                        <div class="card-header">
-                            <h5>Classes Income</h5>
-                        </div>
-                        <div class="card-block">
-                            <div class="table-responsive">
-                                <table class="table table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th>Month</th>
-                                            <th>Current Month Total</th>
-                                            <th>Financial Year Total</th>
-                                            <th>Total Income</th> <!-- New Column -->
-
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php
-                                        // Get current month and year
-                                        $currentMonth = date('m');
-                                        $currentYear = date('Y');
-                                        $financialYearStart = ($currentMonth < 4) ? ($currentYear - 1) . '-04-01' : $currentYear . '-04-01'; // April 1st of the current or previous year
-                                        $financialYearEnd = ($currentMonth < 4) ? $currentYear . '-03-31' : ($currentYear + 1) . '-03-31'; // March 31st of the current or next year
-
-                                        // Initialize variables for current month, financial year, and total incomes
-                                        $currentMonthTotal = 0;
-                                        $financialYearTotal = 0;
-                                        $totalIncome = 0;
-
-                                        foreach ($getallclass as $income) {
-                                            // Extract month and year from appointment date
-                                            $appointmentMonth = date('m', strtotime($income['created_at']));
-                                            $appointmentYear = date('Y', strtotime($income['created_at']));
-                                            $incomeAmount = $income['Paid_Ammount'];
-
-                                            // Check if appointment is in the current month
-                                            if ($currentMonth == $appointmentMonth && $currentYear == $appointmentYear) {
-                                                $currentMonthTotal += $incomeAmount;
-                                            }
-
-                                            // Check if appointment is in the financial year
-                                            if ($income['created_at'] >= $financialYearStart && $income['created_at'] <= $financialYearEnd) {
-                                                $financialYearTotal += $incomeAmount;
-                                            }
-
-                                            // Increment total income for each appointment
-                                            $totalIncome += $incomeAmount;
-                                        }
-                                        ?>
-                                        <tr>
-                                            <td><?php echo date('F Y'); ?></td>
-                                            <td><?php echo $currentMonthTotal; ?></td>
-                                            <td><?php echo $financialYearTotal; ?></td>
-                                            <td><?php echo $totalIncome; ?></td> <!-- Display total income -->
+                                            <td><?php echo $totalIncome; ?></td> 
                                         </tr>
                                     </tbody>
                                 </table>
@@ -222,6 +204,6 @@
     </div>
 </div>
 
-<!-- Include required JavaScript libraries -->
+
 
 <?php include('footer.php'); ?>
