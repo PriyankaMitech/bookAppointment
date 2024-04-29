@@ -58,6 +58,14 @@ var nav = $('.fixed-button');
                 $('#appointmentTableContainer').toggle();
             });
         });
+        
+    function removeFilter() {
+        var url = window.location.href;
+        url = url.replace(/([&?])filter_date=.*?(&|$)/, '$1').replace(/([?&])$/, '');
+        window.location.href = url;
+    }
+
+
     </script>
 </body>
 
