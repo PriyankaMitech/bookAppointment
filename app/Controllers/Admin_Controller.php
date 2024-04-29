@@ -483,6 +483,8 @@ public function formdata()
                     'State' => $appoint_data['state_name'],
                     'City' => $appoint_data['city_name'],
                     'twins' => $appoint_data['twins'],
+                    'transaction_id' => $appoint_data['stransaction_id'],
+
                     'subjects' => $subjects
                 ]);
           
@@ -671,7 +673,9 @@ if (!empty($appoint_data)) {
         'State' => $appoint_data['state_name'],
         'City' => $appoint_data['city_name'],
         'twins' => $appoint_data['twins'],
-        'subjects' => $subjects
+        'subjects' => $subjects,
+        'transaction_id' => $appoint_data['stransaction_id'],
+
     ]);
 
 
@@ -691,7 +695,7 @@ if (!empty($appoint_data)) {
 
 
     $receiverSubject = 'Your Appoinment is booked Succefully.';
-    $senderSubject = 'You Have New Appointment of ' . $this->request->getPost('fullname') . ' on this date & time ' . $appointmentDateTime . ' - ' . $timeSlot;
+    $senderSubject = 'New Appointment of ' . $this->request->getPost('fullname') . ' on this date & time ' . $appointmentDateTime . ' - ' . $timeSlot;
 
     sendConfirmationEmail($useremail, $ccEmails, $receiverSubject,  $receiverMsg, $senderSubject, $senderMsg, );
 }
