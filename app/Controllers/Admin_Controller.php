@@ -180,87 +180,6 @@ class Admin_Controller extends BaseController
 
     }
    
-//     public function set_workinghour()
-// {
-//     $userID = session('user_id');
-//     $days = $this->request->getVar('day[]');
-//     $startTimes = $this->request->getVar('start_time[]');
-//     $endTimes = $this->request->getVar('end_time[]');
-
-//     $currentYear = date('Y');
-
-//     // Create a common start and end date for the entire year
-//     $commonStartDate = $currentYear . '-01-01';
-//     $commonEndDate = $currentYear . '-12-31';
-
-//     // Validate and modify date format
-//     $commonStartDate = date('Y-m-d', strtotime($commonStartDate));
-//     $commonEndDate = date('Y-m-d', strtotime($commonEndDate));
-
-//     $db = \Config\Database::connect();
-//     $insertedSchedules = 0;
-//     $insertedSlots = 0;
-
-//     $db->table('tbl_schedule')->where('user_id', $userID)->delete();
-
-//     foreach ($days as $index => $day) {
-//         $data = [
-//             'user_id' => $userID,
-//             'day' => $day,
-//             'start_date' => $commonStartDate,
-//             'end_date' => $commonEndDate,
-//             'start_time' => $startTimes[$index],
-//             'end_time' => $endTimes[$index],
-//             'created_on' => date('Y-m-d H:i:s'),
-//         ];
-
-//         if ($this->request->getVar('id') == "") {
-//             $add_data = $db->table('tbl_schedule');
-//             $add_data->insert($data);
-//             $insertedSchedules++;
-//         } else {
-//             $update_data = $db->table('tbl_schedule')->where('id', $this->request->getVar('id'));
-//             $update_data->update($data);
-//         }
-
-//         // Convert start and end times to 45-minute increments and insert into tbl_slots
-//         $start = strtotime($startTimes[$index]);
-//         $end = strtotime($endTimes[$index]);
-
-//         while ($start < $end) {
-//             $slotEndTime = date('H:i', strtotime('+45 minutes', $start));
-//             if ($slotEndTime > date('H:i', $end)) {
-//                 $slotEndTime = date('H:i', $end);
-//             }
-
-//             // Insert into tbl_slots
-//             $slotData = [
-//                 'user_id' => $userID,
-//                 'day' => $day,
-//                 'start_time' => date('H:i', $start),
-//                 'end_time' => $slotEndTime,
-//                 'created_on' => date('Y-m-d H:i:s'),
-//             ];
-
-//             $db->table('tbl_slots')->insert($slotData);
-//             $insertedSlots++;
-
-//             $start = strtotime('+45 minutes', $start);
-//         }
-//     }
-
-//     if ($insertedSchedules > 0) {
-//         session()->setFlashdata('success', 'Schedules added successfully.');
-//     } else {
-//         session()->setFlashdata('success', 'Schedules updated successfully.');
-//     }
-
-//     if ($insertedSlots > 0) {
-//         session()->setFlashdata('success', 'Slots added successfully.');
-//     }
-
-//     return redirect()->to('add_workinghour');
-// }
 
 public function set_workinghour()
 {
@@ -364,20 +283,7 @@ public function set_workinghour()
         return redirect()->to('add_workinghour');
     }
 
-//     public function calendar(){
 
-//         $userID = session('user_id');
-
-//         $model = new Admin_Model();
- 
-//         $wherecond = array('user_id' => $userID, 'is_deleted' => 'N',  'start_time !=' => '00:00:00',
-//         'end_time !=' => '00:00:00');
-
-//         $data['schedule'] =  $model->getalldata('tbl_schedule', $wherecond);
-//   echo '<pre>';print_r($data['schedule']);die;
-//         return view('calendar', $data);
-
-//     }
 
 public function calendar(){
 
@@ -483,7 +389,7 @@ public function formdata()
                     'State' => $appoint_data['state_name'],
                     'City' => $appoint_data['city_name'],
                     'twins' => $appoint_data['twins'],
-                    'transaction_id' => $appoint_data['stransaction_id'],
+                    'transaction_id' => $appoint_data['transaction_id'],
 
                     'subjects' => $subjects
                 ]);
@@ -562,39 +468,7 @@ public function formdata()
     {
         return view('Add_class');
     }
-    // public function add_appointment()
-    // {
-    //   //  print_r($_POST);die;
-    //     $model = new Admin_Model();
-    //     $db = \Config\Database::connect();
-    //     $timeSlotId = $this->request->getPost('slot');
-    //     $selectedDate = $this->request->getPost('appointment_date');
-    //     $model->insertslotss($timeSlotId, $selectedDate);
-    //     $subjects = implode(',', $this->request->getPost('subjects'));
-    //     $data = [
-    //         'fullname' => $this->request->getPost('fullname'),
-    //         'gender' => $this->request->getPost('gender'),
-    //         'contact_number' => $this->request->getPost('contact_number'),
-    //         'appointmentType' => $this->request->getPost('appointmentType'),
-    //         'appointmentOption'=> $this->request->getPost('appointmentOption'),
-    //         'source' => $this->request->getPost('source'),
-    //         'friendName' => $this->request->getPost('friendName'),
-    //         'timeSlot' => $this->request->getPost('slot'),
-    //         'appointment_date' =>$this->request->getPost('appointment_date'),
     
-    //         'dob' => $this->request->getPost('dob'),
-    //         'tob' => $this->request->getPost('tob'),
-    //         'Country' => $this->request->getPost('Country'),
-    //         'State' => $this->request->getPost('State'),
-    //         'City' => $this->request->getPost('City'),
-    //         'twins' => $this->request->getPost('twins'),
-    //         'amount' => '700',
-    //         'subjects' => $subjects
-    //     ];
-    //     $db->table('tbl_appointment')->insert($data);
-    
-    //     return redirect()->to('add_appointment');
-    // }
     public function add_appointment()
 {
     $model = new Admin_Model();
@@ -1043,8 +917,109 @@ public function delete_user()
      
       return redirect()->to('Services_List'); 
   }
+
 public function preparing_kundali()
 {
-    echo view('preparing_kundali');
+    $userID = session('user_id');
+    $model = new Admin_Model();
+  
+    $data['country'] = $model->get_country_name();
+    $data['states'] = $model->get_states_name();
+    $data['citys'] = $model->get_citys_name();
+    echo view('preparing_kundali',$data);
+}
+
+public function kundali()
+{
+//    print_r($_POST);die;
+$model = new Admin_Model();
+$db = \Config\Database::connect();
+$data = [
+    'contact_person_name' => $this->request->getPost('contact_person_name'),
+    'contact_number' => $this->request->getPost('contact_number'),
+    'full_name' => $this->request->getPost('full_name'),
+    'email_address' => $this->request->getPost('email_address'),
+    'name_in_devanagari' => $this->request->getPost('name_in_devanagari'),
+    'dob' => $this->request->getPost('dob'),
+    'gender' => $this->request->getPost('gender'),
+    'tob' => $this->request->getPost('tob'),
+    'Country' => $this->request->getPost('Country'),
+    'State' => $this->request->getPost('State'),
+    'City' => $this->request->getPost('City'),
+    'fathers_full_name' => $this->request->getPost('fathers_full_name'),
+    'mothers_name' => $this->request->getPost('mothers_name'),
+    'mothers_maiden_surname' => $this->request->getPost('mothers_maiden_surname'),
+    'religion' => $this->request->getPost('religion'),
+    'caste' => $this->request->getPost('caste'),
+    'sub_caste' => $this->request->getPost('sub_caste'),
+    'gotra' => $this->request->getPost('gotra'),
+    'address_on_kundali' => $this->request->getPost('address_on_kundali'),
+    'source' => $this->request->getPost('source'),
+    'friendName' => $this->request->getPost('friendName'),
+    'language' => $this->request->getPost('language'),
+    'transaction_id' => $this->request->getPost('transaction_id')
+];
+
+$db->table('kundali')->insert($data);
+
+$country = $this->request->getPost('Country');
+$state = $this->request->getPost('State');
+$city = $this->request->getPost('City');
+
+$wherecond = array('id' => $country);
+$countryData = $model->getalldata('countries', $wherecond);
+$countryName = !empty($countryData) ? $countryData[0]->name : '';
+
+// Fetch state name
+$wherecond = array('id' => $state);
+$stateData = $model->getalldata('states', $wherecond);
+$stateName = !empty($stateData) ? $stateData[0]->name : '';
+
+// Fetch city name
+$wherecond = array('id' => $city);
+$cityData = $model->getalldata('cities', $wherecond);
+$cityName = !empty($cityData) ? $cityData[0]->name : '';
+
+$receiverMsg = view('kundaliemail', [
+    'contact_person_name' => $this->request->getPost('contact_person_name'),
+    'contact_number' => $this->request->getPost('contact_number'),
+    'full_name' => $this->request->getPost('full_name'),
+    'email_address' => $this->request->getPost('email_address'),
+    'name_in_devanagari' => $this->request->getPost('name_in_devanagari'),
+    'dob' => $this->request->getPost('dob'),
+    'gender' => $this->request->getPost('gender'),
+    'tob' => $this->request->getPost('tob'),
+    'Country' =>  $countryName,
+    'State'  =>   $stateName,
+    'City'    =>   $cityName,
+   
+    'fathers_full_name' => $this->request->getPost('fathers_full_name'),
+    'mothers_name' => $this->request->getPost('mothers_name'),
+    'mothers_maiden_surname' => $this->request->getPost('mothers_maiden_surname'),
+    'religion' => $this->request->getPost('religion'),
+    'caste' => $this->request->getPost('caste'),
+    'sub_caste' => $this->request->getPost('sub_caste'),
+    'gotra' => $this->request->getPost('gotra'),
+    'address_on_kundali' => $this->request->getPost('address_on_kundali'),
+    'source' => $this->request->getPost('source'),
+    'friendName' => $this->request->getPost('friendName'),
+    'language' => $this->request->getPost('language'),
+    'transaction_id' => $this->request->getPost('transaction_id')
+]);
+// print_r($receiverMsg);die;
+// $email ='mrunal@vedikastrologer.com';
+$email ='siddheshkadgemitech@gmail.com';
+// $subject = 'Your Appointment Booked';
+$ccEmails = ['mrunal@vedikastrologer.com']; 
+$receiverSubject = 'New Kundali Application.';
+$senderSubject = 'New Application for kundli';
+
+sendConfirmationEmail($email, $ccEmails, $receiverSubject, $receiverMsg,$senderSubject,);
+
+return redirect()->to('preparing_kundali'); 
+}
+
+public function kundaliemail(){
+    echo view('kundaliemail'); 
 }
 }

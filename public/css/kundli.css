@@ -1,0 +1,131 @@
+body {
+    /* Ensure the background image covers the entire viewport */
+    height: 100vh;
+    margin: 0;
+    overflow: auto;
+    /* Allow scrolling */
+    position: relative;
+    /* Positioning context for pseudo-element */
+    background-color: #242527 !important;
+    /* Set background color of body */
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('<?= base_url(); ?>assets/images/logo2.jpg')!important;
+    background-size: cover;
+    background-color: rgba(0, 0, 0, 0.5);
+    /* Semi-transparent background */
+    background-position: center;
+    filter: blur(0px);
+    /* Apply blur effect */
+    z-index: -1;
+    /* Ensure it's behind other content */
+    animation: rotateBackground 10s linear infinite!important;
+    /* Animation properties */
+}
+
+/* Animation for rotating the background image */
+@keyframes rotateBackground {
+    from {
+        transform: rotate(0deg);
+        /* Start rotation from 0 degrees */
+    }
+
+    to {
+        transform: rotate(360deg);
+        /* Rotate to 360 degrees */
+    }
+}
+
+.modal {
+    display: none;
+    /* Hide modal by default */
+    position: fixed;
+    /* Position the modal */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    /* Semi-transparent background */
+    z-index: 9999;
+    /* Ensure it's on top of other content */
+    justify-content: center;
+    align-items: center;
+}
+
+/* Styles for modal content */
+.modal-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    max-width: 400px;
+    text-align: center;
+}
+
+.button-33 {
+    margin-left: 123px;
+    background-color: #c2fbd7;
+    border-radius: 100px;
+    box-shadow: rgba(44, 187, 99, .2) 0 -25px 18px -14px inset, rgba(44, 187, 99, .15) 0 1px 2px, rgba(44, 187, 99, .15) 0 2px 4px, rgba(44, 187, 99, .15) 0 4px 8px, rgba(44, 187, 99, .15) 0 8px 16px, rgba(44, 187, 99, .15) 0 16px 32px;
+    color: green;
+    cursor: pointer;
+    display: inline-block;
+    font-family: CerebriSans-Regular, -apple-system, system-ui, Roboto, sans-serif;
+    padding: 7px 20px;
+    text-align: center;
+    text-decoration: none;
+    transition: all 250ms;
+    border: 0;
+    font-size: 16px;
+    width: 100px;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+}
+
+.button-33:hover {
+    box-shadow: rgba(44, 187, 99, .35) 0 -25px 18px -14px inset, rgba(44, 187, 99, .25) 0 1px 2px, rgba(44, 187, 99, .25) 0 2px 4px, rgba(44, 187, 99, .25) 0 4px 8px, rgba(44, 187, 99, .25) 0 8px 16px, rgba(44, 187, 99, .25) 0 16px 32px;
+    transform: scale(1.05) rotate(-1deg);
+}
+.button-44 {
+    margin-left: 12px;
+    background-color: #c2fbd7;
+    border-radius: 100px;
+    box-shadow: rgba(44, 187, 99, .2) 0 -25px 18px -14px inset, rgba(44, 187, 99, .15) 0 1px 2px, rgba(44, 187, 99, .15) 0 2px 4px, rgba(44, 187, 99, .15) 0 4px 8px, rgba(44, 187, 99, .15) 0 8px 16px, rgba(44, 187, 99, .15) 0 16px 32px;
+    color: green;
+    cursor: pointer;
+    display: inline-block;
+    font-family: CerebriSans-Regular, -apple-system, system-ui, Roboto, sans-serif;
+    padding: 7px 20px;
+    text-align: center;
+    text-decoration: none;
+    transition: all 250ms;
+    border: 0;
+    font-size: 16px;
+    width: 100px;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+}
+
+.button-44:hover {
+    box-shadow: rgba(44, 187, 99, .35) 0 -25px 18px -14px inset, rgba(44, 187, 99, .25) 0 1px 2px, rgba(44, 187, 99, .25) 0 2px 4px, rgba(44, 187, 99, .25) 0 4px 8px, rgba(44, 187, 99, .25) 0 8px 16px, rgba(44, 187, 99, .25) 0 16px 32px;
+    transform: scale(1.05) rotate(-1deg);
+}
+#mainContainer{
+    margin-top: 60px;
+    text-align: center;
+}
+#mainContainer p{color: aliceblue;}
+#mainContainer h1{color: beige;}
+#mainContainer h2 {color: antiquewhite;}
+#mainContainer h4 {color: aliceblue;}
+#mainContainer h5 {color: dodgerblue;margin-top: 20px;}
