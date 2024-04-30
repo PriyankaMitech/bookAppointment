@@ -483,7 +483,7 @@ public function formdata()
                     'State' => $appoint_data['state_name'],
                     'City' => $appoint_data['city_name'],
                     'twins' => $appoint_data['twins'],
-                    'transaction_id' => $appoint_data['stransaction_id'],
+                    'transaction_id' => $appoint_data['transaction_id'],
 
                     'subjects' => $subjects
                 ]);
@@ -674,7 +674,7 @@ if (!empty($appoint_data)) {
         'City' => $appoint_data['city_name'],
         'twins' => $appoint_data['twins'],
         'subjects' => $subjects,
-        'transaction_id' => $appoint_data['stransaction_id'],
+        'transaction_id' => $appoint_data['transaction_id'],
 
     ]);
 

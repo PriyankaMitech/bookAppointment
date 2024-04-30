@@ -116,7 +116,7 @@
                 <p><b>Time Of Birth: </b> <?=$tob;?></p>
 
                 <p><b>Place Of Birth :</b>  <?=$City;?>, <?=$State;?>, <?=$Country;?></p>
-                <p> <b>Transaction Id: </b> <?=$stransaction_id;?></p>
+                <p> <b>Transaction Id: </b> <?php if(empty($transaction_id)){ ?> <?=$transaction_id;?><?php } ?></p>
 
               
 
