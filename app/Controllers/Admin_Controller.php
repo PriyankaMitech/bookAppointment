@@ -548,7 +548,7 @@ if (!empty($appoint_data)) {
         'City' => $appoint_data['city_name'],
         'twins' => $appoint_data['twins'],
         'subjects' => $subjects,
-        'transaction_id' => $appoint_data['stransaction_id'],
+        'transaction_id' => $appoint_data['transaction_id'],
 
     ]);
 
