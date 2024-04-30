@@ -40,7 +40,7 @@
         /* Apply blur effect */
         z-index: -1;
         /* Ensure it's behind other content */
-        animation: rotateBackground 10s linear infinite;
+        animation: rotateBackground 30s linear infinite;
         /* Animation properties */
     }
 
@@ -158,7 +158,7 @@
     }
 
     #mainContainer h5 {
-        color: dodgerblue;
+        color: aliceblue;
         margin-top: 20px;
     }
     </style>
@@ -183,10 +183,9 @@
     <div class="container" id="mainContainer">
         <h1><b>"Weekly off - Saturday & Sunday"</b></h1>
         <h2><b>Preparing Kundali - Astrologer In Pune</b></h2>
-        <h5><b>Personalised Kundali / Horoscope will be prepared for an individual by best astrologer
-
-                (Hard copy & Soft Copy [PDF format])</h5>
+        <h5><b>Personalised Kundali / Horoscope will be prepared for an individual</h5>
         </p>
+        <h5><b>(Hard copy & Soft Copy [PDF format])</b></h5>
         <p><b>[Courier charges to be borne by client]</b></p>
         <h4><b>Charting Kundali</b></h4>
         <button class="button-44" onclick="hideContainer()">fills The Details</button>
