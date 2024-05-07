@@ -65,12 +65,14 @@
                                                     <th>Sr.No</th>
                                                     <th>Name</th>
                                                     <th>Date</th>
-                                                    <th>Time</th>
+                                                    <th>Time(24 Hr)</th>
                                                     <th>Type</th>
                                                     <th>Contact</th>
                                                     <th>Email Id</th>
                                                     <th>Gender</th>
                                                     <th>Marital Status</th>
+                                                    <th>Transaction Id</th>
+                                                    <th>Source</th>
                                                     <th>twins</th>
                                                     <th>Date & Time of Birth</th>
                                                     <th>Place Of Birth</th>
@@ -102,6 +104,8 @@
                                                     <td><?php echo $slot['email']; ?></td>
                                                     <td><?php echo $slot['gender'] ?></td>
                                                     <td><?php echo $slot['marital_status'] ?></td>
+                                                    <td><?php echo $slot['transaction_id'] ?></td>
+                                                    <td><?php echo $slot['source'] ?></td>
 
 
                                                     <td><?php echo $slot['twins'] ?></td>
@@ -135,6 +139,8 @@
                                                     <td><?php echo $slot['email']; ?></td>
                                                     <td><?php echo $slot['gender'] ?></td>
                                                     <td><?php echo $slot['marital_status'] ?></td>
+                                                    <td><?php echo $slot['transaction_id'] ?></td>
+                                                    <td><?php echo $slot['source'] ?></td>
                                                     <td><?php echo $slot['twins'] ?></td>
                                                     <td><?php echo date('d F Y', strtotime($slot['dob'])); ?> -
                                                         <?php echo $slot['tob']; ?></td>

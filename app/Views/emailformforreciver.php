@@ -84,6 +84,15 @@
                     margin-top: 10%;
                     ">Reschedule 
                 </a>
+                <!-- <a href="<?= base_url(); ?>reschedule/<?php echo $lastinsertid; ?>" style="text-decoration: none;
+    background-color: yellow;
+    font-weight: 600;
+    color: black;
+    padding: 10px;
+    display: inline-block;
+    border-radius: 4px;
+    margin-top: 10%;
+">Reschedule</a> -->
 
         </div>
      
