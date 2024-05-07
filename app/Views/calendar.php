@@ -38,8 +38,8 @@
             events.push({
                 id: event.id,
                 title: title, // Event title containing customer name and start time
-                start: event.start_date, // Start date of the event
-                end: event.start_date, // End date of the event
+                start: event.selected_date, // Corrected to use selected_date instead of start_date
+                end: event.selected_date, // End date of the event (same as start for an all-day event)
                 allDay: true // All-day event
             });
         });
@@ -56,7 +56,6 @@
         });
     });
 </script>
-
 
 
    

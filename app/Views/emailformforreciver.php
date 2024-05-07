@@ -64,10 +64,11 @@
             <p>Here's what you booked</p>
 
 
-                <p><b>Services:</b> Prediction; 30 minutes - Price varies</p>
+                <p><b>Services:</b> Prediction; 30 minutes </p>
                 <p><b>Date :</b> <?=$formattedDate;?>, </p>
                 <p><b>Time : </b> <?=$formattedTimeSlot;?> </p>
-                <p><b>Staff :</b> Mrunal kulkarni</p>
+                <p><b>Appoinment type : </b> <?=$appointmentType;?> </p>
+                <!-- <p><b>Staff :</b> Mrunal kulkarni</p> -->
                 <!-- <p><b>Message:</b> 4thenad zv</p> -->
 
                 <!-- <p><b>Location:</b> No location added</p> -->

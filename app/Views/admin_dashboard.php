@@ -165,6 +165,7 @@
                                                                         <th>Country</th>
 
                                                                         <th>Contact</th>
+                                                                        <th>source</th>
 
                                                                         <th>Gender</th>
                                                                         <th>Marital Status</th>
@@ -231,7 +232,7 @@
 
                                                                         <td><?php echo $appointment['contact_number'] ?>
                                                                         </td>
-
+                                                                        <td><?php echo $appointment['source'] ?></td>
                                                                         <td><?php echo $appointment['gender'] ?></td>
                                                                         <td><?php echo $appointment['marital_status'] ?>
                                                                         </td>
