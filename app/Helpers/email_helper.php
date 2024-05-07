@@ -92,7 +92,7 @@ function sendConfirmationEmail($email, $ccEmails = [], $receiverSubject=null, $r
 
         // Sender's email
         $mail->clearAddresses();
-        $mail->addAddress('sender@example.com', 'Sender Name'); // Replace with sender's email and name
+        $mail->addAddress('mrunal@vedikastrologer.com', 'Mrunal'); // Replace with sender's email and name
         $mail->Subject = $senderSubject;
         $mail->Body = $senderMsg;
         $mail->send();

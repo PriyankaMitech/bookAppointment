@@ -183,6 +183,7 @@ class Admin_Controller extends BaseController
 
 public function set_workinghour()
 {
+//    echo '<pre>'; print_r($_POST);die;
     $userID = session('user_id');
     $days = $this->request->getVar('day[]');
     $startTimes = $this->request->getVar('start_time[]');
@@ -283,6 +284,27 @@ public function set_workinghour()
         return redirect()->to('add_workinghour');
     }
 
+    // public function deleteworkinghour(){
+    //     $db = \Config\Database::Connect();
+
+    //     $currentURL = current_url();
+
+    //     $segments = explode('/', $currentURL);
+    
+    //      $tbl_name = isset($segments[5]) ? $segments[5] : null;
+    //      $day = isset($segments[6]) ? $segments[6] : null;
+    //      $id = isset($segments[7]) ? $segments[7] : null;
+
+    //     $update_data = $db->table($tbl_name)->where('user_id', $id)->where('day', $day);
+    //     $update_data->update(['is_deleted' => 'Y']);
+
+    //     $db->table('tbl_slots')->where('day', $day)->delete();
+    //     // $update_data = $db->table('tbl_slots')->where('user_id', $id)->where('day', $day);
+    //     // $update_data->update(['is_deleted' => 'Y']);
+
+    //     session()->setFlashdata('success', 'Data Deleted successfully.');
+    //     return redirect()->to('add_workinghour');
+    // }
 
 
 public function calendar(){
@@ -294,7 +316,7 @@ public function calendar(){
     $data['schedule'] =  $model->getcalenderallslots();
     $data['slots'] =  $model->getalluserslots();
 
-//    echo '<pre>';print_r($data['slots']);die;
+//    echo '<pre>';print_r($data['schedule']);die;
     return view('calendar', $data);
 
 }
@@ -305,8 +327,8 @@ public function formdata()
     $db = \Config\Database::connect();
 
     $timeSlot = $this->request->getPost('timeSlot');
-
-    $wherecond = array('time_slot_id' => $timeSlot);
+    $bookdate =$this->request->getPost('appointment_date');
+    $wherecond = array('time_slot_id' => $timeSlot,'selected_date'=>$bookdate);
 
     $sloats =  $model->getsinglerow('book_slots', $wherecond);
     if(!empty($sloats)){
@@ -364,7 +386,6 @@ public function formdata()
             $wherecond = array('id' => $this->request->getPost('timeSlot'));
             $timeSlotInfo = $model->getslotstime('tbl_slots', $wherecond);
             $timeSlot = $timeSlotInfo ? $timeSlotInfo->start_time : '';
-
             $appoint_data = $model->bookedslotsingle($lastInsertId);
 
             if (!empty($appoint_data)) {
@@ -475,8 +496,8 @@ public function formdata()
     $db = \Config\Database::connect();
   
     $subjects = implode(',', $this->request->getPost('subjects'));
-
-   // print_r($_POST);die;
+    $conducted = $this->request->getPost('conducted') === 'Yes' ? 'Y' : null;
+//    print_r($_POST);die;
     $data = [
            'fullname' => $this->request->getPost('fullname'),
             'gender' => $this->request->getPost('gender'),
@@ -490,7 +511,7 @@ public function formdata()
             'friendName' => $this->request->getPost('friendName'),
             'timeSlot' => $this->request->getPost('slot'),
             'appointment_date' =>$this->request->getPost('appointment_date'),
-    
+            'transaction_id' =>$this->request->getPost('transaction_id'),
             'dob' => $this->request->getPost('dob'),
             'tob' => $this->request->getPost('tob'),
             'Country' => $this->request->getPost('Country'),
@@ -498,6 +519,7 @@ public function formdata()
             'City' => $this->request->getPost('City'),
             'twins' => $this->request->getPost('twins'),
             'amount' => '700',
+            'conducted' => $conducted,
             'subjects' => $subjects
     ];
     
@@ -538,7 +560,7 @@ if (!empty($appoint_data)) {
         'appointmentOption' => $appoint_data['appointmentOption'],
         'source' => $appoint_data['source'],
         'friendName' => $appoint_data['friendName'],
-        'timeSlot' => $appoint_data['timeSlot'],
+        // 'timeSlot' => $appoint_data['timeSlot'],
         'email' => $appoint_data['email'],
         // 'appointment_date' => $appoint_data['selectedDate'],
         'dob' => $appoint_data['dob'],

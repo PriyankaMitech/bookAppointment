@@ -112,5 +112,10 @@
 
 
 </body>
-
+<script>
+    // Redirect to 'add_schedule' after 10 seconds
+    setTimeout(function() {
+        window.location.href = "<?php echo site_url('add_schedule'); ?>";
+    }, 10000); // 10 seconds in milliseconds
+</script>
 </html>
