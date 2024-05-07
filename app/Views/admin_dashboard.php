@@ -156,14 +156,14 @@
                                                                         <th>Conducted</th>
                                                                         <th>Name</th>
                                                                         <th>Date</th>
-                                                                        <th>Time</th>
+                                                                        <th>Time(24 Hr)</th>
                                                                         <th>Type</th>
                                                                         <th>DOB</th>
                                                                         <th>TOB</th>
                                                                         <th>City</th>
                                                                         <th>state</th>
                                                                         <th>Country</th>
-
+                                                                        <th>Transaction Id</th>
                                                                         <th>Contact</th>
                                                                         <th>source</th>
 
@@ -228,6 +228,8 @@
                                                                         <td><?php echo $appointment['state_name']; ?>
                                                                         </td>
                                                                         <td><?php echo $appointment['country_name']; ?>
+                                                                        </td>
+                                                                        <td><?php echo $appointment['transaction_id']; ?>
                                                                         </td>
 
                                                                         <td><?php echo $appointment['contact_number'] ?>
