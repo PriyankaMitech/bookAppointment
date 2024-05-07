@@ -202,10 +202,12 @@ public function set_workinghour()
     $db = \Config\Database::connect();
     $insertedSchedules = 0;
     $insertedSlots = 0;
-    $db->table('tbl_schedule')->where('user_id', $userID)->delete();
+    // $db->table('tbl_schedule')->where('user_id', $userID)->delete();
 
 
     $db->table('tbl_slots')->where('user_id', $userID)->delete();
+
+    // echo $this->request->getVar('id');exit();
 
     foreach ($days as $index => $day) {
         $data = [
@@ -218,17 +220,37 @@ public function set_workinghour()
             'created_on' => date('Y-m-d H:i:s'),
         ];
 
+        $existingData = $db->table('tbl_schedule')
+                       ->where('user_id', $userID)
+                       ->where('day', $day)
+                       ->get()
+                       ->getRow();
+// echo "hhh";
+//                        echo "<pre>";print_r($existingData);exit();
+
+                       if (!empty($existingData)) {
+                        // Update the existing data
+                        $db->table('tbl_schedule')
+                        ->where('user_id', $userID)
+                        ->where('day', $day)
+                        ->update($data);
+                    } else {
+                        // Insert new data if it doesn't exist
+                        $add_data = $db->table('tbl_schedule');
+                        $add_data->insert($data);
+                    }
 
 
-        if ($this->request->getVar('id') == "") {
-            $add_data = $db->table('tbl_schedule');
-            $add_data->insert($data);
+
+        // if ($this->request->getVar('id') == "") {
+        //     $add_data = $db->table('tbl_schedule');
+        //     $add_data->insert($data);
             
-            $insertedSchedules++;
-        } else {
-            $update_data = $db->table('tbl_schedule')->where('id', $this->request->getVar('id'));
-            $update_data->update($data);
-        }
+        //     $insertedSchedules++;
+        // } else {
+        //     $update_data = $db->table('tbl_schedule')->where('id', $this->request->getVar('id'));
+        //     $update_data->update($data);
+        // }
 
         // Convert start and end times to 45-minute increments and insert into tbl_slots
         $start = strtotime($startTimes[$index]);
