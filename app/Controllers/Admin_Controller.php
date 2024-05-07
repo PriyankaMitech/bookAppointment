@@ -202,8 +202,10 @@ public function set_workinghour()
     $db = \Config\Database::connect();
     $insertedSchedules = 0;
     $insertedSlots = 0;
-
     $db->table('tbl_schedule')->where('user_id', $userID)->delete();
+
+
+    $db->table('tbl_slots')->where('user_id', $userID)->delete();
 
     foreach ($days as $index => $day) {
         $data = [
@@ -216,9 +218,12 @@ public function set_workinghour()
             'created_on' => date('Y-m-d H:i:s'),
         ];
 
+
+
         if ($this->request->getVar('id') == "") {
             $add_data = $db->table('tbl_schedule');
             $add_data->insert($data);
+            
             $insertedSchedules++;
         } else {
             $update_data = $db->table('tbl_schedule')->where('id', $this->request->getVar('id'));
@@ -228,6 +233,7 @@ public function set_workinghour()
         // Convert start and end times to 45-minute increments and insert into tbl_slots
         $start = strtotime($startTimes[$index]);
         $end = strtotime($endTimes[$index]);
+
 
         while ($start < $end) {
             $slotEndTime = date('H:i', strtotime('+45 minutes', $start));
