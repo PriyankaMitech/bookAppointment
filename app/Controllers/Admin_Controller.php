@@ -402,8 +402,7 @@ list($slotId, $startTime) = explode('|', $timeSlot);
 
             $lastInsertId = $db->insertID();
 
-            $timeSlotId = $slotId,
-            ;
+            $timeSlotId = $slotId;
             $selectedDate = $this->request->getPost('selectedDate');
 
             $model->insertslots($timeSlotId, $selectedDate , $lastInsertId);
