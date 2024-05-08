@@ -590,7 +590,7 @@ $(document).ready(function() {
                         $('#slots_container').append(
                             '<div class="col-lg-3 col-md-6 col-6"><div class="form-check form-check-inline ">' +
                             '<input class="form-check-input red" type="radio" id="slot_' +
-                            slot.id + '" name="slot" value="' + slot.id + '">' +
+                            slot.id + '" name="slot" value="' + slot.id + '|' + slot.start_time + '">' +
                             '<label class="form-check-label" for="slot_' + slot
                             .id +
                             '">' + slot.start_time + '</label>' +

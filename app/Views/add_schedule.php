@@ -925,7 +925,7 @@ function isToday(date) {
             var endTime = slot.end_time;
             var timeSlot = startTime;
             var slotId = slot.id;
-            var $radioButton = $('<input type="radio" name="timeSlot" value="' + slotId + '">');
+            var $radioButton = $('<input type="radio" name="timeSlot" value="' + slot.id + '|' + slot.start_time + '">');
             $radioButton.attr('data-selected-date', selectedDate); // Add selected date as a data attribute
             $radioButton.attr('data-full-date', fullDate); // Add full date as a data attribute
             var $label = $('<label>').text(timeSlot); // corrected label class attribute
