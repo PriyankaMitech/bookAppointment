@@ -34,6 +34,7 @@ $routes->post('updateStatus', 'Admin_Controller::updateStatus');
 $routes->get('add_appointment', 'Admin_Controller::Add_student');
 $routes->get('Add_class', 'Admin_Controller::Add_class');
 $routes->get('getallincome', 'Admin_Controller::getallincome');
+$routes->post('reshedule', 'Admin_Controller::reshedule');
 
 $routes->post('getnewslots', 'Admin_Controller::getnewslots');
 $routes->post('classForm', 'Admin_Controller::classForm');

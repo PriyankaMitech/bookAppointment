@@ -49,7 +49,8 @@
                                         </div>
                                         <button type="submit" class="btn btn-primary">Apply Filter</button>
                                         <?php if (isset($_GET['filter_date'])): ?>
-                                        <button type="button" class="btn btn-danger ml-2" onclick="removeFilter()">Remove
+                                        <button type="button" class="btn btn-danger ml-2"
+                                            onclick="removeFilter()">Remove
                                             Filter</button>
                                         <?php endif; ?>
                                     </form>
@@ -72,10 +73,12 @@
                                                     <th>Gender</th>
                                                     <th>Marital Status</th>
                                                     <th>Transaction Id</th>
-                                                    <th>Source</th>
+                                                    <th>Reference</th>
                                                     <th>twins</th>
                                                     <th>Date & Time of Birth</th>
                                                     <th>Place Of Birth</th>
+                                                    <th>Action</th>
+                                                    <th>Reschedule</th>
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>
@@ -122,6 +125,35 @@
                                                             <button type="submit" class="btn btn-danger">Cancel</button>
                                                         </form>
                                                     </td>
+                                                    <form action="reshedule" method="post">
+                                                    <td>
+                                                        <div class="form-group row">
+                                                            <!-- <label for="appointment_date"
+                                                                class="col-sm-3 col-form-label">Appointment
+                                                                Date:</label> -->
+                                                            <div class="col-sm-12">
+                                                                <input type="date" id="appointment_date"
+                                                                    name="appointment_date" class="form-control"
+                                                                    required>
+                                                            </div>
+                                                            <div class="col-sm-12 mt-2">
+                                                                <div id="slots_container"></div>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        
+                                                        <input type="hidden" name="slot_id"
+                                                                value="<?php echo $slot['id']; ?>">
+                                                            <input type="hidden" name="appm_id"
+                                                                value="<?php echo $slot['appm_id']; ?>">
+                                                            <input type="hidden" name="selected_slot_id"
+                                                                id="selected_slot_id" value="">
+                                                            <button type="submit"
+                                                                class="btn btn-success">Reshedule</button>
+                                                        
+                                                    </td>
+                                                    </form>
                                                 </tr>
                                                 <?php 
                                                         // If no filter is applied, display all booked slots
@@ -155,6 +187,36 @@
                                                             <button type="submit" class="btn btn-danger">Cancel</button>
                                                         </form>
                                                     </td>
+                                                    <form action="reshedule" method="post">
+                                                        <td>
+                                                            <div class="form-group row">
+                                                                <!-- <label for="appointment_date"
+                                                                class="col-sm-3 col-form-label">Appointment
+                                                                Date:</label> -->
+                                                                <div class="col-sm-12">
+                                                                    <input type="date" id="appointment_date"
+                                                                        name="appointment_date" class="form-control"
+                                                                        required>
+                                                                </div>
+                                                                <div class="col-sm-12 mt-2">
+                                                                    <div id="slots_container"></div>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+
+                                                            <input type="hidden" name="slot_id"
+                                                                value="<?php echo $slot['id']; ?>">
+                                                            <input type="hidden" name="appm_id"
+                                                                value="<?php echo $slot['appm_id']; ?>">
+                                                            <input type="hidden" name="selected_slot_id"
+                                                                id="selected_slot_id" value="">
+                                                            <button type="submit"
+                                                                class="btn btn-success">Reshedule</button>
+
+                                                        </td>
+                                                    </form>
+
                                                 </tr>
                                                 <?php 
                                                         endif; // End check for selected date
@@ -174,3 +236,51 @@
 </div>
 
 <?php include("footer.php"); ?>
+<script>
+$(document).ready(function() {
+    $('#appointment_date').change(function() {
+        var selectedDate = $(this).val();
+        $.ajax({
+            type: "POST",
+            url: "getnewslots",
+            data: {
+                date: selectedDate
+            },
+            dataType: 'json', // Expect JSON data as response
+            success: function(slots) {
+                // Clear previous slots
+                $('#slots_container').empty();
+                // Check if slots array is empty
+                if (slots.length === 0) {
+                    $('#slots_container').html(
+                        '<p>No slots available for selected date.</p>');
+                } else {
+                    // Create a select dropdown with Bootstrap classes
+                    var selectDropdown = '<select id="slot_select" class="form-control">';
+                    // Add default option
+                    selectDropdown += '<option value="">Select</option>';
+                    // Iterate through each slot and append to select dropdown
+                    $.each(slots, function(index, slot) {
+                        selectDropdown += '<option value="' + slot.id + '">' + slot
+                            .start_time + '</option>';
+                    });
+                    selectDropdown += '</select>';
+                    $('#slots_container').html(selectDropdown);
+                    // Add event listener to select dropdown
+                    $('#slot_select').change(function() {
+                        var selectedSlotId = $(this).val();
+                        // Set the value of the hidden input field to the selected slot's ID
+                        $('#selected_slot_id').val(selectedSlotId);
+                        // Now you can use selectedSlotId as needed
+                        console.log(selectedSlotId);
+                    });
+                }
+            },
+            error: function(xhr, status, error) {
+                // Handle errors here
+                console.error(xhr.responseText);
+            }
+        });
+    });
+});
+</script>
