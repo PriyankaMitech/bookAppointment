@@ -217,6 +217,7 @@ public function set_workinghour()
             'end_date' => $commonEndDate,
             'start_time' => $startTimes[$index],
             'end_time' => $endTimes[$index],
+            'is_deleted' => 'N',
             'created_on' => date('Y-m-d H:i:s'),
         ];
 
@@ -270,7 +271,11 @@ public function set_workinghour()
                 'start_time' => date('H:i', $start),
                 'end_time' => $slotEndTime,
                 'created_on' => date('Y-m-d H:i:s'),
+                'is_deleted' => 'N',
+
             ];
+
+         
 
             $db->table('tbl_slots')->insert($slotData);
             $insertedSlots++;
@@ -291,27 +296,6 @@ public function set_workinghour()
 
     return redirect()->to('add_workinghour');
 }
-    public function deleteworkinghour(){
-        $db = \Config\Database::Connect();
-
-        $currentURL = current_url();
-
-        $segments = explode('/', $currentURL);
-    
-         $tbl_name = isset($segments[5]) ? $segments[5] : null;
-         $day = isset($segments[6]) ? $segments[6] : null;
-         $id = isset($segments[7]) ? $segments[7] : null;
-
-        $update_data = $db->table($tbl_name)->where('user_id', $id)->where('day', $day);
-        $update_data->update(['is_deleted' => 'Y']);
-
-        $db->table('tbl_slots')->where('day', $day)->delete();
-
-
-        session()->setFlashdata('success', 'Data Deleted successfully.');
-        return redirect()->to('add_workinghour');
-    }
-
     // public function deleteworkinghour(){
     //     $db = \Config\Database::Connect();
 
@@ -327,12 +311,33 @@ public function set_workinghour()
     //     $update_data->update(['is_deleted' => 'Y']);
 
     //     $db->table('tbl_slots')->where('day', $day)->delete();
-    //     // $update_data = $db->table('tbl_slots')->where('user_id', $id)->where('day', $day);
-    //     // $update_data->update(['is_deleted' => 'Y']);
+
 
     //     session()->setFlashdata('success', 'Data Deleted successfully.');
     //     return redirect()->to('add_workinghour');
     // }
+
+    public function deleteworkinghour(){
+        $db = \Config\Database::Connect();
+
+        $currentURL = current_url();
+
+        $segments = explode('/', $currentURL);
+    
+         $tbl_name = isset($segments[5]) ? $segments[5] : null;
+         $day = isset($segments[6]) ? $segments[6] : null;
+         $id = isset($segments[7]) ? $segments[7] : null;
+
+        $update_data = $db->table($tbl_name)->where('user_id', $id)->where('day', $day);
+        $update_data->update(['is_deleted' => 'Y']);
+
+        // $db->table('tbl_slots')->where('day', $day)->delete();
+        $update_data = $db->table('tbl_slots')->where('user_id', $id)->where('day', $day);
+        $update_data->update(['is_deleted' => 'Y']);
+
+        session()->setFlashdata('success', 'Data Deleted successfully.');
+        return redirect()->to('add_workinghour');
+    }
 
 
 public function calendar(){
@@ -355,6 +360,8 @@ public function formdata()
     $db = \Config\Database::connect();
 
     $timeSlot = $this->request->getPost('timeSlot');
+list($slotId, $startTime) = explode('|', $timeSlot);
+
     $bookdate =$this->request->getPost('appointment_date');
     $wherecond = array('time_slot_id' => $timeSlot,'selected_date'=>$bookdate);
 
@@ -375,7 +382,9 @@ public function formdata()
                 'appointmentOption' => $this->request->getPost('appointmentOption'),
                 'source' => $this->request->getPost('source'),
                 'friendName' => $this->request->getPost('friendName'),
-                'timeSlot' => $this->request->getPost('timeSlot'),
+                'timeSlot' => $slotId,
+                'timestartslot' => $startTime,
+
                 'appointment_date' => $this->request->getPost('selectedDate'),
                 'dob' => $this->request->getPost('dob'),
                 'tob' => $this->request->getPost('tob'),
@@ -411,7 +420,10 @@ public function formdata()
 
             }
             
-            $wherecond = array('id' => $this->request->getPost('timeSlot'));
+            $timeSlot = $this->request->getPost('timeSlot');
+            list($slotId, $startTime) = explode('|', $timeSlot);
+
+            $wherecond = array('id' => $slotId);
             $timeSlotInfo = $model->getslotstime('tbl_slots', $wherecond);
             $timeSlot = $timeSlotInfo ? $timeSlotInfo->start_time : '';
             $appoint_data = $model->bookedslotsingle($lastInsertId);
@@ -430,6 +442,8 @@ public function formdata()
                     'source' => $appoint_data['source'],
                     'friendName' => $appoint_data['friendName'],
                     'timeSlot' => $appoint_data['timeSlot'],
+                    'timeSlot' => $appoint_data['timestartslot'],
+
                     'email' => $appoint_data['email'],
                     // 'appointment_date' => $appoint_data['selectedDate'],
                     'dob' => $appoint_data['dob'],
@@ -447,7 +461,7 @@ public function formdata()
             $receiverMsg = view('emailformforreciver', [
                 'fullname' => $this->request->getPost('fullname'),
                 'appointmentType' => $this->request->getPost('appointmentType'),
-                'timeSlot' => $timeSlot,
+                'timeSlot' => $slotId,
                 'selectedDate' => $selectedDate,
                 'lastinsertid' => $lastInsertId
             ]);
@@ -525,7 +539,12 @@ public function formdata()
   
     $subjects = implode(',', $this->request->getPost('subjects'));
     $conducted = $this->request->getPost('conducted') === 'Yes' ? 'Y' : null;
-//    print_r($_POST);die;
+
+    $timeSlot = $this->request->getPost('slot');
+list($slotId, $startTime) = explode('|', $timeSlot);
+// echo "Slot ID: " . $slotId;
+// echo "Start Time: " . $startTime;
+//   echo "<pre>"; print_r($_POST);die;
     $data = [
            'fullname' => $this->request->getPost('fullname'),
             'gender' => $this->request->getPost('gender'),
@@ -537,7 +556,8 @@ public function formdata()
             'appointmentOption'=> $this->request->getPost('appointmentOption'),
             'source' => $this->request->getPost('source'),
             'friendName' => $this->request->getPost('friendName'),
-            'timeSlot' => $this->request->getPost('slot'),
+            'timeSlot' => $slotId,
+            'timestartslot' => $startTime,
             'appointment_date' =>$this->request->getPost('appointment_date'),
             'transaction_id' =>$this->request->getPost('transaction_id'),
             'dob' => $this->request->getPost('dob'),
@@ -558,16 +578,17 @@ public function formdata()
 
     // Update the newly inserted row with the appm_id
     // $db->table('tbl_appointment')->set('appm_id', $appm_id)->where('id', $appm_id)->update();
-
+    $timeSlot = $this->request->getPost('slot');
+    list($slotId, $startTime) = explode('|', $timeSlot);
    
     
-    $timeSlotId = $this->request->getPost('slot');
+    $timeSlotId = $slotId;
     $selectedDate = $this->request->getPost('appointment_date');
     $model->insertslotsses($appm_id,$timeSlotId, $selectedDate);
     // $lastInsertId = $db->insertID();
 
 
-    $wherecond = array('id' => $this->request->getPost('slot'));
+    $wherecond = array('id' => $slotId);
     $timeSlotInfo = $model->getslotstime('tbl_slots', $wherecond);
 
     // Extract time slot value from the result
@@ -580,6 +601,8 @@ if (!empty($appoint_data)) {
         'fullname' => $this->request->getPost('fullname'),
         'appointmentType' => $this->request->getPost('appointmentType'),
         'timeSlot' => $timeSlot,
+        // 'timestartslot' => $startTime,
+
         'selectedDate' => $selectedDate,
         'lastinsertid' => $appm_id,
         'gender' => $appoint_data['gender'],
