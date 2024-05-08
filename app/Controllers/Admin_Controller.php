@@ -402,7 +402,8 @@ list($slotId, $startTime) = explode('|', $timeSlot);
 
             $lastInsertId = $db->insertID();
 
-            $timeSlotId = $this->request->getPost('timeSlot');
+            $timeSlotId = $slotId,
+            ;
             $selectedDate = $this->request->getPost('selectedDate');
 
             $model->insertslots($timeSlotId, $selectedDate , $lastInsertId);
@@ -414,9 +415,11 @@ list($slotId, $startTime) = explode('|', $timeSlot);
 
 
                 $timeSlotId = $this->request->getPost('timeSlot');
+                list($slotId, $startTime) = explode('|', $timeSlotId);
+
             $selectedDate = $this->request->getPost('selectedDate');
 
-            $model->updatedata($timeSlotId, $selectedDate , $lastInsertId);
+            $model->updatedata($slotId, $selectedDate , $lastInsertId);
 
             }
             
