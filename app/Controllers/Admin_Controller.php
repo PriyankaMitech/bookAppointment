@@ -54,7 +54,7 @@ class Admin_Controller extends BaseController
         public function  All_Appointment() {
             $model = new Admin_Model();
           $data['bookedslots'] =$model->getallAppointment();
-            // print_r($data['bookedslots']);die;
+        //   echo '<pre>';print_r($data['bookedslots']);die;
             echo view('All_Appointment',$data);
         }
     public function add_schedule()
@@ -709,7 +709,7 @@ public function Appointment_reports()
 {
     $model = new Admin_Model();
     $data['allapt'] =$model->getallAppointment();
-    // print_r($Appointment['allapt']);die;
+    //  echo '<pre>';print_r($data['allapt']);die;
     echo view('Appointment_reports',$data);
 }
 public function services_Reports()
@@ -749,6 +749,29 @@ public function Booked_Slots()
     $data['bookedslots'] =$model->bookedslots();
 //   echo '<pre>'; print_r($data['bookedslots']);die;
     echo view('Booked_Slots',$data);
+}
+
+public function reshedule()
+{
+//    print_r($_POST);die;
+   $db = \Config\Database::connect();
+
+   // Get data from POST request
+   $slotId = $this->request->getPost('slot_id');
+   $appmId = $this->request->getPost('appm_id');
+   $appointment_date = $this->request->getPost('appointment_date');
+   $selected_slot_id = $this->request->getPost('selected_slot_id');
+   // Update book_slots table
+   $db->table('book_slots')
+       ->where('appm_id', $appmId)
+       ->update(['time_slot_id' => $selected_slot_id,'selected_date' =>$appointment_date]);
+
+   // Update tbl_appointment table
+   $db->table('tbl_appointment')
+       ->where('ap_id', $appmId)
+       ->update(['timeSlot' => $selected_slot_id,'appointment_date'=>$appointment_date]);
+   
+   return redirect()->to('Booked_Slots');
 }
 public function cancelBooking()
 {

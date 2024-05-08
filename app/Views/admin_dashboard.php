@@ -165,7 +165,7 @@
                                                                         <th>Country</th>
                                                                         <th>Transaction Id</th>
                                                                         <th>Contact</th>
-                                                                        <th>source</th>
+                                                                        <th>Reference</th>
 
                                                                         <th>Gender</th>
                                                                         <th>Marital Status</th>
@@ -212,8 +212,8 @@
                                                                                                         echo "N/A"; // Or any other appropriate message
                                                                                                     }
                                                                                                     ?></td>
-                                                                      <td>
-                                                            <?php
+                                                                        <td>
+                                                                            <?php
                                                             if (isset($appointment['tob']) && !empty($appointment['tob'])) {
                                                                 // Format time without seconds
                                                                 $timeOfBirth = date('H:i', strtotime($appointment['tob']));
@@ -222,7 +222,7 @@
                                                                 echo "N/A"; // Or any other appropriate message
                                                             }
                                                             ?>
-                                                        </td>
+                                                                        </td>
                                                                         <td><?php echo $appointment['city_name']; ?>
                                                                         </td>
                                                                         <td><?php echo $appointment['state_name']; ?>

@@ -4,13 +4,13 @@
     <div class="pcoded-inner-content">
         <div class="main-body">
             <div class="page-wrapper">
-            <div class="page-header card">
+                <div class="page-header card">
                     <div class="row align-items-end">
                         <div class="col-lg-8">
                             <div class="page-header-title">
                                 <i class="icofont icofont-file-code bg-c-blue"></i>
                                 <div class="d-inline">
-                                    <h4>List Of Appoinment</h4>
+                                    <h4>List of Appoinment (Conducted)</h4>
                                     <!-- <span>Lorem ipsum dolor sit <code>amet</code>, consectetur adipisicing elit</span> -->
                                 </div>
                             </div>
@@ -23,9 +23,9 @@
                                             <i class="icofont icofont-home"></i>
                                         </a>
                                     </li>
-                                    <li class="breadcrumb-item"><a href="#!">List Of Appoinment</a>
+                                    <li class="breadcrumb-item"><a href="#!">List of Appoinment</a>
                                     </li>
-                                    
+
 
                                 </ul>
                             </div>
@@ -33,12 +33,12 @@
                     </div>
                 </div>
                 <div class="container">
-                   
+
                     <div class="row">
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h5><b>List Of Appoinment</b></h5>
+                                    <h5><b>List of Appoinment</b></h5>
                                 </div>
                                 <div class="card-block">
                                     <form action="" method="GET" class="form-inline mb-3">
@@ -52,29 +52,33 @@
                                         <?php
                                         // echo "<pre>";print_r($bookedslots);exit();
                                         if (empty($bookedslots)): ?>
-                                            <p>No records found.</p>
+                                        <p>No records found.</p>
                                         <?php else: ?>
-                                            <table class="table table-bordered">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Sr.No</th>
-                                                        <th>Name</th>
-                                                        <th>Appointment Date</th>
-                                                       
-                                                        <th>Type</th>  
-                                                        <!-- <th>Subjects</th> -->
-                                                        <th>Contact Number</th>
-                                                        <th>Email Id</th>
-                                                        <th>Gender</th>
-                                                        <th>Marital Status</th>
-                                                        <th>Are you one of the twins</th>
-                                                        
-                                                        
-                                                       
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <?php 
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th>Sr.No</th>
+                                                    <th>Name</th>
+                                                    <th>Appointment Date</th>
+
+                                                    <th>Type</th>
+                                                    <!-- <th>Subjects</th> -->
+                                                    <th>Contact Number</th>
+                                                    <th>Email Id</th>
+                                                    <th>Gender</th>
+                                                    
+                                                    <th>Marital Status</th>
+                                                    <th>DOB</th>
+                                                    <th>TOB</th>
+                                                    <th>Reference</th>
+                                                    <th>Are you one of the twins</th>
+
+
+
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php 
                                                     // Get the selected date from the form input
                                                         $filter_date = isset($_GET['filter_date']) ? $_GET['filter_date'] : null;
                                                         // Initialize a counter
@@ -87,48 +91,56 @@
                                                         // Check if the selected date matches the booked slot date
                                                         if ($filter_date && $slot['appointment_date'] == $filter_date):
                                                     ?>
-                                                        <tr>
-                                                            <td><?php echo $i; ?></td>
-                                                            <td><?php echo $slot['fullname']; ?></td>
-                                                            <td> <?php echo date('d F Y', strtotime($slot['appointment_date'])); ?></td>
-                                                          
-                                                            <td><?php echo $slot['appointmentType'] ?></td>
-                                                            <!-- <td><?php// echo $slot['subjects']; ?></td> -->
-                                                            <td><?php echo $slot['contact_number'] ?></td>
-                                                            <td><?php echo $slot['email']; ?></td>
-                                                            <td><?php echo $slot['gender'] ?></td>
-                                                            <td><?php echo $slot['marital_status'] ?></td>
+                                                <tr>
+                                                    <td><?php echo $i; ?></td>
+                                                    <td><?php echo $slot['fullname']; ?></td>
+                                                    <td> <?php echo date('d F Y', strtotime($slot['appointment_date'])); ?>
+                                                    </td>
+
+                                                    <td><?php echo $slot['appointmentType'] ?></td>
+                                                    <!-- <td><?php// echo $slot['subjects']; ?></td> -->
+                                                    <td><?php echo $slot['contact_number'] ?></td>
+                                                    <td><?php echo $slot['email']; ?></td>
+                                                    <td><?php echo $slot['gender'] ?></td>
+                                                    <td><?php echo $slot['marital_status'] ?></td>
+                                                    <td><?php echo date('d-m-Y', strtotime($slot['dob'])); ?></td>
+                                                    <td><?php echo $slot['tob'] ?></td>
+                                                    <td><?php echo $slot['source'] ?></td>
+                                                   
+
+                                                    <td><?php echo $slot['twins'] ?></td>
 
 
-                                                            <td><?php echo $slot['twins'] ?></td>
-
-                                                            
-                                                        </tr>
-                                                    <?php 
+                                                </tr>
+                                                <?php 
                                                         // If no filter is applied, display all booked slots
                                                         elseif (!$filter_date):
                                                     ?>
-                                                        <tr>
-                                                        <td><?php echo $i; ?></td>
-                                                            <td><?php echo $slot['fullname']; ?></td>
-                                                            <td> <?php echo date('d F Y', strtotime($slot['appointment_date'])); ?></td>
-                                                            
-                                                            <td><?php echo $slot['appointmentType'] ?></td>
-                                                            <!-- <td><?php //echo $slot['subjects']; ?></td> -->
-                                                            <td><?php echo $slot['contact_number'] ?></td>
-                                                            <td><?php echo $slot['email']; ?></td>
-                                                            <td><?php echo $slot['gender'] ?></td>
-                                                            <td><?php echo $slot['marital_status'] ?></td>
-                                                            <td><?php echo $slot['twins'] ?></td>
-                                                 
+                                                <tr>
+                                                    <td><?php echo $i; ?></td>
+                                                    <td><?php echo $slot['fullname']; ?></td>
+                                                    <td> <?php echo date('d F Y', strtotime($slot['appointment_date'])); ?>
+                                                    </td>
 
-                                                          
-                                                        </tr>
-                                                    <?php 
+                                                    <td><?php echo $slot['appointmentType'] ?></td>
+                                                    <!-- <td><?php //echo $slot['subjects']; ?></td> -->
+                                                    <td><?php echo $slot['contact_number'] ?></td>
+                                                    <td><?php echo $slot['email']; ?></td>
+                                                    <td><?php echo $slot['gender'] ?></td>
+                                                    <td><?php echo $slot['marital_status'] ?></td>
+                                                    <td><?php echo date('d-m-Y', strtotime($slot['dob'])); ?></td>
+                                                    <td><?php echo $slot['tob'] ?></td>
+                                                    <td><?php echo $slot['source'] ?></td>
+                                                    <td><?php echo $slot['twins'] ?></td>
+
+
+
+                                                </tr>
+                                                <?php 
                                                         endif; // End check for selected date
                                                         $i++; endforeach; ?>
-                                                </tbody>
-                                            </table>
+                                            </tbody>
+                                        </table>
                                         <?php endif; ?>
                                     </div>
                                 </div>
