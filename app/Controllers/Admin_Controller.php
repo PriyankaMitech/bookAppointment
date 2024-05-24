@@ -47,8 +47,8 @@ class Admin_Controller extends BaseController
         $data['totalammount'] =$data['appointmentAmount'] + $data['servicesAmount']+$data['classesAmount'] ;
         $data['todayappoinments'] = $model->todayAppointments();
         $data['remaingslots'] = $model->todayRemainingSlots();
-
-// echo '<pre>';print_r($data['todayappoinments']);die;
+        $data['notcounducted'] = $model->notcounductedstaus();
+// echo '<pre>';print_r($data['notcounducted']);die;
         return view('admin_dashboard', $data);
     }
         public function  All_Appointment() {
@@ -597,7 +597,7 @@ list($slotId, $startTime) = explode('|', $timeSlot);
     $timeSlot = $timeSlotInfo ? $timeSlotInfo->start_time : '';
 
     $appoint_data = $model->bookedslotsingle($appm_id);
-
+// print_r($appoint_data);die;
 if (!empty($appoint_data)) {
     $senderMsg = view('emailform', [
         'fullname' => $this->request->getPost('fullname'),
@@ -627,7 +627,7 @@ if (!empty($appoint_data)) {
 
     ]);
 
-
+    // print_r($senderMsg);die;
     $receiverMsg = view('emailformforreciver', [
         'fullname' => $this->request->getPost('fullname'),
         'appointmentType' => $this->request->getPost('appointmentType'),

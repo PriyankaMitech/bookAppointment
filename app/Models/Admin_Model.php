@@ -235,6 +235,34 @@ public function updatedata($timeSlotId, $selectedDate,$lastInsertId)
 //     // Return the appointments
 //     return $appointments;
 // }
+public function notcounductedstaus()
+{
+    $today = date('Y-m-d');
+
+    // Query to fetch appointments with timeSlot, conducted = 'N', and appointment_date today or before today
+    $query = $this->db->table('tbl_appointment')
+        ->where('conducted IS NULL')
+        ->where('appointment_date <', $today)
+        ->join('countries', 'tbl_appointment.Country = countries.id')
+        ->join('states', 'tbl_appointment.State = states.id')
+        ->join('cities', 'tbl_appointment.City = cities.id')
+        ->select('tbl_appointment.*, countries.name as country_name, states.name as state_name, cities.name as city_name')
+        ->get();
+    $appointments = $query->getResultArray();
+    foreach ($appointments as &$appointment) {
+        $timeSlot = $appointment['timeSlot'];
+        $bookSlotQuery = $this->db->table('tbl_slots')
+            ->where('id', $timeSlot)
+            ->get();
+
+        $bookSlots = $bookSlotQuery->getResultArray();
+        $appointment['bookSlotData'] = $bookSlots;
+    }
+
+    return $appointments;
+}
+
+
 public function todayAppointments()
 {
     $today = date('Y-m-d');

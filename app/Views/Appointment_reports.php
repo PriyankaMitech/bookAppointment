@@ -1,5 +1,24 @@
 <?php include('header.php'); ?>
+<style>
+    /* Make the thead sticky */
+    #dataTable thead {
+        position: sticky;
+        top: 0;
+        background-color: #fff;
+        z-index: 1; 
+    }
+    #dataTable tbody {
+        max-height: 300px; 
+        overflow-y: auto;
+    }
 
+    #dataTable th,
+    #dataTable td {
+        white-space: nowrap; 
+    }
+</style>
+
+<!-- Add HTML table here -->
 <!-- Add HTML table here -->
 <div class="pcoded-content">
     <div class="pcoded-inner-content">
@@ -51,7 +70,7 @@
                     <div class="table-responsive">
                         <div style="max-height: 300px; overflow-y: auto;">
                             <table id="dataTable" class="table table-bordered">
-                                <thead>
+                                <thead style="position: sticky; top: 0; background-color: #fff; z-index: 1;">
                                     <tr>
                                         <th>Sr. No</th>
                                         <th>Name</th>
@@ -114,15 +133,15 @@
     }
 
     function exportToPDF() {
-    const element = document.getElementById('dataTable');
-    const columns = Array.from(element.querySelectorAll('thead th')).map(th => th.innerText); // Get column headers
-    const rows = Array.from(element.querySelectorAll('tbody tr')).map(row => {
-        return Array.from(row.children).map(cell => cell.innerText); // Get row data
-    });
-    const data = [columns, ...rows]; // Combine column headers and row data
-    const html = data.map(row => `<tr>${row.map(cell => `<td>${cell}</td>`).join('')}</tr>`).join(''); // Convert data to HTML table
-    html2pdf().from(`<table>${html}</table>`).save('Appointment_report.pdf'); // Generate PDF
-}
+        const element = document.getElementById('dataTable');
+        const columns = Array.from(element.querySelectorAll('thead th')).map(th => th.innerText); // Get column headers
+        const rows = Array.from(element.querySelectorAll('tbody tr')).map(row => {
+            return Array.from(row.children).map(cell => cell.innerText); // Get row data
+        });
+        const data = [columns, ...rows]; // Combine column headers and row data
+        const html = data.map(row => `<tr>${row.map(cell => `<td>${cell}</td>`).join('')}</tr>`).join(''); // Convert data to HTML table
+        html2pdf().from(`<table>${html}</table>`).save('Appointment_report.pdf'); // Generate PDF
+    }
 
     // Add event listener for date range filter
     document.getElementById('fromDate').addEventListener('change', filterByDateRange);

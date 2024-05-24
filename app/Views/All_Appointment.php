@@ -64,7 +64,7 @@
                                                     <th>Type</th>
                                                     <!-- <th>Subjects</th> -->
                                                     <th>Contact Number</th>
-                                                    <th>Email Id</th>
+                                                   
                                                     <th>Gender</th>
                                                     
                                                     <th>Marital Status</th>
@@ -72,7 +72,7 @@
                                                     <th>TOB</th>
                                                     <th>Reference</th>
                                                     <th>Are you one of the twins</th>
-
+                                                    <th>Email Id</th>
 
 
                                                 </tr>
@@ -100,7 +100,7 @@
                                                     <td><?php echo $slot['appointmentType'] ?></td>
                                                     <!-- <td><?php// echo $slot['subjects']; ?></td> -->
                                                     <td><?php echo $slot['contact_number'] ?></td>
-                                                    <td><?php echo $slot['email']; ?></td>
+                                                   
                                                     <td><?php echo $slot['gender'] ?></td>
                                                     <td><?php echo $slot['marital_status'] ?></td>
                                                     <td><?php echo date('d-m-Y', strtotime($slot['dob'])); ?></td>
@@ -110,7 +110,7 @@
 
                                                     <td><?php echo $slot['twins'] ?></td>
 
-
+                                                    <td><?php echo $slot['email']; ?></td>
                                                 </tr>
                                                 <?php 
                                                         // If no filter is applied, display all booked slots
@@ -125,7 +125,7 @@
                                                     <td><?php echo $slot['appointmentType'] ?></td>
                                                     <!-- <td><?php //echo $slot['subjects']; ?></td> -->
                                                     <td><?php echo $slot['contact_number'] ?></td>
-                                                    <td><?php echo $slot['email']; ?></td>
+                                                   
                                                     <td><?php echo $slot['gender'] ?></td>
                                                     <td><?php echo $slot['marital_status'] ?></td>
                                                     <td><?php echo date('d-m-Y', strtotime($slot['dob'])); ?></td>
@@ -133,7 +133,7 @@
                                                     <td><?php echo $slot['source'] ?></td>
                                                     <td><?php echo $slot['twins'] ?></td>
 
-
+                                                    <td><?php echo $slot['email']; ?></td>
 
                                                 </tr>
                                                 <?php 

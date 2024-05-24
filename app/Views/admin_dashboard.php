@@ -118,9 +118,7 @@
                                 <!-- Row start -->
                                 <div class="row">
                                     <div class="col-lg-12 col-xl-12 col-md-12 col-12">
-                                        <!-- <h6 class="sub-title">Tab With Icon</h6> -->
-                                        <!-- <div class="sub-title"> Appointment</div> -->
-                                        <!-- Nav tabs -->
+
                                         <ul class="nav nav-tabs md-tabs " role="tablist">
                                             <li class="nav-item">
                                                 <a class="nav-link active" data-toggle="tab" href="#home7" role="tab"><i
@@ -132,19 +130,154 @@
                                                         class="icofont icofont-ui-clock "></i>Empty Slots</a>
                                                 <div class="slide"></div>
                                             </li>
-                                            <!-- <li class="nav-item">
-                                                                        <a class="nav-link" data-toggle="tab" href="#messages7" role="tab"><i class="icofont icofont-ui-message"></i>Messages</a>
-                                                                        <div class="slide"></div>
-                                                                    </li>
-                                                                    <li class="nav-item">
-                                                                        <a class="nav-link" data-toggle="tab" href="#settings7" role="tab"><i class="icofont icofont-ui-settings"></i>Settings</a>
-                                                                        <div class="slide"></div>
-                                                                    </li> -->
+                                            <li class="nav-item">
+                                                <a class="nav-link" data-toggle="tab" href="#profile8" role="tab"><i
+                                                        class="icofont icofont-ui-clock "></i>Mark Appoinment</a>
+                                                <div class="slide"></div>
+                                            </li>
+
                                         </ul>
-                                        <!-- Tab panes -->
+
                                         <div class="tab-content card-block">
                                             <div class="tab-pane active" id="home7" role="tabpanel">
-                                                <form action="Appointment_status" method="post">
+                                                <div class="table-responsive">
+                                                    <div style="max-height: 300px; overflow-y: auto;">
+                                                        <table class="table table-bordered">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Sr.No</th>
+                                                                    <th>Conducted</th>
+                                                                    <th>Name</th>
+                                                                    <th>Date</th>
+                                                                    <th>Time(24 Hr)</th>
+                                                                    <th>Type</th>
+                                                                    <th>DOB</th>
+                                                                    <th>TOB</th>
+                                                                    <th>City</th>
+                                                                    <th>State</th>
+                                                                    <th>Country</th>
+                                                                    <th>Transaction Id</th>
+                                                                    <th>Contact</th>
+                                                                    <th>Reference</th>
+                                                                    <th>Gender</th>
+                                                                    <th>Marital Status</th>
+                                                                    <th>Twins</th>
+                                                                    <th>Email</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody id="appointmentTableBody">
+                                                                <?php 
+                    if (!empty($todayappoinments)) {
+                        $i = 1;
+                        foreach ($todayappoinments as $appointment): ?>
+                                                                <tr>
+                                                                    <form action="Appointment_status" method="post">
+                                                                        <td><?php echo $i; ?></td>
+                                                                        <td>
+                                                                            <button class="btn btn-success"
+                                                                                type="submit" name="conducted"
+                                                                                value="Y">Yes</button>
+                                                                            <button class="btn btn-danger" type="submit"
+                                                                                name="conducted" value="N">No</button>
+                                                                        </td>
+                                                                        <td><?php echo $appointment['fullname']; ?></td>
+                                                                        <td><?php echo date('d M Y', strtotime($appointment['appointment_date'])); ?>
+                                                                        </td>
+                                                                        <td>
+                                                                            <?php
+                                if (!empty($appointment['bookSlotData']) && isset($appointment['bookSlotData'][0]['start_time'])) {
+                                    $startTime = date('H:i', strtotime($appointment['bookSlotData'][0]['start_time']));
+                                    echo $startTime;
+                                } else {
+                                    echo "N/A";
+                                }
+                                ?>
+                                                                        </td>
+                                                                        <td><?php echo $appointment['appointmentType']; ?>
+                                                                        </td>
+                                                                        <td>
+                                                                            <?php
+                                if (isset($appointment['dob']) && !empty($appointment['dob'])) {
+                                    echo date('d F Y', strtotime($appointment['dob']));
+                                } else {
+                                    echo "N/A";
+                                }
+                                ?>
+                                                                        </td>
+                                                                        <td>
+                                                                            <?php
+                                if (isset($appointment['tob']) && !empty($appointment['tob'])) {
+                                    $timeOfBirth = date('H:i', strtotime($appointment['tob']));
+                                    echo $timeOfBirth;
+                                } else {
+                                    echo "N/A";
+                                }
+                                ?>
+                                                                        </td>
+                                                                        <td><?php echo $appointment['city_name']; ?>
+                                                                        </td>
+                                                                        <td><?php echo $appointment['state_name']; ?>
+                                                                        </td>
+                                                                        <td><?php echo $appointment['country_name']; ?>
+                                                                        </td>
+                                                                        <td><?php echo $appointment['transaction_id']; ?>
+                                                                        </td>
+                                                                        <td><?php echo $appointment['contact_number']; ?>
+                                                                        </td>
+                                                                        <td><?php echo $appointment['source']; ?></td>
+                                                                        <td><?php echo $appointment['gender']; ?></td>
+                                                                        <td><?php echo $appointment['marital_status']; ?>
+                                                                        </td>
+                                                                        <td><?php echo $appointment['twins']; ?></td>
+                                                                        <td><?php echo $appointment['email']; ?></td>
+                                                                        <input type="hidden" name="appointment_id"
+                                                                            value="<?php echo $appointment['ap_id']; ?>">
+                                                                    </form>
+                                                                </tr>
+                                                                <?php $i++; endforeach; } ?>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="tab-pane" id="profile7" role="tabpanel">
+                                                <div class="table-responsive">
+                                                    <div style="max-height: 300px; overflow-y: auto;">
+                                                        <table class="table table-bordered">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Sr.No</th>
+                                                                    <th>Time</th>
+
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody id="appointmentTableBody">
+                                                                <?php
+                                                                                            if (!empty($remaingslots)) {
+                                                                                                $i = 1;
+                                                                                                foreach ($remaingslots as $data): 
+                                                                                                
+                                                                                            ?>
+                                                                <tr>
+                                                                    <td><?php echo $i ?></td>
+                                                                    <td><?php echo $data['start_time']; ?></td>
+
+                                                                </tr>
+                                                                <?php
+                                                                                                        $i++;
+                                                                                                  
+                                                                                                endforeach;
+                                                                                            }
+                                                                                            ?>
+
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="tab-pane" id="profile8" role="tabpanel">
+                                              
                                                     <div class="table-responsive">
                                                         <div style="max-height: 300px; overflow-y: auto;">
                                                             <table class="table table-bordered">
@@ -176,10 +309,11 @@
                                                                 </thead>
                                                                 <tbody id="appointmentTableBody">
                                                                     <?php 
-                                                                                            if(!empty($todayappoinments)){
+                                                                                            if(!empty($notcounducted)){
                                                                                                 $i=1;
-                                                                                            foreach ($todayappoinments as $appointment): ?>
-                                                                    <tr>
+                                                                                            foreach ($notcounducted as $appointment): ?>
+                                                                   <form action="Appointment_status" method="post">
+                                                                 <tr>
                                                                         <td><?php echo $i; ?></td>
                                                                         <td>
                                                                             <button class="btn btn-success"
@@ -247,62 +381,15 @@
                                                                             value="<?php echo $appointment['ap_id']; ?>">
 
                                                                     </tr>
+                                                                    </form>
                                                                     <?php $i++; endforeach; }?>
                                                                 </tbody>
                                                             </table>
                                                         </div>
                                                     </div>
-                                                </form>
+                                               
                                             </div>
-                                            <div class="tab-pane" id="profile7" role="tabpanel">
-                                                <div class="table-responsive">
-                                                    <div style="max-height: 300px; overflow-y: auto;">
-                                                        <table class="table table-bordered">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th>Sr.No</th>
-                                                                    <th>Time</th>
-
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody id="appointmentTableBody">
-                                                                <?php
-                                                                                            if (!empty($remaingslots)) {
-                                                                                                $i = 1;
-                                                                                                foreach ($remaingslots as $data): 
-                                                                                                
-                                                                                            ?>
-                                                                <tr>
-                                                                    <td><?php echo $i ?></td>
-                                                                    <td><?php echo $data['start_time']; ?></td>
-
-                                                                </tr>
-                                                                <?php
-                                                                                                        $i++;
-                                                                                                  
-                                                                                                endforeach;
-                                                                                            }
-                                                                                            ?>
-
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="tab-pane" id="messages7" role="tabpanel">
-                                                <p class="m-0">3. This is Photoshop's version of Lorem IpThis is
-                                                    Photoshop's version of Lorem Ipsum. Proin gravida nibh vel velit
-                                                    auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor,
-                                                    nisi elit consequat ipsum, nec sagittis sem nibh id elit. Lorem
-                                                    ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo
-                                                    ligula eget dolor. Aenean mas Cum sociis natoque penatibus et magnis
-                                                    dis.....</p>
-                                            </div>
-                                            <div class="tab-pane" id="settings7" role="tabpanel">
-                                                <p class="m-0">4.Cras consequat in enim ut efficitur. Nulla posuere elit
-                                                    quis auctor interdum praesent sit amet nulla vel enim amet. Donec
-                                                    convallis tellus neque, et imperdiet felis amet.</p>
-                                            </div>
+                                           
                                         </div>
                                     </div>
 

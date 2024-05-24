@@ -282,7 +282,7 @@
                                             <a href="<?=base_url(); ?>services">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                                                 <span class="pcoded-mtext"
-                                                    data-i18n="nav.basic-components.breadcrumbs">Reg Services</span>
+                                                    data-i18n="nav.basic-components.breadcrumbs">Ragister Services</span>
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
                                         </li>

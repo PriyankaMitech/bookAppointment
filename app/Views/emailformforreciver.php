@@ -67,7 +67,7 @@
                 <p><b>Services:</b> Prediction; 30 minutes </p>
                 <p><b>Date :</b> <?=$formattedDate;?>, </p>
                 <p><b>Time : </b> <?=$formattedTimeSlot;?> </p>
-                <p><b>Appoinment type : </b> <?=$appointmentType;?> </p>
+                <p><b>Appointment type : </b> <?=$appointmentType;?> </p>
                 <!-- <p><b>Staff :</b> Mrunal kulkarni</p> -->
                 <!-- <p><b>Message:</b> 4thenad zv</p> -->
 
