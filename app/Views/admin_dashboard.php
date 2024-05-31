@@ -167,9 +167,9 @@
                                                             </thead>
                                                             <tbody id="appointmentTableBody">
                                                                 <?php 
-                    if (!empty($todayappoinments)) {
-                        $i = 1;
-                        foreach ($todayappoinments as $appointment): ?>
+                                            if (!empty($todayappoinments)) {
+                                                $i = 1;
+                                                foreach ($todayappoinments as $appointment): ?>
                                                                 <tr>
                                                                     <form action="Appointment_status" method="post">
                                                                         <td><?php echo $i; ?></td>

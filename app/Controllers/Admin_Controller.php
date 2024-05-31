@@ -349,7 +349,7 @@ public function calendar(){
     $data['schedule'] =  $model->getcalenderallslots();
     $data['slots'] =  $model->getalluserslots();
 
-//    echo '<pre>';print_r($data['schedule']);die;
+   echo '<pre>';print_r($data['slots']);die;
     return view('calendar', $data);
 
 }
@@ -748,9 +748,9 @@ public function services_Reports()
 }
 public function Appointment_status()
 {
-
+// print_r($_POST);die;
     $db = \Config\Database::Connect();
-    $appointment_ids = $this->request->getPost('appointment_ids');
+    $appointment_ids = $this->request->getPost('appointment_id');
     $conducted = $this->request->getPost('conducted');
     $model = new Admin_Model();
     $takestatus = $db->table('tbl_appointment')->where('ap_id', $appointment_ids);

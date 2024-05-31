@@ -131,7 +131,8 @@
 
                     <?php
 // Assuming $dob is in the format YYYY-MM-DD
-$dobFormatted = date('d-m-Y', strtotime($dob));
+$dobFormatted = date('d/m/Y', strtotime($dob));
+echo $dobFormatted;
 ?>
 
                     <p><b>Date of Birth:</b> <?=$dobFormatted;?></p>
