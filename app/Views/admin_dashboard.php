@@ -297,11 +297,13 @@ if (file_exists($file)) {
 
                                                                 <?php 
 
+
                                                                     if (!empty($todayappoinments)) {
 
                                                                         $i = 1;
 
                                                                         foreach ($todayappoinments as $appointment): ?>
+
 
                                                                 <tr>
 

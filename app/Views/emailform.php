@@ -268,10 +268,11 @@
 
 // Assuming $dob is in the format YYYY-MM-DD
 
+
 $dobFormatted = date('d/m/Y', strtotime($dob));
 
 
-?>
+
 
 
 

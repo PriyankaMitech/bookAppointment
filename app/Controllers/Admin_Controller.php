@@ -792,9 +792,6 @@ public function calendar(){
     $data['slots'] =  $model->getalluserslots();
 
 
-
-//    echo '<pre>';print_r($data['schedule']);die;
-
     return view('calendar', $data);
 
 
@@ -1608,7 +1605,6 @@ public function Appointment_status()
 
 {
 
-// print_r($_POST);die;
 
     $db = \Config\Database::Connect();
 
@@ -1616,6 +1612,7 @@ public function Appointment_status()
 
     $amount = $this->request->getPost('amount');
     
+
 
     $conducted = $this->request->getPost('conducted');
 
