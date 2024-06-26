@@ -1,4 +1,5 @@
 <?php include('header.php'); ?>
+
 <style>
     /* Make the thead sticky */
     #dataTable thead {
@@ -7,6 +8,7 @@
         background-color: #fff;
         z-index: 1; 
     }
+
     #dataTable tbody {
         max-height: 300px; 
         overflow-y: auto;
@@ -16,9 +18,12 @@
     #dataTable td {
         white-space: nowrap; 
     }
+    .allsbutton{
+        padding-bottom: 19px;
+    }
+
 </style>
 
-<!-- Add HTML table here -->
 <!-- Add HTML table here -->
 <div class="pcoded-content">
     <div class="pcoded-inner-content">
@@ -51,8 +56,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="container card p-5">
+                <div class="container card p-3">
                     <!-- Date range filter input -->
+                    <div class="card-block">
                     <div class="row">
                         <div class="col-md-3 form-group">
                             <label for="fromDate">From Date:</label>
@@ -62,15 +68,17 @@
                             <label for="toDate">To Date:</label>
                             <input type="date" id="toDate" class="form-control">
                         </div>
-                        <div class="col-md-6" style="padding-top: 28px;">
-                            <button class="btn btn-primary " onclick="exportToExcel()">Excel</button>
+                        <div class="col-md-6 d-flex align-items-end allsbutton">
+                            <button class="btn btn-primary mr-2" onclick="filterByDateRange()">Apply Filter</button>
+                            <button class="btn btn-danger mr-2" id="clearFilterButton" onclick="clearDateFilter()" style="display: none;">Clear Filter</button>
+                            <button class="btn btn-primary mr-2" onclick="exportToExcel()">Excel</button>
                             <button class="btn btn-primary" onclick="exportToPDF()">PDF</button>
                         </div>
                     </div>
-                    <div class="table-responsive">
-                        <div style="max-height: 300px; overflow-y: auto;">
-                            <table id="dataTable" class="table table-bordered">
-                                <thead style="position: sticky; top: 0; background-color: #fff; z-index: 1;">
+                    <div>
+                        <div>
+                            <table id="dataTable" class="table tabler table-bordered">
+                                <thead>
                                     <tr>
                                         <th>Sr. No</th>
                                         <th>Name</th>
@@ -111,6 +119,7 @@
                             </table>
                         </div>
                     </div>
+                                    </div>
                 </div>
             </div>
         </div>
@@ -143,32 +152,39 @@
         html2pdf().from(`<table>${html}</table>`).save('Appointment_report.pdf'); // Generate PDF
     }
 
-    // Add event listener for date range filter
-    document.getElementById('fromDate').addEventListener('change', filterByDateRange);
-    document.getElementById('toDate').addEventListener('change', filterByDateRange);
-
     function filterByDateRange() {
         const fromDate = document.getElementById('fromDate').value;
         const toDate = document.getElementById('toDate').value;
         const rows = document.querySelectorAll('#dataTable tbody tr');
+        let isFiltered = false;
 
         rows.forEach(row => {
-            // Get the appointment date from the table cell
             const appointmentDate = row.cells[6].innerText; // Assuming Appointment Date is in the 7th column (index 6)
-            const formattedAppointmentDate = formatDate(appointmentDate);
-            // Compare the formatted date with the selected date range
-            if (formattedAppointmentDate >= fromDate && formattedAppointmentDate <= toDate) {
+            const [day, month, year] = appointmentDate.split('-');
+            const formattedAppointmentDate = new Date(`${year}-${month}-${day}`);
+            
+            const fromDateObj = new Date(fromDate);
+            const toDateObj = new Date(toDate);
+            
+            if (formattedAppointmentDate >= fromDateObj && formattedAppointmentDate <= toDateObj) {
                 row.style.display = 'table-row'; // Show the row if it falls within the date range
+                isFiltered = true;
             } else {
                 row.style.display = 'none'; // Hide the row if it's outside the date range
             }
         });
+
+        document.getElementById('clearFilterButton').style.display = isFiltered ? 'inline-block' : 'none';
     }
 
-    // Function to format date as dd-mm-yyyy
-    function formatDate(date) {
-        const parts = date.split('-');
-        return `${parts[2]}-${parts[1]}-${parts[0]}`;
+    function clearDateFilter() {
+        const rows = document.querySelectorAll('#dataTable tbody tr');
+        rows.forEach(row => {
+            row.style.display = 'table-row'; // Reset all rows to be visible
+        });
+        document.getElementById('fromDate').value = ''; // Clear fromDate input
+        document.getElementById('toDate').value = ''; // Clear toDate input
+        document.getElementById('clearFilterButton').style.display = 'none'; // Hide clear filter button
     }
 </script>
 

@@ -45,20 +45,10 @@
                         <div class="col-sm-12">
                             <!-- Working Hours card start -->
                             <div class="card p-3">
-                                <div class="card-header">
-                                    <h5><b>Working Hours </b></h5>
-                                    <!-- <span>Add class of <code>.form-control</code> with <code>&lt;input&gt;</code> tag</span> -->
-                                    <div class="card-header-right"><i class="icofont icofont-spinner-alt-5"></i></div>
-
-                                    <div class="card-header-right">
-                                        <i class="icofont icofont-spinner-alt-5"></i>
-                                    </div>
-
-                                </div>
+                       
                                 <?php if(empty($schedule)){?>
                                 <div class="card-block">
-                                    <h4 class="sub-title">Days</h4>
-                                    <form method="post" action="set_workinghour">
+                                                                        <form method="post" action="set_workinghour">
                                         <div class="form-group row">
                                             <label class="col-sm-2 col-form-label">Monday<input type="hidden"
                                                     name="day[]" value="Monday"></label>
@@ -174,8 +164,7 @@
                         </div>
                         <?php }else{ ?>
                         <div class="card-block">
-                            <h4 class="sub-title">Days</h4>
-                            <form method="post" action="set_workinghour">
+                                                        <form method="post" action="set_workinghour">
 
                                 <?php 
                                                                 // echo "<pre>";print_r($schedule);exit();

@@ -242,7 +242,7 @@ body {
 .form-wizard .form-wizard-next-btn,
 .form-wizard .form-wizard-previous-btn,
 .form-wizard .form-wizard-submit {
-  background-color: #d65470;
+  background-color: #e91e63;
   color: #ffffff;
   display: inline-block;
   min-width: 100px;
@@ -288,8 +288,8 @@ body {
 .form-wizard .form-control {
   font-weight: 300;
   height: auto !important;
-  color: #fff;
-  background-color: black !important;
+  color: #000;
+  /* background-color: black !important; */
   border-bottom: 2px solid #fff;
   border-top: none;
   border-left: none;
@@ -486,9 +486,7 @@ body {
 .form-wizard h6 {
   line-height: 2;
 }
-.form-wizard #extraOptions {
-  padding-top: 39px;
-}
+
 .time-div ul li {
   line-height: 27px;
 }

@@ -1,3 +1,6 @@
+#debug-icon {
+  display: none !important;
+}
 body {
   background-color: #f3f3f3;
   font-size: 0.875em;
@@ -48,16 +51,15 @@ p {
       Main-body css start
 ==========================  **/
 .main-body .page-wrapper {
-  padding: 1.8rem;
   transition: all ease-in 0.3s;
 }
 .main-body .page-wrapper .menu-rtl .page-header-title i {
   margin-left: 20px;
 }
 .main-body .page-wrapper .page-header {
-  margin-bottom: 30px;
+  margin-bottom: 13px;
   background-color: #fff;
-  padding: 30px;
+  padding: 13px;
 }
 .main-body .page-wrapper .page-header-title {
   display: inline-flex;
@@ -80,8 +82,8 @@ p {
 .main-body .page-wrapper .page-header-title i {
   display: inline-flex;
   float: left;
-  width: 50px;
-  height: 50px;
+  width: 30px;
+  height: 30px;
   border-radius: 4px;
   justify-content: center;
   vertical-align: middle;
@@ -170,15 +172,17 @@ p {
 }
 
 /*====== Ready to use Css End ======*/
-.card-block {
+/* .card-block {
   padding: 1.25rem;
-}
+} */
 
+.card-block {
+  padding: 10px;
+}
 .card {
   border-radius: 5px;
   box-shadow: 0 1px 11px 0 rgba(0, 0, 0, 0.12);
   border: none;
-  margin-bottom: 30px;
 }
 .card .card-footer {
   background-color: #fff;
@@ -680,10 +684,14 @@ a.bg-danger:hover {
   position: absolute;
   padding: 5px;
 }
-
-.tab-icon {
-  margin-bottom: 30px;
+.container {
+  padding-right: 3px !important;
+  padding-left: 3px !important;
 }
+
+/* .tab-icon {
+  margin-bottom: 30px;
+} */
 .tab-icon i {
   padding-right: 10px;
 }
@@ -6990,7 +6998,7 @@ table tbody .border-bottom-info td {
       Main-header css start
 ==========================  **/
 .header-navbar {
-  min-height: 80px;
+  min-height: 50px;
   padding: 0;
 }
 .header-navbar .navbar-wrapper .navbar-logo {
@@ -6998,7 +7006,7 @@ table tbody .border-bottom-info td {
   display: flex;
   align-items: center;
   float: left;
-  height: 80px;
+  height: 50px;
   text-align: center;
   text-transform: uppercase;
   width: 270px;
@@ -7018,7 +7026,7 @@ table tbody .border-bottom-info td {
   border: 1px solid #fff;
   border-radius: 50%;
   padding: 5px 9px;
-  top: 24px;
+  top: 8px;
 }
 @media only screen and (max-width: 575px) {
   .header-navbar .navbar-wrapper .navbar-logo .mobile-search {
@@ -7037,7 +7045,7 @@ table tbody .border-bottom-info td {
 .header-navbar .navbar-wrapper .navbar-container .nav-left li,
 .header-navbar .navbar-wrapper .navbar-container .nav-right li {
   float: left;
-  line-height: 5;
+  line-height: 3;
   padding: 0 10px;
   position: relative;
 }
@@ -22801,7 +22809,7 @@ table.footable-paging-center > tfoot > tr.footable-paging > td {
     display: block;
     position: absolute;
     left: 20px;
-    top: 23px;
+    top: 8px;
     right: auto;
   }
   .header-navbar .navbar-wrapper .navbar-logo .mobile-search {
@@ -23683,6 +23691,10 @@ table.footable-paging-center > tfoot > tr.footable-paging > td {
 }
 .pcoded[layout-type="dark"] .pcoded-main-container {
   background-color: #444c67;
+}
+.liiteam {
+  display: flex !important;
+  padding: 5px !important;
 }
 
 /*# sourceMappingURL=style.css.map */
