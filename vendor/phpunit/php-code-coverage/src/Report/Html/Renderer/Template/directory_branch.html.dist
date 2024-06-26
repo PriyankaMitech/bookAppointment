@@ -25,8 +25,7 @@
   </header>
   <div class="container-fluid">
    <div class="table-responsive">
-    <table class="table table-bordered">
-     <thead>
+    <table class="table tabler table-bordered">     <thead>
       <tr>
        <td>&nbsp;</td>
        <td colspan="15"><div align="center"><strong>Code Coverage</strong></div></td>

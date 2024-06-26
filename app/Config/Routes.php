@@ -1,78 +1,169 @@
 <?php
 
+
+
 use CodeIgniter\Router\RouteCollection;
 
+
+
 /**
+
  * @var RouteCollection $routes
+
  */
 
+
+
 $routes->get('/', 'Admin_Controller::index');
+
 $routes->get('admin_dashboard', 'Admin_Controller::admin_dashboard');
+
 $routes->post('login', 'Admin_Controller::login');
+
 $routes->get('add_schedule', 'Admin_Controller::add_schedule');
+
 $routes->get('add_schedule/(:any)', 'Admin_Controller::add_schedule/$1');
+
 $routes->get('sucess', 'Admin_Controller::sucess');
+
 $routes->get('emailform', 'Admin_Controller::emailform');
+
 $routes->post('get_user_details', 'Admin_Controller::get_user_details');
+
 $routes->post('update_user', 'Admin_Controller::update_user');
+
 $routes->get('emailformforreciver', 'Admin_Controller::emailformforreciver');
 
+
+
 $routes->get('Services_List', 'Admin_Controller::Services_List');
+
 $routes->post('cancelservices', 'Admin_Controller::cancelservices');
+
 $routes->get('All_Appointment', 'Admin_Controller::All_Appointment');
+
+$routes->get('appointmentsList' , 'Admin_Controller::appointmentsList');
+$routes->post('appointmentsList' , 'Admin_Controller::appointmentsList');
+
+
+
 
 
 
 $routes->post('set_schedule', 'Admin_Controller::set_schedule');
+
 $routes->post('save_schedule', 'Admin_Controller::save_schedule');
+
 $routes->get('add_workinghour','Admin_Controller::add_workinghour');
+
 $routes->post('set_workinghour', 'Admin_Controller::set_workinghour');
+
 $routes->get('deleteworkinghour/(:any)/(:any)/(:any)', 'Admin_Controller::deleteworkinghour/$1');
+
 $routes->get('calendar', 'Admin_Controller::calendar');
+
 $routes->get('my_slots', 'Admin_Controller::my_slots');
+
 $routes->post('updateStatus', 'Admin_Controller::updateStatus');
+
 $routes->get('add_appointment', 'Admin_Controller::Add_student');
+
 $routes->get('Add_class', 'Admin_Controller::Add_class');
+
 $routes->get('getallincome', 'Admin_Controller::getallincome');
+
 $routes->post('reshedule', 'Admin_Controller::reshedule');
 
+
+
 $routes->post('getnewslots', 'Admin_Controller::getnewslots');
+
 $routes->post('classForm', 'Admin_Controller::classForm');
+
 $routes->get('logout', 'Admin_Controller::logout');
+
 $routes->get('services', 'Admin_Controller::services');
+
 $routes->post('all_services', 'Admin_Controller::all_services');
+
 $routes->get('Appointment_reports', 'Admin_Controller::Appointment_reports');
+
 $routes->get('services_Reports', 'Admin_Controller::services_Reports');
+
 $routes->post('Appointment_status', 'Admin_Controller::Appointment_status');
+
 $routes->post('freezeSlots', 'Admin_Controller::freezeSlots');
+
 $routes->get('Booked_Slots', 'Admin_Controller::Booked_Slots');
+
 $routes->post('cancelBooking', 'Admin_Controller::cancelBooking');
+
 $routes->get('Add_user', 'Admin_Controller::Add_user');
+
 $routes->get('user-list', 'Admin_Controller::user_list');
 
 
+
+
+
 $routes->post('user_create', 'Admin_Controller::user_create');
+
 $routes->post('delete_user', 'Admin_Controller::delete_user');
 
+
+
 $routes->post('formdata', 'Admin_Controller::formdata');
+
 $routes->get('formdata', 'Admin_Controller::formdata');
 
+
+
 $routes->post('getslots', 'Admin_Controller::getslots');
+
 $routes->post('getslots/(:any)', 'Admin_Controller::getslots/$1');
 
+
+
 $routes->post('add_appointment', 'Admin_Controller::add_appointment');
+
 $routes->get('reschedule/(:any)', 'Admin_Controller::reschedule/$1');
+
 $routes->get('Income', 'Admin_Controller::Income');
+
 $routes->get('Students', 'Admin_Controller::Students');
+
 $routes->post('add_fees', 'Admin_Controller::add_fees');
+
 $routes->post('complete_class', 'Admin_Controller::complete_class');
+
 $routes->get('preparing_kundali', 'Admin_Controller::preparing_kundali');
+
 $routes->post('kundali', 'Admin_Controller::kundali');
+
 $routes->get('kundaliemail', 'Admin_Controller::kundaliemail');
 
 
+
+
+
 $routes->post('get_state_name_location','Admin_Controller::get_state_name_location');
+
 $routes->post('get_city_name_location','Admin_Controller::get_city_name_location');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

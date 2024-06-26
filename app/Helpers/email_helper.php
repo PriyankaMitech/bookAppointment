@@ -53,9 +53,10 @@ require_once 'src/SMTP.php';
 // }
 
 
-function sendConfirmationEmail($email, $ccEmails = [], $receiverSubject=null, $receiverMsg=null, $senderSubject=null, $senderMsg=null, $otp=null, $password=null, $sameValues=null)
+
+function sendConfirmationEmail($email, $ccEmails = [], $receiverSubject = null, $receiverMsg = null, $senderSubject = null, $senderMsg = null, $otp = null, $password = null, $sameValues = null)
 {
-//   echo $senderSubject;die;
+
     try {
         $mail = new PHPMailer(true);
         $mail->isSMTP();
@@ -67,19 +68,30 @@ function sendConfirmationEmail($email, $ccEmails = [], $receiverSubject=null, $r
         $mail->Port = 587; // or the port provided by your webmail provider
 
         $mail->setFrom('mrunal@vedikastrologer.com', 'Vedik'); // Replace with your webmail email address and sender name
-        $mail->addAddress($email, 'Recipient Name');
+
+        // Validate the recipient email
+        if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $mail->addAddress($email, 'Recipient Name');
+        } else {
+            // If invalid, send to default email
+            $mail->addAddress('mrunal@vedikastrologer.com', 'Recipient Name');
+        }
 
         // Add CC emails
         if ($ccEmails) {
             foreach ($ccEmails as $ccEmail) {
-                $mail->addCC($ccEmail);
+                if (filter_var($ccEmail, FILTER_VALIDATE_EMAIL)) {
+                    $mail->addCC($ccEmail);
+                }
             }
         }
 
         // Add CC emails with same values
         if ($sameValues) {
             foreach ($ccEmails as $ccEmail) {
-                $mail->addCC($ccEmail, 'Recipient Name');
+                if (filter_var($ccEmail, FILTER_VALIDATE_EMAIL)) {
+                    $mail->addCC($ccEmail, 'Recipient Name');
+                }
             }
         }
 
@@ -96,11 +108,12 @@ function sendConfirmationEmail($email, $ccEmails = [], $receiverSubject=null, $r
         $mail->Subject = $senderSubject;
         $mail->Body = $senderMsg;
         $mail->send();
-      
+        
+        return true;
+
     } catch (Exception $e) {
         echo "Email could not be sent. Mailer Error: {$mail->ErrorInfo}";
         return false;
     }
 }
-
 
