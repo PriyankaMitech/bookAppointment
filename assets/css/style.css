@@ -12993,13 +12993,19 @@ body.menu-bottom #collapse-menu {
   background-color: #fff;
   color: #e0e0e0;
 }
+.amtinput {
+  width: 89px !important;
+  height: 41px !important;
+}
 
 .btn {
   border-radius: 2px;
   text-transform: capitalize;
   font-size: 15px;
-  padding: 10px 19px;
+  /* padding: 10px 19px; */
   cursor: pointer;
+
+  padding: 12px 14px;
 }
 
 .close {
@@ -18142,6 +18148,7 @@ table.footable-paging-center > tfoot > tr.footable-paging > td {
   border-right: 1px solid #ccc;
   margin-right: -30px;
 }
+
 @media only screen and (max-width: 767px) {
   .line-example {
     border-right: 0 solid transparent;
@@ -22956,7 +22963,7 @@ table.footable-paging-center > tfoot > tr.footable-paging > td {
     display: inline-block;
   }
   .header-navbar .navbar-wrapper .navbar-logo .mobile-options {
-    top: 30px;
+    top: 15px;
   }
 
   body.header-fixed .main-body .page-wrapper {

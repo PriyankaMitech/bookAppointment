@@ -270,6 +270,7 @@
 
 
 $dobFormatted = date('d/m/Y', strtotime($dob));
+?>
 
 
 

@@ -24,6 +24,30 @@ if (file_exists($file)) {
             height: 100%;
             width: 100%;
         }
+
+      
+
+    /* For small screens, switch to two lines */
+    @media (max-width: 767px) {
+        .nav-tabs .nav-item {
+            flex: 0 0 50%;
+            max-width: 50%;
+        }
+        .profile8{
+            margin-left: 76px !important;
+        }
+        .nav-tabs {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .nav-tabs .nav-item {
+        flex: 1 1 auto;
+        text-align: center;
+    }
+    .md-tabs .nav-item a {
+    padding: 10px 0 !important;}
+    }
     
 </style>
 
@@ -40,135 +64,83 @@ if (file_exists($file)) {
 
                 <div class="page-body pb-3">
 
-                    <div class="row">
+                <div class="row">
+    <!-- card1 start -->
+    <div class="col-6 col-md-6 col-xl-3 adblog">
+        <div class="card widget-card-1" id="todaysAppointmentWidget">
+            <div class="card-block-small">
+                <i class="icofont icofont-social-twitter bg-c-yellow card1-icon"></i>
+                <span class="text-c-yellow f-w-600">Todays</span>
+                <h4><?php echo ($todayappoinments !== null) ? count($todayappoinments) : 0; ?></h4>
+                <div>
+                    <span class="f-left m-t-10 text-muted">
+                        <i class="text-c-yellow f-16 icofont icofont-refresh m-r-10" id="todaysAppointmentWidget"></i>Todays Appointment
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- card1 end -->
 
-                        <!-- card1 start -->
-
-                        <div class="col-md-6 col-xl-3">
-
-                            <div class="card widget-card-1" id="todaysAppointmentWidget">
-
-                                <div class="card-block-small">
-
-                                    <i class="icofont icofont-social-twitter bg-c-yellow card1-icon"></i>
-
-                                    <span class="text-c-yellow f-w-600">Todays </span>
-
-                                    <h4><?php echo ($todayappoinments !== null) ? count($todayappoinments) : 0; ?></h4>
-
-                                    <div>
-
-                                        <span class="f-left m-t-10 text-muted">
-
-                                            <i class="text-c-yellow f-16 icofont icofont-refresh m-r-10"
-
-                                                id="todaysAppointmentWidget"></i>Todays Appointment
-
-                                        </span>
-
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                        <div class="col-md-6 col-xl-3">
-                            <div class="card widget-card-1">
-                                <a href="<?=base_url(); ?>Appointment_reports" class="card-block-small" target="_blank">
-                                    <div class="">
-                                        <i class="icofont icofont-pie-chart bg-c-blue card1-icon"></i>
-                                        <span class="text-c-blue f-w-600">All Appointment</span>
-                                        <!-- Display the count of appointments here -->
-                                        <?php if ($Appt !== null): ?>
-                                            <h4><?php echo $Appt; ?></h4>
-                                        <?php else: ?>
-                                            <h4>0</h4>
-                                        <?php endif; ?>
-                                        <div>
-                                            <!-- You can add a conditional check or a link to get more space -->
-                                            <span class="f-left m-t-10 text-muted">
-                                                <i class="text-c-pink f-16 icofont icofont-calendar m-r-10"></i>Year
-                                            </span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-
-
-                        <!-- card1 end -->
-
-                        <!-- card1 start -->
-
-                        <div class="col-md-3 col-xl-3">
-                            <div class="card widget-card-1">
-                                <a href="<?=base_url(); ?>services_Reports" class="card-block-small" target="_blank">
-                                    <div class="">
-                                        <i class="icofont icofont-ui-home bg-c-pink card1-icon"></i>
-                                        <span class="text-c-pink f-w-600">Other Services</span>
-                                        <!-- Display the count of services here -->
-                                        <?php if ($servicesc !== null): ?>
-                                            <h4><?php echo $servicesc; ?></h4>
-                                        <?php else: ?>
-                                            <h4>0</h4>
-                                        <?php endif; ?>
-                                        <div>
-                                            <span class="f-left m-t-10 text-muted">
-                                                <i class="text-c-pink f-16 icofont icofont-calendar m-r-10"></i>Current Year
-                                            </span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-
-                        <!-- card1 end -->
-
-                        <!-- card1 start -->
-
-                        <div class="col-md-6 col-xl-3">
-
-                            <div class="card widget-card-1">
-
-                                <div class="card-block-small">
-
-                                    <i class="icofont icofont-warning-alt bg-c-green card1-icon"></i>
-
-                                    <span class="text-c-green f-w-600">Total Amount</span>
-
-                                    <!-- Display the total sum of amounts here -->
-
-                                    <h4><?php echo ($totalammount !== null) ? $totalammount : 0; ?></h4>
-
-                                    <div>
-
-                                        <span class="f-left m-t-10 text-muted">
-
-                                            <i class="text-c-green f-16 icofont icofont-tag m-r-10"></i>Total Collection
-
-                                        </span>
-
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                        <!-- card1 end -->
-
-                        <!-- card1 start -->
-
-
-
-
-
-
-
+    <!-- card2 start -->
+    <div class="col-6 col-md-6 col-xl-3 adblog">
+        <div class="card widget-card-1">
+            <a href="<?=base_url(); ?>Appointment_reports" class="card-block-small" target="_blank">
+                <div class="">
+                    <i class="icofont icofont-pie-chart bg-c-blue card1-icon"></i>
+                    <span class="text-c-blue f-w-600">All Appointment</span>
+                    <!-- Display the count of appointments here -->
+                    <h4><?php echo ($Appt !== null) ? $Appt : 0; ?></h4>
+                    <div>
+                        <span class="f-left m-t-10 text-muted">
+                            <i class="text-c-pink f-16 icofont icofont-calendar m-r-10"></i>Year
+                        </span>
                     </div>
+                </div>
+            </a>
+        </div>
+    </div>
+    <!-- card2 end -->
+
+    <!-- card3 start -->
+    <div class="col-6 col-md-6 col-xl-3 adblog">
+        <div class="card widget-card-1">
+            <a href="<?=base_url(); ?>services_Reports" class="card-block-small" target="_blank">
+                <div class="">
+                    <i class="icofont icofont-ui-home bg-c-pink card1-icon"></i>
+                    <span class="text-c-pink f-w-600">Other Services</span>
+                    <!-- Display the count of services here -->
+                    <h4><?php echo ($servicesc !== null) ? $servicesc : 0; ?></h4>
+                    <div>
+                        <span class="f-left m-t-10 text-muted">
+                            <i class="text-c-pink f-16 icofont icofont-calendar m-r-10"></i>Current Year
+                        </span>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+    <!-- card3 end -->
+
+    <!-- card4 start -->
+    <div class="col-6 col-md-6 col-xl-3 adblog">
+        <div class="card widget-card-1">
+            <div class="card-block-small">
+                <i class="icofont icofont-warning-alt bg-c-green card1-icon"></i>
+                <span class="text-c-green f-w-600">Total Amount</span>
+                <!-- Display the total sum of amounts here -->
+                <h4><?php echo ($totalammount !== null) ? $totalammount : 0; ?></h4>
+                <div>
+                    <span class="f-left m-t-10 text-muted">
+                        <i class="text-c-green f-16 icofont icofont-tag m-r-10"></i>Total Collection
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- card4 end -->
+</div>
+
 
                 </div>
 
@@ -215,27 +187,27 @@ if (file_exists($file)) {
 
 
                                     <ul class="nav nav-tabs md-tabs row no-gutters" role="tablist">
-                                        <li class="nav-item col">
+                                        <li class="nav-item col col-md-3 col-lg-2">
                                             <a class="nav-link active" data-toggle="tab" href="#home7" role="tab">
                                                 <i class="icofont icofont-ui-clock"></i> Today's 
                                             </a>
                                         </li>
-                                        <li class="nav-item col">
+                                        <li class="nav-item col col-md-3 col-lg-2">
                                             <a class="nav-link" data-toggle="tab" href="#profile7" role="tab">
                                                 <i class="icofont icofont-ui-clock"></i> Empty Slots
                                             </a>
                                         </li>
-                                        <li class="nav-item col">
+                                        <li class="nav-item col col-md-3 col-lg-2">
                                             <a class="nav-link" data-toggle="tab" href="#complitedapp" role="tab">
                                                 <i class="icofont icofont-ui-clock"></i> Conducted 
                                             </a>
                                         </li>
-                                        <li class="nav-item col">
+                                        <li class="nav-item col col-md-3 col-lg-3">
                                             <a class="nav-link" data-toggle="tab" href="#notcomplitedapp" role="tab">
                                                 <i class="icofont icofont-ui-clock"></i> Not Conducted 
                                             </a>
                                         </li>
-                                        <li class="nav-item col">
+                                        <li class="nav-item col col-md-3 col-lg-3 profile8">
                                             <a class="nav-link" data-toggle="tab" href="#profile8" role="tab">
                                                 <i class="icofont icofont-ui-clock"></i> Mark Appointment
                                             </a>
@@ -255,40 +227,22 @@ if (file_exists($file)) {
 
                                                                     <th>Sr.No</th>
                                                                     <th>Conducted</th>
-
-
                                                                     <th>Name</th>
-
                                                                     <th>Date</th>
-
-                                                                    <th>Time(24 Hr)</th>
-
-                                                                    <th>Type</th>
-
-                                                                    <th>DOB</th>
-
-                                                                    <th>TOB</th>
-
-                                                                    <th>City</th>
-
-                                                                    <th>State</th>
-
-                                                                    <th>Country</th>
-
+                                                                    <th>Time</th>
                                                                     <th>Transaction Id</th>
-
                                                                     <th>Contact</th>
-
+                                                                    <th>Type</th>
+                                                                    <th>DOB</th>
+                                                                    <th>TOB</th>
+                                                                    <th>City</th>
+                                                                    <th>State</th>
+                                                                    <th>Country</th>
                                                                     <th>Reference</th>
-
                                                                     <th>Gender</th>
-
                                                                     <th>Marital Status</th>
-
                                                                     <th>Twins</th>
-
                                                                     <th>Email</th>
-
                                                                 </tr>
 
                                                             </thead>
@@ -296,12 +250,8 @@ if (file_exists($file)) {
                                                             <tbody id="appointmentTableBody">
 
                                                                 <?php 
-
-
                                                                     if (!empty($todayappoinments)) {
-
                                                                         $i = 1;
-
                                                                         foreach ($todayappoinments as $appointment): ?>
 
 
@@ -311,7 +261,7 @@ if (file_exists($file)) {
 
                                                                         <td><?php echo $i; ?></td>
                                                                         <td>
-                                                                        <input type="text" name="amount" value="<?php echo $appointment['amount']; ?>" placeholder="Enter Received Amt">
+                                                                        <input class="amtinput" type="text" name="amount" value="<?php echo $appointment['amount']; ?>" placeholder="Enter Received Amt" >
                                                                              
                                                                                 <button class="btn btn-success"
 
@@ -331,16 +281,24 @@ if (file_exists($file)) {
 
                                                                        
                                                                         <td><?php echo $appointment['fullname']; ?></td>
+                                                                      
 
                                                                         <td><?php echo date('d M Y', strtotime($appointment['appointment_date'])); ?>
 
                                                                         </td>
 
-                                                                                                                                                <td><?php echo date('H:i', strtotime($appointment['timestartslot'])); ?></td>
+                                                                        <td><?php echo date('H:i', strtotime($appointment['timestartslot'])); ?></td>
 
 
 
-                                                                        <td><?php echo $appointment['appointmentType']; ?>
+                                                                        <td><?php echo $appointment['transaction_id']; ?></td>
+
+                                                                        <td><?php echo $appointment['contact_number']; ?>
+
+                                                                        </td>
+                                                                         <td><?php echo $appointment['appointmentType']; ?> - 
+                                                                         <?php if(!empty($appointment['appointmentOption'])){ echo $appointment['appointmentOption'];} ?>
+
 
                                                                         </td>
 
@@ -394,13 +352,7 @@ if (file_exists($file)) {
 
                                                                         </td>
 
-                                                                        <td><?php echo $appointment['transaction_id']; ?>
-
-                                                                        </td>
-
-                                                                        <td><?php echo $appointment['contact_number']; ?>
-
-                                                                        </td>
+                                                                     
 
                                                                         <td><?php echo $appointment['source']; ?></td>
 
@@ -520,7 +472,7 @@ if (file_exists($file)) {
 
                                                                     <th>Date</th>
 
-                                                                    <th>Time(24 Hr)</th>
+                                                                    <th>Time</th>
 
                                                                     <th>Type</th>
 
@@ -590,11 +542,9 @@ if (file_exists($file)) {
 
                                                                                         </td>
 
-                                                                                                                                                                <td><?php echo date('H:i', strtotime($appointment['timestartslot'])); ?></td>
+                                                                                         <td><?php echo date('H:i', strtotime($appointment['timestartslot'])); ?></td>
+                                                                                         <td><?php echo $appointment['appointmentType']; ?> - <?php if(!empty($appointment['appointmentOption'])){ echo $appointment['appointmentOption'];} ?>
 
-
-
-                                                                                        <td><?php echo $appointment['appointmentType']; ?>
 
                                                                                         </td>
 
@@ -708,7 +658,7 @@ if (file_exists($file)) {
 
                                                                     <th>Date</th>
 
-                                                                    <th>Time(24 Hr)</th>
+                                                                    <th>Time</th>
 
                                                                     <th>Type</th>
 
@@ -777,12 +727,9 @@ if (file_exists($file)) {
                                                                                         <td><?php echo date('d M Y', strtotime($appointment['appointment_date'])); ?>
 
                                                                                         </td>
+                                                                                        <td><?php echo date('H:i', strtotime($appointment['timestartslot'])); ?></td>
+                                                                                        <td><?php echo $appointment['appointmentType']; ?> - <?php if(!empty($appointment['appointmentOption'])){ echo $appointment['appointmentOption'];} ?>
 
-                                                                                                                                                                <td><?php echo date('H:i', strtotime($appointment['timestartslot'])); ?></td>
-
-
-
-                                                                                        <td><?php echo $appointment['appointmentType']; ?>
 
                                                                                         </td>
 
@@ -901,7 +848,7 @@ if (file_exists($file)) {
 
                                                                         <th>Date</th>
 
-                                                                        <th>Time(24 Hr)</th>
+                                                                        <th>Time</th>
 
                                                                         <th>Type</th>
 
@@ -941,144 +888,44 @@ if (file_exists($file)) {
                                                                 </thead>
 
                                                                 <tbody id="appointmentTableBody">
+    <?php 
+    if (!empty($notcounducted)) {
+        $i = 1;
+        foreach ($notcounducted as $appointment): ?>
+            <tr>
+                <form action="Appointment_status" method="post">
+                    <td><?php echo $i; ?></td>
+                    <td><?php echo $appointment['fullname']; ?></td>
+                    <td><?php echo date('d M Y', strtotime($appointment['appointment_date'])); ?></td>
+                    <td><?php echo date('H:i', strtotime($appointment['timestartslot'])); ?></td>
+                    <td><?php echo $appointment['appointmentType']; ?> - <?php if (!empty($appointment['appointmentOption'])) { echo $appointment['appointmentOption']; } ?></td>
+                    <td><?php echo isset($appointment['dob']) && !empty($appointment['dob']) ? date('d F Y', strtotime($appointment['dob'])) : "N/A"; ?></td>
+                    <td><?php echo isset($appointment['tob']) && !empty($appointment['tob']) ? date('H:i', strtotime($appointment['tob'])) : "N/A"; ?></td>
+                    <td><?php echo $appointment['city_name']; ?></td>
+                    <td><?php echo $appointment['state_name']; ?></td>
+                    <td><?php echo $appointment['country_name']; ?></td>
+                    <td><?php echo $appointment['transaction_id']; ?></td>
+                    <td><?php echo $appointment['contact_number']; ?></td>
+                    <td><?php echo $appointment['source']; ?></td>
+                    <td><?php echo $appointment['gender']; ?></td>
+                    <td><?php echo $appointment['marital_status']; ?></td>
+                    <td><?php echo $appointment['twins']; ?></td>
+                    <td><?php echo $appointment['email']; ?></td>
+                    <td>
+                        <input class="amtinput" type="text" name="amount" value="<?php echo $appointment['amount']; ?>" placeholder="Enter Received Amt">
+                        <button class="btn btn-success" type="submit" name="conducted" value="Y">Yes</button>
+                        <button class="btn btn-danger" type="submit" name="conducted" value="N">No</button>
+                    </td>
+                    <input type="hidden" name="appointment_ids" value="<?php echo $appointment['ap_id']; ?>">
+                </form>
+            </tr>
+        <?php 
+        $i++;
+        endforeach;
+    }
+    ?>
+</tbody>
 
-                                                                    <?php 
-
-                                                                                            if(!empty($notcounducted)){
-
-                                                                                                $i=1;
-
-                                                                                            foreach ($notcounducted as $appointment): ?>
-
-                                                                   <form action="Appointment_status" method="post">
-
-                                                                 <tr>
-
-                                                                        <td><?php echo $i; ?></td>
-
-                                                                       
-
-                                                                        <td><?php echo $appointment['fullname']; ?></td>
-
-                                                                        <td><?php echo date('d M Y', strtotime($appointment['appointment_date'])); ?>
-
-                                                                        </td>
-
-                                                                        </td>
-
-                                                                                                                                               <td><?php echo date('H:i', strtotime($appointment['timestartslot'])); ?></td>
-
-
-
-                                                                        <td><?php echo $appointment['appointmentType'] ?>
-
-                                                                        </td>
-
-                                                                        <td> <?php
-
-                                                                                                    if (isset($appointment['dob']) && !empty($appointment['dob'])) {
-
-                                                                                                        echo date('d F Y', strtotime($appointment['dob']));
-
-                                                                                                    } else {
-
-                                                                                                        echo "N/A"; // Or any other appropriate message
-
-                                                                                                    }
-
-                                                                                                    ?></td>
-
-                                                                        <td>
-
-                                                                            <?php
-
-                                                            if (isset($appointment['tob']) && !empty($appointment['tob'])) {
-
-                                                                // Format time without seconds
-
-                                                                $timeOfBirth = date('H:i', strtotime($appointment['tob']));
-
-                                                                echo $timeOfBirth;
-
-                                                            } else {
-
-                                                                echo "N/A"; // Or any other appropriate message
-
-                                                            }
-
-                                                            ?>
-
-                                                                        </td>
-
-                                                                        <td><?php echo $appointment['city_name']; ?>
-
-                                                                        </td>
-
-                                                                        <td><?php echo $appointment['state_name']; ?>
-
-                                                                        </td>
-
-                                                                        <td><?php echo $appointment['country_name']; ?>
-
-                                                                        </td>
-
-                                                                        <td><?php echo $appointment['transaction_id']; ?>
-
-                                                                        </td>
-
-
-
-                                                                        <td><?php echo $appointment['contact_number'] ?>
-
-                                                                        </td>
-
-                                                                        <td><?php echo $appointment['source'] ?></td>
-
-                                                                        <td><?php echo $appointment['gender'] ?></td>
-
-                                                                        <td><?php echo $appointment['marital_status'] ?>
-
-                                                                        </td>
-
-
-
-
-
-                                                                        <td><?php echo $appointment['twins'] ?></td>
-
-                                                                        <td><?php echo $appointment['email']; ?></td>
-
-                                                                        <td>
-                                                                        <input type="text" name="amount" value="<?php echo $appointment['amount']; ?>" placeholder="Enter Received Amt">
-
-
-                                                                        <button class="btn btn-success"
-
-                                                                            type="submit" name="conducted"
-
-                                                                            value="Y">Yes</button>
-
-                                                                        <button class="btn btn-danger" type="submit"
-
-                                                                            name="conducted" value="N">No</button>
-
-                                                                        </td>
-
-
-
-                                                                        <input type="hidden" name="appointment_ids"
-
-                                                                            value="<?php echo $appointment['ap_id']; ?>">
-
-
-
-                                                                    </tr>
-
-                                                                    </form>
-
-                                                                    <?php $i++; endforeach; }?>
-
-                                                                </tbody>
 
                                                             </table>
 

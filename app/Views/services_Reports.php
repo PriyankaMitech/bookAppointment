@@ -32,7 +32,7 @@
             <div class="page-wrapper">
                 <div class="page-header card">
                     <div class="row align-items-end">
-                        <div class="col-lg-8">
+                        <div class="col-lg-8 col">
                             <div class="page-header-title">
                                 <i class="icofont icofont-file-code bg-c-blue"></i>
                                 <div class="d-inline">
@@ -41,7 +41,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-4">
+                        <div class="col-lg-4 col">
                             <div class="page-header-breadcrumb">
                                 <ul class="breadcrumb-title">
                                     <li class="breadcrumb-item">
@@ -85,6 +85,12 @@
                                 <button class="btn btn-primary mr-2" onclick="exportToExcel()">Excel</button>
                                 <button class="btn btn-primary" onclick="exportToPDF()">PDF</button>
                             </div>
+
+                            <div class="col-md-12 ">
+                                <span class="text-c-green f-w-600">Total Amount</span>
+                                <h4 class="ms-2"><?php echo ($servicesAmount !== null) ? $servicesAmount : 0; ?></h4>
+                            </div>
+
                         </div>
                         <table id="dataTable" class="table tabler table-bordered">
                             <thead>

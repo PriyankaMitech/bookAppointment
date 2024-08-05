@@ -16,7 +16,7 @@
 
                     <div class="row align-items-end">
 
-                        <div class="col-lg-8">
+                        <div class="col-lg-8 col">
 
                             <div class="page-header-title">
 
@@ -36,7 +36,7 @@
 
                         </div>
 
-                        <div class="col-lg-4">
+                        <div class="col-lg-4 col">
 
                             <div class="page-header-breadcrumb">
 

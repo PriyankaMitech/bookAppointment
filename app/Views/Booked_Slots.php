@@ -238,7 +238,7 @@
 
                                                             <input type="hidden" name="slot_id"
 
-                                                                value="<?php echo $slot['id']; ?>">
+                                                                value="<?php echo $slot['time_slot_id']; ?>">
 
                                                             <button type="submit" class="btn btn-danger">Cancel</button>
 
@@ -362,7 +362,7 @@
 
                                                             <input type="hidden" name="slot_id"
 
-                                                                value="<?php echo $slot['id']; ?>">
+                                                                value="<?php echo $slot['time_slot_id']; ?>">
 
                                                             <button type="submit" class="btn btn-danger">Cancel</button>
 

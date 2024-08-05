@@ -32,7 +32,7 @@
             <div class="page-wrapper">
                 <div class="page-header card">
                     <div class="row align-items-end">
-                        <div class="col-lg-8">
+                        <div class="col-lg-8 col">
                             <div class="page-header-title">
                                 <i class="icofont icofont-file-code bg-c-blue"></i>
                                 <div class="d-inline">
@@ -41,7 +41,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-4">
+                        <div class="col-lg-4 col">
                             <div class="page-header-breadcrumb">
                                 <ul class="breadcrumb-title">
                                     <li class="breadcrumb-item">
@@ -74,12 +74,17 @@
                             <button class="btn btn-primary mr-2" onclick="exportToExcel()">Excel</button>
                             <button class="btn btn-primary" onclick="exportToPDF()">PDF</button>
                         </div>
+                        <div class="col-md-12">
+                            <span class="text-c-green f-w-600">Total Amount</span>
+                            <h4><?php echo ($appointmentAmount !== null) ? $appointmentAmount : 0; ?></h4>
+                        </div>
                     </div>
                     <div>
                         <div>
                             <table id="dataTable" class="table tabler table-bordered">
                                 <thead>
                                     <tr>
+                                        
                                         <th>Sr. No</th>
                                         <th>Name</th>
                                         <th>Email</th>
@@ -90,6 +95,8 @@
                                         <th>DOB</th>
                                         <th>TOB</th>
                                         <th>Reference</th>
+                                        <th>Amount</th>
+
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -102,10 +109,13 @@
                                         <td><?php echo $appointment['contact_number']; ?></td>
                                         <td><?php echo $appointment['appointmentType']; ?></td>
                                         <td><?php echo $appointment['marital_status']; ?></td>
-                                        <td><?php echo date('d-m-Y', strtotime($appointment['appointment_date'])); ?></td>
-                                        <td><?php echo date('d-m-Y', strtotime($appointment['dob'])); ?></td>
+                                        <td><?php echo date('d F Y', strtotime($appointment['appointment_date'])); ?></td>
+
+                                        <td><?php echo date('d F Y', strtotime($appointment['dob'])); ?></td>
                                         <td><?php echo $appointment['tob']; ?></td>
                                         <td><?php echo $appointment['source']; ?></td>
+                                        <td><?php echo $appointment['amount']; ?></td>
+
                                     </tr>
                                     <?php $i++; endforeach; ?>
                                     <?php }else{ ?>
