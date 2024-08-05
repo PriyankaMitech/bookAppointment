@@ -58,7 +58,8 @@
 
     <link rel="stylesheet" type="text/css" href="<?=base_url(); ?>assets/css/customrstyle.css">
 
-    
+    <link rel="stylesheet" type="text/css" href="<?=base_url(); ?>assets/css/responsivestyle.css">
+
 
 
 
@@ -76,12 +77,14 @@
 
 
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
 
     <link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i"
 
         rel="stylesheet">
 
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
 
 
 <style>
@@ -130,18 +133,6 @@ th, td {
         
 
 </style>
-
-
-
-
-
-    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css" /> -->
-
-    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> -->
-
-
-
-
 
 
 
@@ -637,7 +628,7 @@ th, td {
                                         <li>
                                             <a href="<?=base_url(); ?>services">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">Register Services</span>
+                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">Add Services</span>
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
                                         </li>

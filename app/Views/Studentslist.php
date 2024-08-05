@@ -14,7 +14,7 @@
 
                     <div class="row align-items-end">
 
-                        <div class="col-lg-8">
+                        <div class="col-lg-8 col">
 
                             <div class="page-header-title">
 
@@ -32,7 +32,7 @@
 
                         </div>
 
-                        <div class="col-lg-4">
+                        <div class="col-lg-4 col">
 
                             <div class="page-header-breadcrumb">
 
@@ -107,10 +107,14 @@
                                             <th>Paid Amount</th>
 
                                             <th>Marksheet No</th>
+                                            <th>Marks Obtained (%)</th>
 
+
+                                            <th>Add Paid Amount</th>
+
+                                            <th>Class Status</th>
                                             <th>Action</th>
 
-                                            <th>Action</th>
 
                                         </tr>
 
@@ -163,6 +167,8 @@
                                                 <td><?php echo $totalPaidAmount; ?></td>
 
                                                 <td><?php echo $item['Certificatid']; ?></td>
+                                                <td><?php echo $item['marks']; ?></td>
+
 
                                                 <!-- Display the total paid amount -->
 
@@ -201,6 +207,13 @@
                                                         <button class="btn btn-danger" type="submit">Complete Class</button>
 
                                                     </form>
+
+                                                </td>
+                                                <td>
+                                            
+                                                    <a href="<?= base_url(); ?>edit_student/<?php echo $item['id']; ?>"><i class="far fa-edit me-2"></i></a>
+                                                    
+                                                    <a href="<?= base_url(); ?>delete/<?php echo $item['id']; ?>/classes" onclick="return confirm('Are You Sure You Want To Delete This Record?')"><i class="far fa-trash-alt me-2"></i></a>
 
                                                 </td>
 

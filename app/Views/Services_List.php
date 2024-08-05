@@ -6,7 +6,7 @@
             <div class="page-wrapper">
                 <div class="page-header card">
                     <div class="row align-items-end">
-                        <div class="col-lg-8">
+                        <div class="col-lg-8 col">
                             <div class="page-header-title">
                                 <i class="icofont icofont-file-code bg-c-blue"></i>
                                 <div class="d-inline">
@@ -14,7 +14,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-4">
+                        <div class="col-lg-4 col">
                             <div class="page-header-breadcrumb">
                                 <ul class="breadcrumb-title">
                                     <li class="breadcrumb-item">

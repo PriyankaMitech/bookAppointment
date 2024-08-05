@@ -5,6 +5,12 @@
 .slotlist {
   margin-left: -45px !important;
 }
+.deletebtn {
+  width: 50px !important;
+}
+.edit-btn {
+  width: 50px !important;
+}
 
 .imgessuccss {
   width: 30%;
@@ -69,6 +75,35 @@
   }
   .slotlist {
     margin-left: -15px !important;
+  }
+}
+
+@media (max-width: 375px) {
+  .widget-card-1 {
+    margin-top: 10px;
+    height: 132px;
+  }
+  .widget-card-1 .card1-icon {
+    width: 40px;
+    height: 40px;
+
+    font-size: 20px;
+  }
+  .card .card-block-small {
+    padding: 25px 5px 5px 5px;
+  }
+  .pcoded-inner-content .adblog {
+    padding: 10px !important;
+  }
+  .main-body .page-wrapper .page-header-title h4 {
+    font-size: 16px !important;
+  }
+  .form-inline {
+    display: ruby;
+  }
+  .setw {
+    padding-right: 0px !important;
+    padding-left: 0px !important;
   }
 }
 

@@ -74,11 +74,12 @@
 
                                                 <li class="pt-2">
                                                     <div class="d-flex justify-content-space-around align-items-center">
-                                                            <form id="freezeForm_<?php echo $slot->id; ?>" method="post" action="freezeSlots" class="d-inline-flex align-items-center">
-                                                                <input type="hidden" name="time_slot_id" value="<?php echo $slot->id; ?>">
+                                     
+                                                            <form id="freezeForm_<?php echo $slot->id; ?>" method="post" action="freezeSlots" class="d-inline-flex align-items-center ml-2">
+                                                            <input type="hidden" name="time_slot_id" value="<?php echo $slot->id; ?>">
                                                                 <div class="form-group pt-4">
                                                                     <input type="date" id="freezeDate_<?php echo $slot->id; ?>" name="selected_date" class="form-control ml-2 " required style="width: auto;">
-                                                                </div>
+                                                                </div>                                                                <button class="btn btn-warning btn-sm freeze-slot ml-2" data-form-id="freezeForm_<?php echo $slot->id; ?>">Freeze A Date</button>
                                                             </form>
                                                             <form id="statusForm_<?php echo $slot->id; ?>" method="post" action="updateStatus" class=" d-inline-flex align-items-center ml-2">
                                                                 <input type="hidden" name="slotId" value="<?php echo $slot->id; ?>">
@@ -87,10 +88,7 @@
                                                                     <?php echo $slot->active_status == 'Y' ? 'Deactivate A Slot' : 'Activate A Slot'; ?>
                                                                 </button>
                                                             </form>
-                                                            <form id="freezeForm_<?php echo $slot->id; ?>" method="post" action="freezeSlots" class="d-inline-flex align-items-center ml-2">
-                                                                <input type="hidden" name="time_slot_id" value="<?php echo $slot->id; ?>">
-                                                                <button class="btn btn-warning btn-sm freeze-slot ml-2" data-form-id="freezeForm_<?php echo $slot->id; ?>">Freeze A Date</button>
-                                                            </form>
+                                                           
                                                     </div>
                                                     
                                                 </li>

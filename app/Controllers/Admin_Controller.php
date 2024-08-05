@@ -20,8 +20,65 @@ class Admin_Controller extends BaseController
     public function index(): string
 
     {
+        $user_id = session()->get('user_id');
 
-        return view('login');
+        
+
+      
+        
+    
+        if (!empty($user_id)) {
+
+            $model = new Admin_Model();
+
+            $data['Appt'] = $model->getallapp();
+            $data['servicesc'] = $model->getallservices();
+    
+            // echo "<pre>";print_r($data['servicesc']);exit();
+    
+    
+            $data['curruntmonthappt'] = $model->getcurruntmonthapt();
+    
+            
+    
+            // Call allamount() method to get the sum of amounts from both tables
+    
+            $amountData = $model->allamount();
+    
+          //  print_r($amountData);die;
+    
+            $data['appointmentAmount'] = $amountData['appointmentAmount'];
+    
+            $data['servicesAmount'] = $amountData['servicesAmount'];
+    
+            $data['classesAmount'] =$amountData['classesAmount'];
+    
+            $data['totalammount'] =$data['appointmentAmount'] + $data['servicesAmount']+$data['classesAmount'] ;
+    
+            $data['todayappoinments'] = $model->todayAppointments();
+            $data['todayappoinmentswithstatus'] = $model->todayAppointmentswithstatus();
+            $data['nottodayappoinmentswithstatus'] = $model->nottodayAppointmentswithstatus();
+    
+    
+    
+            $data['remaingslots'] = $model->todayRemainingSlots();
+    
+            $data['notcounducted'] = $model->notcounductedstaus();
+
+
+    
+            return view('admin_dashboard', $data);
+
+    
+        } else {
+    
+            session()->setFlashdata('error', 'Invalid credentials');
+    
+            return view('login');
+    
+        }
+
+        // return view('login');
 
     }
 
@@ -106,6 +163,9 @@ class Admin_Controller extends BaseController
         $data['remaingslots'] = $model->todayRemainingSlots();
 
         $data['notcounducted'] = $model->notcounductedstaus();
+
+
+            // echo "<pre>";print_r($data['todayappoinments']);exit();
 
 
         return view('admin_dashboard', $data);
@@ -385,7 +445,7 @@ class Admin_Controller extends BaseController
 
          return redirect()->to('/');
 
-     }
+        }
 
         $userID = session('user_id');
 
@@ -803,6 +863,7 @@ public function calendar(){
 public function formdata()
 
 {
+    // echo "<pre>";print_r($_POST);exit();
 
     $model = new Admin_Model();
 
@@ -812,7 +873,7 @@ public function formdata()
 
     $timeSlot = $this->request->getPost('timeSlot');
 
-list($slotId, $startTime) = explode('|', $timeSlot);
+    list($slotId, $startTime) = explode('|', $timeSlot);
 
 
 
@@ -859,8 +920,6 @@ list($slotId, $startTime) = explode('|', $timeSlot);
                 'timeSlot' => $slotId,
 
                 'timestartslot' => $startTime,
-
-
 
                 'appointment_date' => $this->request->getPost('selectedDate'),
 
@@ -1175,6 +1234,8 @@ public function getSlots()
         $slots = array_values($filteredSlots); // Re-index array
     }
 
+    // echo "<pre>";print_r($slots);exit();
+
     return json_encode($slots);
 }
 
@@ -1221,7 +1282,29 @@ public function getSlots()
 
     {
 
-        return view('Add_class');
+        $result = session();
+        // $session_id = $result->get('id');
+        $model = new Admin_Model();
+        $id = $this->request->uri->getSegments(1);
+
+    
+    
+        if(isset($id[1])) {
+    
+            $wherecond1 = array('is_deleted' => 'N', 'id ' => $id[1]);
+    
+            $data['single_data'] = $model->getsinglerow('classes', $wherecond1);
+
+            // echo "<pre>";print_r($data['single_data']);exit();
+
+            return view('Add_class', $data);
+
+        }
+      
+     
+
+
+        return view('Add_class' );
 
     }
 
@@ -1451,79 +1534,112 @@ if (!empty($appoint_data)) {
 
     }
 
-    public function classForm()
+    // public function classForm()
 
-    {
+    // {
 
-        // print_r($_POST);die;
+     
 
-        // Retrieve form data from POST request
+    //     $name = $this->request->getPost('name');
 
-        $name = $this->request->getPost('name');
+    //     $email = $this->request->getPost('email');
 
-        $email = $this->request->getPost('email');
+    //     $contactNumber = $this->request->getPost('contact_number');
 
-        $contactNumber = $this->request->getPost('contact_number');
+    //     $startDate = $this->request->getPost('start_date');
 
-        $startDate = $this->request->getPost('start_date');
+    //     $endDate = $this->request->getPost('end_date');
 
-        $endDate = $this->request->getPost('end_date');
+    //     $batch_name = $this->request->getPost('batch_name');
 
-        $batch_name = $this->request->getPost('batch_name');
+    //     $Certificatid = $this->request->getPost('Certificatid');
 
-        $Certificatid = $this->request->getPost('Certificatid');
+    //     $classDays = implode(',', $this->request->getPost('class_days')); // Convert array to comma-separated string
 
-        $classDays = implode(',', $this->request->getPost('class_days')); // Convert array to comma-separated string
+    //     $startTime = $this->request->getPost('start_time');
 
-        $startTime = $this->request->getPost('start_time');
+    //     $fees = $this->request->getPost('fees');
+    //     $marks = $this->request->getPost('marks');
 
-        $fees = $this->request->getPost('fees');
-
-    
-
-        // Now you have all the form data, you can use it to insert into your database table
-
-        // Assuming you have a database connection setup, you can write your SQL query here
-
-        $db = \Config\Database::connect();
-
-        $builder = $db->table('classes'); // Replace 'your_table_name' with your actual table name
 
     
 
-        // Build the query to insert data into the table
+     
 
-        $builder->insert([
+    //     $db = \Config\Database::connect();
 
-            'name' => $name,
-
-            'email' => $email,
-
-            'contact_number' => $contactNumber,
-
-            'start_date' => $startDate,
-
-            'end_date' => $endDate,
-
-            'batch_name' =>$batch_name,
-
-            'class_days' => $classDays,
-
-            'start_time' => $startTime,
-
-            'Certificatid' =>$Certificatid,
-
-            'fees' => $fees
-
-        ]);
+    //     $builder = $db->table('classes'); // Replace 'your_table_name' with your actual table name
 
     
 
-        // Optionally, you can redirect the user to another page after form submission
+      
 
-        return redirect()->to('Add_class'); // Replace 'success_page' with your actual success page URL
+    //     $builder->insert([
 
+    //         'name' => $name,
+
+    //         'email' => $email,
+
+    //         'contact_number' => $contactNumber,
+
+    //         'start_date' => $startDate,
+
+    //         'end_date' => $endDate,
+
+    //         'batch_name' =>$batch_name,
+
+    //         'class_days' => $classDays,
+
+    //         'start_time' => $startTime,
+
+    //         'Certificatid' =>$Certificatid,
+
+    //         'fees' => $fees,
+    //         'marks' => $marks
+
+
+    //     ]);
+
+    
+
+     
+
+    //     return redirect()->to('Add_class'); 
+
+    // }
+
+
+    
+public function classForm()
+{
+
+    $data = [
+        'name' => $this->request->getPost('name'),
+        'email' => $this->request->getPost('email'),
+        'contact_number' => $this->request->getPost('contact_number'),
+        'start_date' => $this->request->getPost('start_date'),
+        'end_date' => $this->request->getPost('end_date'),
+        'batch_name' => $this->request->getPost('batch_name'),
+        'Certificatid' => $this->request->getPost('Certificatid'),
+        'class_days' => implode(',', $this->request->getPost('class_days')), // Convert array to comma-separated string
+        'start_time' => $this->request->getPost('start_time'),
+        'fees' => $this->request->getPost('fees'),
+        'marks' => $this->request->getPost('marks'),
+    ];
+
+    $db = \Config\Database::Connect();
+    if ($this->request->getVar('id') == "") {
+        $add_data = $db->table('classes');
+        $add_data->insert($data);
+        session()->setFlashdata('success', 'Project added successfully.');
+    } else {
+        $update_data = $db->table('classes')->where('id', $this->request->getVar('id'));
+        $update_data->update($data);
+        session()->setFlashdata('success', 'Project updated successfully.');
     }
+
+    return redirect()->to('Add_class');
+}
 
 
 
@@ -1591,9 +1707,48 @@ public function Appointment_reports()
 
     $model = new Admin_Model();
 
-    $data['allapt'] =$model->getallAppointment();
+    $wherecond = ['conducted' => 'Y']; // This should be an associative array
+    $order_by = 'appointment_date DESC'; // Order by appointment_date in descending order
 
-    //  echo '<pre>';print_r($data['allapt']);die;
+    $data['allapt'] = $model->getalldataorderby('tbl_appointment', $wherecond, $order_by);
+
+
+
+
+    $data['Appt'] = $model->getallapp();
+    $data['servicesc'] = $model->getallservices();
+
+    // echo "<pre>";print_r($data['servicesc']);exit();
+
+
+    $data['curruntmonthappt'] = $model->getcurruntmonthapt();
+
+    
+
+    // Call allamount() method to get the sum of amounts from both tables
+
+    $amountData = $model->allamount();
+
+  //  print_r($amountData);die;
+
+    $data['appointmentAmount'] = $amountData['appointmentAmount'];
+
+    $data['servicesAmount'] = $amountData['servicesAmount'];
+
+    $data['classesAmount'] =$amountData['classesAmount'];
+
+    $data['totalammount'] =$data['appointmentAmount'] + $data['servicesAmount']+$data['classesAmount'] ;
+
+    $data['todayappoinments'] = $model->todayAppointments();
+    $data['todayappoinmentswithstatus'] = $model->todayAppointmentswithstatus();
+    $data['nottodayappoinmentswithstatus'] = $model->nottodayAppointmentswithstatus();
+
+
+
+    $data['remaingslots'] = $model->todayRemainingSlots();
+
+    $data['notcounducted'] = $model->notcounductedstaus();
+
 
     echo view('Appointment_reports',$data);
 
@@ -1604,7 +1759,7 @@ public function Appointment_reports()
 public function Appointment_status()
 
 {
-
+// print_r($_POST);die;
 
     $db = \Config\Database::Connect();
 
@@ -1711,6 +1866,7 @@ public function reshedule()
 public function cancelBooking()
 
 {
+    // echo "<pre>";print_r($_POST);exit();
 
     $db = \Config\Database::Connect();
 
@@ -1868,7 +2024,7 @@ public function delete_user()
 
         $data['getallclass'] =$model->getallclass();
 
-        // echo '<pre>';print_r($data['getallclass']);die;
+        // echo '<pre>';print_r($data['appoincome']);die;
 
         echo view('Income',$data);
 
@@ -2110,6 +2266,41 @@ public function delete_user()
         $wherecond = array('is_deleted' => 'N');
         $order_by = 'service_date DESC'; // Order by service_date in descending order
         $data['allapt'] = $model->getalldataorderby('services', $wherecond, $order_by);
+
+
+        $data['Appt'] = $model->getallapp();
+        $data['servicesc'] = $model->getallservices();
+    
+        // echo "<pre>";print_r($data['servicesc']);exit();
+    
+    
+        $data['curruntmonthappt'] = $model->getcurruntmonthapt();
+    
+        
+    
+        // Call allamount() method to get the sum of amounts from both tables
+    
+        $amountData = $model->allamount();
+    
+      //  print_r($amountData);die;
+    
+        $data['appointmentAmount'] = $amountData['appointmentAmount'];
+    
+        $data['servicesAmount'] = $amountData['servicesAmount'];
+    
+        $data['classesAmount'] =$amountData['classesAmount'];
+    
+        $data['totalammount'] =$data['appointmentAmount'] + $data['servicesAmount']+$data['classesAmount'] ;
+    
+        $data['todayappoinments'] = $model->todayAppointments();
+        $data['todayappoinmentswithstatus'] = $model->todayAppointmentswithstatus();
+        $data['nottodayappoinmentswithstatus'] = $model->nottodayAppointmentswithstatus();
+    
+    
+    
+        $data['remaingslots'] = $model->todayRemainingSlots();
+    
+        $data['notcounducted'] = $model->notcounductedstaus();
     
         return view('services_Reports', $data);
     }
@@ -2349,6 +2540,23 @@ return redirect()->to('preparing_kundali');
 public function kundaliemail(){
 
     echo view('kundaliemail'); 
+
+}
+
+public function delete()
+{
+    $uri_data = $this->request->uri->getSegments(2);
+
+    $id = $uri_data[1];
+    $table = $uri_data[2];
+
+    $data = ['is_deleted' => 'Y'];
+    $db = \Config\Database::connect();
+
+    $update_data = $db->table($table)->where('id', $id);
+    $update_data->update($data); 
+    session()->setFlashdata('success', 'Data deleted successfully.');
+    return redirect()->back();
 
 }
 

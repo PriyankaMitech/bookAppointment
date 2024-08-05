@@ -39,6 +39,7 @@ class Admin_Model extends Model
 
 }
 
+
 public function getAppointments($filter_date = null)
 {
     $builder = $this->db->table('tbl_appointment');
@@ -361,7 +362,7 @@ public function allamount()
 
             ->where('created_at <=', $financialYearEnd)
 
-            ->where('conducted', 'Y')
+                ->where('conducted', 'Y')
 
 
             ->get()->getRow()->amount,
@@ -643,67 +644,38 @@ public function notcounductedstaus()
 
 
 public function todayAppointments()
-
 {
-
     $today = date('Y-m-d');
 
-
-
-    // Query to fetch appointments with timeSlot and conducted = 'N'
-
+    // Query to fetch appointments with timeSlot and conducted = 'N', ordered by start_time
     $query = $this->db->table('tbl_appointment')
-
-    ->where('appointment_date', $today)
-
-    ->where('conducted IS NULL')
-
-    ->join('countries', 'tbl_appointment.Country = countries.id')
-
-    ->join('states', 'tbl_appointment.State = states.id')
-
-    ->join('cities', 'tbl_appointment.City = cities.id')
-
-    ->select('tbl_appointment.*, countries.name as country_name, states.name as state_name, cities.name as city_name')
-
-    ->get();
-
-
-
-
+        ->where('appointment_date', $today)
+        ->where('conducted IS NULL')
+        ->join('countries', 'tbl_appointment.Country = countries.id')
+        ->join('states', 'tbl_appointment.State = states.id')
+        ->join('cities', 'tbl_appointment.City = cities.id')
+        ->join('tbl_slots', 'tbl_appointment.timeSlot = tbl_slots.id')
+        ->select('tbl_appointment.*, countries.name as country_name, states.name as state_name, cities.name as city_name, tbl_slots.start_time')
+        ->orderBy('tbl_slots.start_time', 'ASC')
+        ->get();
 
     // Fetch the result
-
     $appointments = $query->getResultArray();
 
-
-
     // Fetch additional data from tbl_slots table
-
     foreach ($appointments as &$appointment) {
-
         $timeSlot = $appointment['timeSlot'];
 
         $bookSlotQuery = $this->db->table('tbl_slots')
-
             ->where('id', $timeSlot)
-
             ->get();
 
-
-
         $bookSlots = $bookSlotQuery->getResultArray();
-
         $appointment['bookSlotData'] = $bookSlots;
-
     }
 
-
-
     // Return the appointments
-
     return $appointments;
-
 }
 
 public function todayAppointmentswithstatus()
@@ -926,142 +898,18 @@ public function getallclass()
 
 }
 
-// public function getcalenderallslots()
 
-// {
 
-//     try {
 
-//         // Fetch the time_slot_ids, appm_id, and selected_date from the book_slots table
-
-//         // $slotsData = $this->db->table('book_slots')
-
-//         //                       ->select('time_slot_id, appm_id, selected_date')
-
-//         //                       ->get()
-
-//         //                       ->getResultArray();
-
-//         $slotsData = $this->db->table('book_slots')
-
-//         ->select('time_slot_id, appm_id, selected_date')
-
-//         ->where('appm_id IS NOT NULL', null, false)
-
-//         ->get()
-
-//         ->getResultArray();
-
-//         $time_slot_ids = array_column($slotsData, 'time_slot_id');
-
-//         $appm_ids = array_column($slotsData, 'appm_id');
-
-//         $selected_dates = array_column($slotsData, 'selected_date');
-
-
-
-//         // Fetch data from tbl_slots where active_status is 'Y'
-
-//         $slots = $this->db->table('tbl_slots')
-
-//                           ->where('active_status', 'Y')
-
-//                           ->get()
-
-//                           ->getResult();
-
-//                         //   echo '<pre>';print_r($slots);die;
-
-//         // Initialize an array to store customer names indexed by appm_id
-
-//         $customerNames = [];
-
-        
-
-//         // Fetch customer names based on appm_ids
-
-//         if (!empty($appm_ids)) {
-
-//             $customers = $this->db->table('tbl_appointment')
-
-//                                   ->whereIn('ap_id', $appm_ids)
-
-//                                   ->get()
-
-//                                   ->getResult();
-
-//                                 //   echo '<pre>';print_r($customers);die;
-
-//             // Store customer names in an array indexed by appm_id
-
-//             foreach ($customers as $customer) {
-
-//                 $customerNames[$customer->ap_id] = $customer->fullname;
-
-//             }
-
-//         }
-
-
-
-//         // Combine the selected_date with the fetched slots
-
-//         $result = [];
-
-//         echo '<pre>';print_r($customers);die;
-
-//         foreach ($slots as $slot) {
-
-//             // Check if the time_slot_id exists in the $time_slot_ids array
-
-//             if (in_array($slot->id, $time_slot_ids)) {
-
-//                 // Find the index of the matching time_slot_id
-
-//                 $index = array_search($slot->id, $time_slot_ids);
-
-               
-
-//                 // Add appm_id and selected_date to the slot object
-
-//                 $slot->appm_id = $appm_ids[$index];
-
-//                 $slot->customer_name = isset($customerNames[$appm_ids[$index]]) ? $customerNames[$appm_ids[$index]] : 'Unknown'; // Add customer name
-
-//                 $slot->start_date = $selected_dates[$index];
-
-//                 // Add the modified slot to the result array
-
-//                 $result[] = $slot;
-
-//             }
-
-//         }
-
-//         // echo '<pre>';print_r($result);die;
-
-//         return $result;
-
-//     } catch (\Exception $e) {
-
-//         // Handle database errors
-
-//         log_message('error', 'Error in getcalenderallslots: ' . $e->getMessage());
-
-//         return []; // Return an empty array or handle the error as per your application's requirements
-
-//     }
-
-// }
 
 // public function getcalenderallslots()
 // {
 //     try {
 //         // Fetch slots data from the database
 //         $slotsData = $this->db->table('book_slots')
-//             ->select('book_slots.time_slot_id, book_slots.appm_id, book_slots.selected_date, tbl_slots.id, tbl_slots.day, tbl_slots.user_id, tbl_slots.start_time, tbl_slots.end_time, tbl_slots.created_on, tbl_slots.active_status')
-//             ->join('tbl_slots', 'tbl_slots.id = book_slots.time_slot_id')
+//             ->select('book_slots.time_slot_id, book_slots.appm_id, book_slots.selected_date')
 //             ->where('book_slots.appm_id IS NOT NULL', null, false)
+
 //             ->get()
 //             ->getResult();
 
@@ -1070,7 +918,7 @@ public function getallclass()
 //             return []; // Return empty array if no slots data found
 //         }
 
-//         // Fetch customer names based on appm_ids
+//         // Fetch customer names and timestartslot based on appm_ids
 //         $appm_ids = array_column($slotsData, 'appm_id');
 
 //         // Ensure there are appm_ids to query
@@ -1078,15 +926,20 @@ public function getallclass()
 //             return []; // Return empty array if no appm_ids found
 //         }
 
+//         // Fetch customer names and timestartslot from tbl_appointment
 //         $customers = $this->db->table('tbl_appointment')
+//             ->select('ap_id, fullname, timestartslot') // Select necessary columns including timestartslot
 //             ->whereIn('ap_id', $appm_ids)
 //             ->get()
 //             ->getResult();
 
-//         // Create an array to store customer names indexed by appm_id
-//         $customerNames = [];
+//         // Create an array to store customer data indexed by appm_id
+//         $customerData = [];
 //         foreach ($customers as $customer) {
-//             $customerNames[$customer->ap_id] = $customer->fullname;
+//             $customerData[$customer->ap_id] = [
+//                 'fullname' => $customer->fullname,
+//                 'timestartslot' => $customer->timestartslot,
+//             ];
 //         }
 
 //         // Initialize the result array
@@ -1096,19 +949,13 @@ public function getallclass()
 //         foreach ($slotsData as $slotData) {
 //             // Create a slot object
 //             $slotObject = (object) [
-//                 'id' => $slotData->id,
-//                 'day' => $slotData->day,
-//                 'user_id' => $slotData->user_id,
-//                 'start_time' => $slotData->start_time,
-//                 'end_time' => $slotData->end_time,
-//                 'created_on' => $slotData->created_on,
-//                 'active_status' => $slotData->active_status,
 //                 'appm_id' => $slotData->appm_id,
 //                 'selected_date' => $slotData->selected_date,
+//                 'start_time' => isset($customerData[$slotData->appm_id]) ? $customerData[$slotData->appm_id]['timestartslot'] : 'Unknown',
 //             ];
 
 //             // Add customer name if available
-//             $slotObject->customer_name = isset($customerNames[$slotData->appm_id]) ? $customerNames[$slotData->appm_id] : 'Unknown';
+//             $slotObject->customer_name = isset($customerData[$slotData->appm_id]) ? $customerData[$slotData->appm_id]['fullname'] : 'Unknown';
 
 //             // Add the slot object to the result array
 //             $result[] = $slotObject;
@@ -1122,45 +969,24 @@ public function getallclass()
 //     }
 // }
 
-
-
 public function getcalenderallslots()
 {
     try {
-        // Fetch slots data from the database
+        // Fetch slots data with customer details from the database using join
         $slotsData = $this->db->table('book_slots')
-            ->select('book_slots.time_slot_id, book_slots.appm_id, book_slots.selected_date')
+            ->select('book_slots.time_slot_id, book_slots.appm_id, book_slots.selected_date, tbl_appointment.fullname, tbl_appointment.timestartslot')
+            ->join('tbl_appointment', 'book_slots.appm_id = tbl_appointment.ap_id', 'left')
             ->where('book_slots.appm_id IS NOT NULL', null, false)
+            ->groupStart()
+                ->where('tbl_appointment.conducted IS NULL', null, false)
+                ->orWhere('tbl_appointment.conducted', 'Y')
+            ->groupEnd()
             ->get()
             ->getResult();
 
         // Check if slots data is fetched
         if (empty($slotsData)) {
             return []; // Return empty array if no slots data found
-        }
-
-        // Fetch customer names and timestartslot based on appm_ids
-        $appm_ids = array_column($slotsData, 'appm_id');
-
-        // Ensure there are appm_ids to query
-        if (empty($appm_ids)) {
-            return []; // Return empty array if no appm_ids found
-        }
-
-        // Fetch customer names and timestartslot from tbl_appointment
-        $customers = $this->db->table('tbl_appointment')
-            ->select('ap_id, fullname, timestartslot') // Select necessary columns including timestartslot
-            ->whereIn('ap_id', $appm_ids)
-            ->get()
-            ->getResult();
-
-        // Create an array to store customer data indexed by appm_id
-        $customerData = [];
-        foreach ($customers as $customer) {
-            $customerData[$customer->ap_id] = [
-                'fullname' => $customer->fullname,
-                'timestartslot' => $customer->timestartslot,
-            ];
         }
 
         // Initialize the result array
@@ -1172,11 +998,9 @@ public function getcalenderallslots()
             $slotObject = (object) [
                 'appm_id' => $slotData->appm_id,
                 'selected_date' => $slotData->selected_date,
-                'start_time' => isset($customerData[$slotData->appm_id]) ? $customerData[$slotData->appm_id]['timestartslot'] : 'Unknown',
+                'start_time' => $slotData->timestartslot ?? 'Unknown',
+                'customer_name' => $slotData->fullname ?? 'Unknown',
             ];
-
-            // Add customer name if available
-            $slotObject->customer_name = isset($customerData[$slotData->appm_id]) ? $customerData[$slotData->appm_id]['fullname'] : 'Unknown';
 
             // Add the slot object to the result array
             $result[] = $slotObject;
@@ -1189,6 +1013,7 @@ public function getcalenderallslots()
         return []; // Return an empty array or handle the error as per your application's requirements
     }
 }
+
 
 
 
@@ -1383,7 +1208,7 @@ public function getStudents()
 
 {
 
-    return $this->db->table('classes')->where('completion_status', 'N')->get()->getResultArray();
+    return $this->db->table('classes')->where('completion_status', 'N')->where('is_deleted', 'N')->get()->getResultArray();
 
 }
 

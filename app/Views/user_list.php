@@ -16,7 +16,7 @@
 
                     <div class="row align-items-end">
 
-                        <div class="col-lg-8">
+                        <div class="col-lg-8 col">
 
                             <div class="page-header-title">
 
@@ -34,7 +34,7 @@
 
                         </div>
 
-                        <div class="col-lg-4">
+                        <div class="col-lg-4 col">
 
                             <div class="page-header-breadcrumb">
 
@@ -80,24 +80,27 @@
 
                     <div class="row justify-content-center">
 
-                        <div class="col-md-12">
+                        <div class="col-md-12 col-12">
 
 
 
                             <div class="row">
 
-                                <div id="userList" class="col-md-12">
+                                <div id="userList" class="col-md-12 col-12">
 
                                     <div class="card">
 
 
-                                        <div class="card-body">
+                                        <div class="card-body ">
+                                        <div class="table-responsive">
 
-                                            <table class="table ">
+
+                                            <table class="table tabler2">
 
                                                 <thead>
 
                                                     <tr>
+                                                    <th>SR.No</th>
 
                                                         <th>Name</th>
 
@@ -113,9 +116,13 @@
 
                                                 <tbody>
 
-                                                    <?php foreach ($getUser as $user): ?>
+                                                    <?php
+                                                    $i = 1;
+                                                    foreach ($getUser as $user): ?>
 
                                                     <tr>
+                                                    <td><?php echo $i++; ?></td>
+
 
                                                         <td><?php echo $user['name']; ?></td>
 
@@ -127,7 +134,7 @@
 
                                                             <div class="row">
 
-                                                                <div class="col-auto">
+                                                                <div class="col-auto p-2">
 
                                                                     <div class="btn-group" role="group"
 
@@ -137,13 +144,13 @@
 
                                                                             class="btn btn-primary btn-sm edit-btn"
 
-                                                                            data-userid="<?php echo $user['id']; ?>">Edit</button>
+                                                                            data-userid="<?php echo $user['id']; ?>"> <i class="fas fa-edit"></i>Edit</button>
 
                                                                     </div>
 
                                                                 </div>
 
-                                                                <div class="col-auto">
+                                                                <div class="col-auto p-2">
 
                                                                     <form
 
@@ -157,7 +164,7 @@
 
                                                                         <button type="submit"
 
-                                                                            class="btn btn-danger btn-sm">Delete</button>
+                                                                            class="btn btn-danger btn-sm deletebtn"><i class="fas fa-trash-alt"></i>Delete</button>
 
                                                                     </form>
 
@@ -174,6 +181,7 @@
                                                 </tbody>
 
                                             </table>
+                                                    </div>
 
                                         </div>
 

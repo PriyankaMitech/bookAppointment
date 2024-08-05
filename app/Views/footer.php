@@ -82,7 +82,7 @@
 
 <div id="flash-messages"></div>
 
-<script>
+<!-- <script>
     $(document).ready(function() {
         var table = $('.tabler').DataTable({
             scrollY: '50vh',
@@ -96,17 +96,69 @@
             dom: 'lrtip' // Hide the search box
         });
     });
-</script>
+</script> -->
+
 
 <script>
     $(document).ready(function() {
-        var table = $('.tabler1').DataTable({
-            scrollY:        '50vh',
-            scrollX:        true,
-            scrollCollapse: true,
-            paging:         false,
-         
-            fixedHeader: true
+        function initializeDataTable() {
+            var isMobile = window.matchMedia("(max-width: 768px)").matches;
+            
+            var tableConfig = {
+                scrollY: '50vh',
+                scrollX: true,
+                scrollCollapse: true,
+                paging: false,
+                fixedHeader: true,
+                dom: 'lrtip' // Hide the search box
+            };
+
+            tableConfig.fixedColumns = {
+                leftColumns: isMobile ? 1 : 2 // Freeze first column on mobile, first two columns on larger screens
+            };
+
+            $('.tabler').DataTable(tableConfig);
+        }
+
+        initializeDataTable();
+
+        $(window).resize(function() {
+            var table = $('.tabler').DataTable();
+            table.destroy();
+            initializeDataTable();
+        });
+    });
+
+
+</script>
+
+
+<script>
+   
+   $(document).ready(function() {
+    var table = $('.tabler1').DataTable({
+        scrollY: '50vh',
+        scrollX: true,
+        scrollCollapse: true,
+        paging: false,
+        fixedColumns: {
+            leftColumns: 1 // Freeze first column
+        },
+        fixedHeader: true,
+        dom: 'lrtip' // Hide the search box
+    });
+});
+
+
+
+
+</script>
+
+
+<script>
+    $(document).ready(function() {
+        $('.tabler2').DataTable({
+            responsive: true
         });
     });
 </script>
@@ -209,6 +261,7 @@ $(document).ready(function() {
 
 
     </script>
+
 
 </body>
 

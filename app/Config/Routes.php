@@ -69,6 +69,8 @@ $routes->post('updateStatus', 'Admin_Controller::updateStatus');
 $routes->get('add_appointment', 'Admin_Controller::Add_student');
 
 $routes->get('Add_class', 'Admin_Controller::Add_class');
+$routes->get('edit_student/(:any)', 'Admin_Controller::Add_class/$1');
+
 
 $routes->get('getallincome', 'Admin_Controller::getallincome');
 
@@ -77,6 +79,8 @@ $routes->post('reshedule', 'Admin_Controller::reshedule');
 
 
 $routes->post('getnewslots', 'Admin_Controller::getnewslots');
+$routes->get('delete/(:any)/(:any)', 'Admin_Controller::delete/$1/$1');
+
 
 $routes->post('classForm', 'Admin_Controller::classForm');
 

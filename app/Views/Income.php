@@ -14,7 +14,7 @@
 
                     <div class="row align-items-end">
 
-                        <div class="col-lg-8">
+                        <div class="col-lg-8 col">
 
                             <div class="page-header-title">
 
@@ -32,7 +32,7 @@
 
                         </div>
 
-                     class="container card p-3"
+                        <div class="col-lg-4 col">
 
                             <div class="page-header-breadcrumb">
 
@@ -130,9 +130,9 @@
 
                                             // Extract month and year from appointment date
 
-                                            $appointmentMonth = date('m', strtotime($income['created_at']));
+                                            $appointmentMonth = date('m', strtotime($income['appointment_date']));
 
-                                            $appointmentYear = date('Y', strtotime($income['created_at']));
+                                            $appointmentYear = date('Y', strtotime($income['appointment_date']));
 
                                             $incomeAmount = $income['amount'];
 
